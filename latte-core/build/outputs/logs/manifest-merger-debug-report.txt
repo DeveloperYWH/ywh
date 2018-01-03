@@ -1,0 +1,49 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+	package
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:3:5-41
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:1-27:12
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:8:5-67
+	android:name
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:8:22-64
+application
+ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:10:5-22:19
+	android:supportsRtl
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:13:9-35
+	android:label
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:12:9-41
+	android:allowBackup
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml:11:9-35
+uses-sdk
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		ADDED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml
+		INJECTED from /Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/src/main/AndroidManifest.xml

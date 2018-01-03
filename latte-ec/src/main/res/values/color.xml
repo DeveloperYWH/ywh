@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bod_pink">#f4A7B9</color>
+    <color name="bod_red_flower">#D0104C</color>
+    <color name="bod_jiezi">#CAAD5F</color>
+    <color name="bod_qq">#78C2C4</color>
+    <color name="bod_weibo">#DB4D6D</color>
+    <color name="bod_signin_bcg">#FEDFE1</color>
+
+</resources>

@@ -1,27 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-zh/values-zh.xml",
+            "outputFile": "D:\\Code\\BoxofDream\\latte-core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-zh\\values-zh.xml",
             "map": [
                 {
-                    "source": "/Users/hughfowl/.gradle/caches/transforms-1/files-1.1/avoscloud-search-v4.4.4.aar/037bfb84e9ddfdbaa5d73718eb0a7f2b/res/values-zh/values-zh.xml",
-                    "from": {
-                        "startLines": "4,5,6",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "232,305,369",
-                        "endColumns": "72,63,62",
-                        "endOffsets": "300,364,427"
-                    },
-                    "to": {
-                        "startLines": "9,10,11",
-                        "startColumns": "4,4,4",
-                        "startOffsets": "507,580,644",
-                        "endColumns": "72,63,62",
-                        "endOffsets": "575,639,702"
-                    }
-                },
-                {
-                    "source": "/Users/hughfowl/.gradle/caches/transforms-1/files-1.1/avoscloud-feedback-v4.4.4.aar/4580934b7598d73ecc918834e3b19cd2/res/values-zh/values-zh.xml",
+                    "source": "C:\\Users\\Prinny\\.gradle\\caches\\transforms-1\\files-1.1\\avoscloud-feedback-v4.4.4.aar\\a4b0f46c7cc13e08707eb6405e03b201\\res\\values-zh\\values-zh.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4",
@@ -35,6 +18,23 @@
                         "startOffsets": "55,120,183,242,308,373,433",
                         "endColumns": "64,62,58,65,64,59,73",
                         "endOffsets": "115,178,237,303,368,428,502"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Prinny\\.gradle\\caches\\transforms-1\\files-1.1\\avoscloud-search-v4.4.4.aar\\c88f0c6a6d3a6b3ee6f2377029ca37d1\\res\\values-zh\\values-zh.xml",
+                    "from": {
+                        "startLines": "4,5,6",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "232,305,369",
+                        "endColumns": "72,63,62",
+                        "endOffsets": "300,364,427"
+                    },
+                    "to": {
+                        "startLines": "9,10,11",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "507,580,644",
+                        "endColumns": "72,63,62",
+                        "endOffsets": "575,639,702"
                     }
                 }
             ]

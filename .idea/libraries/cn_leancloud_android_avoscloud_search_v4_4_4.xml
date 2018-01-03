@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="cn.leancloud.android:avoscloud-search-v4.4.4">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-search-v4.4.4.aar/037bfb84e9ddfdbaa5d73718eb0a7f2b/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-search-v4.4.4.aar/037bfb84e9ddfdbaa5d73718eb0a7f2b/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-search-v4.4.4.aar/c88f0c6a6d3a6b3ee6f2377029ca37d1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-search-v4.4.4.aar/c88f0c6a6d3a6b3ee6f2377029ca37d1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -46,7 +46,7 @@ final class AppRegisterVisitor extends SimpleAnnotationValueVisitor7<Void, Void>
                         .build();
 
         final JavaFile javaFile = JavaFile.builder(mPackageName + ".wxapi", targetActivity)
-                .addFileComment("å¾®ä¿¡å¹¿æ’­æŽ¥æ”¶å™¨")
+                .addFileComment("Î¢ÐÅ¹ã²¥½ÓÊÕÆ÷")
                 .build();
         try {
             javaFile.writeTo(FILER);

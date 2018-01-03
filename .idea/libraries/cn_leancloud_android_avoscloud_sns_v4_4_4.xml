@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="cn.leancloud.android:avoscloud-sns-v4.4.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-sns-v4.4.4.aar/6ed33c9e22ef9a68e055ddb33df3d634/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-sns-v4.4.4.aar/6ed33c9e22ef9a68e055ddb33df3d634/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-sns-v4.4.4.aar/58992efd6bf3d29a71fce0cef0261794/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/avoscloud-sns-v4.4.4.aar/58992efd6bf3d29a71fce0cef0261794/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

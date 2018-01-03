@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v24/values-v24.xml",
+            "outputFile": "D:\\Code\\BoxofDream\\latte-core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/hughfowl/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/893a859db326bdace6b0e5ec88efd72e/res/values-v24/values-v24.xml",
+                    "source": "C:\\Users\\Prinny\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\d929776c497320d4480c16c039d3822b\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7",
                         "startColumns": "4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/hughfowl/.gradle/caches/transforms-1/files-1.1/support-media-compat-26.1.0.aar/9477adb9c5e119df64cf2d74bc8013c1/res/values-v24/values-v24.xml",
+                    "source": "C:\\Users\\Prinny\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\b5f8096a45388ae98e850fe0c777ef9a\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

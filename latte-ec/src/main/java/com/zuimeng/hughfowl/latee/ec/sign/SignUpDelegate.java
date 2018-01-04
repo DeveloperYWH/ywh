@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SignUpCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
@@ -109,22 +113,40 @@ public class SignUpDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sign_up)
     void onClickSignUp() {
         if (checkForm()) {
-            RestClient.builder()
-                    .url("http://114.67.235.114/RestServer/api/user_profile.php")
-                    .params("name", mName.getText().toString())
-                    .params("email", mEmail.getText().toString())
-                    .params("phone", mPhone.getText().toString())
-                    .params("password", mPassword.getText().toString())
-                    .success(new ISuccess() {
-                        @Override
-                        public void onSuccess(String response) {
-                            LatteLogger.json("USER_PROFILE", response);
-                            SignHandler.onSignUp(response, mISignListener);
-                        }
-                    })
-                    .build()
-                    .post();
-
+//            RestClient.builder()
+//                    .url("http://114.67.235.114/RestServer/api/user_profile.php")
+//                    .params("name", mName.getText().toString())
+//                    .params("email", mEmail.getText().toString())
+//                    .params("phone", mPhone.getText().toString())
+//                    .params("password", mPassword.getText().toString())
+//                    .success(new ISuccess() {
+//                        @Override
+//                        public void onSuccess(String response) {
+//                            LatteLogger.json("USER_PROFILE", response);
+//                            SignHandler.onSignUp(response, mISignListener);
+//                        }
+//                    })
+//                    .build()
+//                    .post();
+            final String username = mName.getText().toString();
+            final String password = mPassword.getText().toString();
+            final String email = mEmail.getText().toString();
+            final String phone = mPhone.getText().toString();
+            AVUser user = new AVUser();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setMobilePhoneNumber(phone);
+            user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(AVException e) {
+                    if (e == null) {
+                        Log.v("Sign up", "OK!");//Dev
+                    } else {
+                        Log.v("Sign up", "Fail!");//Dev
+                    }
+                }
+            });
         }
     }
 

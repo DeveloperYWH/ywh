@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputEditText;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
@@ -132,7 +133,7 @@ public class SignUpDelegate extends LatteDelegate {
             final String password = mPassword.getText().toString();
             final String email = mEmail.getText().toString();
             final String phone = mPhone.getText().toString();
-            AVUser user = new AVUser();
+            final AVUser user = new AVUser();
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
@@ -142,6 +143,10 @@ public class SignUpDelegate extends LatteDelegate {
                 public void done(AVException e) {
                     if (e == null) {
                         Log.v("Sign up", "OK!");//Dev
+                        //注册成功状态回调本地状态
+                        SignHandler.onSignUp( user , mISignListener);
+                        //启动登录界面
+                        getSupportDelegate().start(new SignInDelegate());
                     } else {
                         Log.v("Sign up", "Fail!");//Dev
                     }

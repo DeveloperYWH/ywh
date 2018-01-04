@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.SignUpCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
@@ -27,8 +31,8 @@ import butterknife.OnClick;
 
 public class SignInDelegate extends LatteDelegate {
 
-    @BindView(R2.id.edit_sign_in_email)
-    TextInputEditText mEmail = null;
+    @BindView(R2.id.edit_sign_in_name)
+    TextInputEditText mName = null;
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword = null;
 
@@ -47,20 +51,37 @@ public class SignInDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-            RestClient.builder()
-                    .url("http://114.67.235.114/RestServer/api/user_profile.php")
-                    .params("email", mEmail.getText().toString())
-                    .params("password", mPassword.getText().toString())
-                    .success(new ISuccess() {
-                        @Override
-                        public void onSuccess(String response) {
-                            LatteLogger.json("USER_PROFILE", response);
-                            SignHandler.onSignIn(response, mISignListener);
-                        }
-                    })
-                    .build()
-                    .post();
+            //RestClient.builder()
+            //        .url("https://leancloud.cn:443/1.1/login")
+            //        .params("email", mName.getText().toString())
+            //        .params("password", mPassword.getText().toString())
+            //        .success(new ISuccess() {
+            //            @Override
+            //            public void onSuccess(String response) {
+            //                LatteLogger.json("USER_PROFILE", response);
+            //                SignHandler.onSignIn(response, mISignListener);
+            //            }
+            //        })
+            //        .build()
+            //        .post();
 
+            final String username = mName.getText().toString();
+            final String password = mPassword.getText().toString();
+            final AVUser user = new AVUser();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.signUpInBackground(new SignUpCallback() {
+                @Override
+                public void done(AVException e) {
+                    if (e == null) {
+                        Log.v("Sign up", "OK!");//Dev
+                        //登录成功状态回调本地状态
+                        SignHandler.onSignIn( user , mISignListener);
+                    } else {
+                        Log.v("Sign up", "Fail!");//Dev
+                    }
+                }
+            });
 
         }
     }
@@ -87,16 +108,16 @@ public class SignInDelegate extends LatteDelegate {
 
 
     private boolean checkForm() {
-        final String email = mEmail.getText().toString();
+        final String name = mName.getText().toString();
         final String password = mPassword.getText().toString();
 
         boolean isPass = true;
 
-        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            mEmail.setError("错误的邮箱格式");
+        if (name.isEmpty()) {
+            mName.setError("请输入用户名");
             isPass = false;
         } else {
-            mEmail.setError(null);
+            mName.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 6) {

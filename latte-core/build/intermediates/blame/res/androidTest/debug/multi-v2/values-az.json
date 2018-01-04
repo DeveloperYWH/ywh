@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\Code\\BoxofDream\\latte-core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-az\\values-az.xml",
+            "outputFile": "/Users/hughfowl/Desktop/BoxofDream0.1.2/latte-core/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-az/values-az.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Prinny\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\d929776c497320d4480c16c039d3822b\\res\\values-az\\values-az.xml",
+                    "source": "/Users/hughfowl/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/893a859db326bdace6b0e5ec88efd72e/res/values-az/values-az.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

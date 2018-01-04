@@ -79,6 +79,7 @@ public class SignInDelegate extends LatteDelegate {
                         SignHandler.onSignIn( user , mISignListener);
                     } else {
                         Log.v("Sign up", "Fail!");//Dev
+
                     }
                 }
             });

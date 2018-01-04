@@ -14,7 +14,7 @@ public class SignHandler {
     public static void onSignIn(AVUser userprofile, ISignListener signListener) {
 
 
-        final long userId = Long.parseLong(userprofile.getObjectId());
+        final long userId = Long.parseLong(userprofile.getMobilePhoneNumber());
         final String name = userprofile.getUsername();
 
 
@@ -28,7 +28,7 @@ public class SignHandler {
 
 
     public static void onSignUp(AVUser userprofile, ISignListener signListener) {
-        final long userId = Long.parseLong(userprofile.getObjectId());
+        final long userId = Long.parseLong(userprofile.getMobilePhoneNumber());
         final String name = userprofile.getUsername();
 
         final UserProfile profile = new UserProfile(userId, name);

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
@@ -70,19 +71,19 @@ public class SignInDelegate extends LatteDelegate {
             final AVUser user = new AVUser();
             user.setUsername(username);
             user.setPassword(password);
-            user.signUpInBackground(new SignUpCallback() {
+            user.logInInBackground(username, password, new LogInCallback<AVUser>() {
                 @Override
-                public void done(AVException e) {
+                public void done(AVUser avUser, AVException e) {
                     if (e == null) {
-                        Log.v("Sign up", "OK!");//Dev
-                        //登录成功状态回调本地状态
-                        SignHandler.onSignIn( user , mISignListener);
+                        Log.v("Sign in", "OK!");//Dev
+                        //Sign in callback here.
                     } else {
-                        Log.v("Sign up", "Fail!");//Dev
-
+                        Log.v("Sign in", "Fail!");//Dev
+                        //Sign in exception handle here.
                     }
                 }
-            });
+            }
+            );
 
         }
     }

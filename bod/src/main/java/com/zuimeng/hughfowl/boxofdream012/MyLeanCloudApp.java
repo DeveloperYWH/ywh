@@ -26,7 +26,7 @@ public class MyLeanCloudApp extends Application {
         DatabaseManager.getInstance().init(this);
 
         // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this,"ybUwpgld5HUfBiAIqD8LyJDN-gzGzoHsz","IaBx4RBu8Psh2t5E0WhlH2hE");
+        AVOSCloud.initialize(this,"WrycWyNhrQIQpAzPkPgxSfLS-gzGzoHsz","yrg5tlPipRT4L7dm9Rkcmpns");
 
         // 调试日志开启，发布前关闭，放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
         AVOSCloud.setDebugLogEnabled(true);

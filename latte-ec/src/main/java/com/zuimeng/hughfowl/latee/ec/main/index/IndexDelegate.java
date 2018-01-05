@@ -13,6 +13,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
+import com.zuimeng.hughfowl.latte.ui.refresh.RefreshHandler;
 
 import butterknife.BindView;
 
@@ -34,6 +35,13 @@ public class IndexDelegate extends BottomItemDelegate{
     @BindView(R2.id.et_search_view)
     AppCompatEditText mSearchView = null;
 
+    private RefreshHandler mRefreshHandler = null;
+
+
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+        mRefreshHandler = new RefreshHandler(mRefreshLayout);
+    }
 
     private void initRefreshLayout() {
         mRefreshLayout.setColorSchemeResources(
@@ -56,8 +64,5 @@ public class IndexDelegate extends BottomItemDelegate{
         return R.layout.delegate_index;
     }
 
-    @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
-    }
 }

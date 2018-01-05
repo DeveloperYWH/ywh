@@ -6,5 +6,6 @@
     <color name="bod_qq">#78C2C4</color>
     <color name="bod_weibo">#DB4D6D</color>
     <color name="bod_signin_bcg">#FEDFE1</color>
+    <color name="orange_dark">@android:color/holo_orange_dark</color>
 
 </resources>

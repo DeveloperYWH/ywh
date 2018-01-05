@@ -149,6 +149,9 @@ public class SignUpDelegate extends LatteDelegate {
                         getSupportDelegate().start(new SignInDelegate());
                     } else {
                         Log.v("Sign up", "Fail!");//Dev
+
+
+
                     }
                 }
             });

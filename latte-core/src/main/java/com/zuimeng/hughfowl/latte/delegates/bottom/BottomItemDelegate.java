@@ -4,6 +4,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import com.zuimeng.hughfowl.latte.R;
 import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
@@ -14,17 +15,35 @@ import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 public abstract class BottomItemDelegate extends LatteDelegate implements View.OnKeyListener{
 
     // 再点一次退出程序时间设置
-    private static final long WAIT_TIME = 2000L;
-    private long TOUCH_TIME = 0;
+    private long mEixtTime = 0;
+    //private static final long WAIT_TIME = 2000L;
+    //private long TOUCH_TIME = 0;
 
     @Override
-    public boolean onKey(View view, int i, KeyEvent keyEvent) {
-        if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
-            _mActivity.finish();
-        } else {
-            TOUCH_TIME = System.currentTimeMillis();
-             //Toast.makeText(_mActivity, "双击退出" + Latte.getApplicationContext().getString(R.string.app_name), Toast.LENGTH_SHORT).show();
+    public void onResume() {
+        super.onResume();
+        final View rootView = getView();
+        if (rootView !=null) {
+            rootView.setFocusableInTouchMode(true);
+            rootView.requestFocus();
+            rootView.setOnKeyListener(this);
         }
-        return true;
+    }
+
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - mEixtTime)> mEixtTime){
+                Toast.makeText(getContext(),"双击退出"+getString(R.string.app_name),Toast.LENGTH_LONG);
+                mEixtTime = System.currentTimeMillis();
+            }else {
+                _mActivity.finish();
+                if (mEixtTime != 0){
+                    mEixtTime = 0;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 }

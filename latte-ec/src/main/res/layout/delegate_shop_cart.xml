@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1111"
@@ -25,7 +24,7 @@
                 android:gravity="center"
                 android:text="清空"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="wrap_content"
@@ -34,7 +33,7 @@
                 android:gravity="center"
                 android:text="购物车"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_top_shop_cart_remove_selected"
@@ -46,7 +45,7 @@
                 android:gravity="center"
                 android:text="删除"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
@@ -119,7 +118,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="合计"
-                android:textColor="@android:color/darker_gray"/>
+                android:textColor="@android:color/darker_gray" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_shop_cart_total_price"
@@ -129,7 +128,7 @@
                 android:gravity="center|left"
                 android:text="￥0.01"
                 android:textColor="@color/orange_dark"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
         </android.support.v7.widget.LinearLayoutCompat>
         <!--合计部分结束-->
 

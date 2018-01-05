@@ -104,4 +104,15 @@ dependencies {
     compile 'cn.leancloud.android:qq-sdk:1.6.1-leancloud'
     // LeanCloud 应用内搜索
     compile 'cn.leancloud.android:avoscloud-search:v4.4.4@aar'
+
+    //首页广告轮播banner
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.daimajia.slider:library:1.1.5@aar'
+
+
+    //RecyclerView依赖
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    //RecyclerView 分割线
+    compile 'com.choices.divider:RecyclerView_Divider:1.0.0'
 }

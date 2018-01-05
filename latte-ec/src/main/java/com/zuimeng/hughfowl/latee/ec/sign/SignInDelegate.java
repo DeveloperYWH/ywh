@@ -77,10 +77,11 @@ public class SignInDelegate extends LatteDelegate {
                     if (e == null) {
                         Log.v("Sign in", "OK!");//Dev
                         //Sign in callback here.
-                        SignHandler.onSignIn( user , mISignListener);
+                        SignHandler.onSignIn( avUser , mISignListener);
                     } else {
                         Log.v("Sign in", "Fail!");//Dev
                         //Sign in exception handle here.
+                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

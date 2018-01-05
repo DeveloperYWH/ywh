@@ -1,15 +1,10 @@
 package com.zuimeng.hughfowl.latee.ec.main;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
 
-import com.zuimeng.hughfowl.latee.ec.R;
+import com.zuimeng.hughfowl.latee.ec.main.cart.ShopCartDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.index.IndexDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
-import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BaseBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomTabBean;
@@ -29,7 +24,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         items.put(new BottomTabBean("{fa-home}", "主页"), new IndexDelegate());
         items.put(new BottomTabBean("{fa-sort}", "分类"), new SortDelegate());
         items.put(new BottomTabBean("{fa-compass}", "发现"), new IndexDelegate());
-        items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new IndexDelegate());
+        items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new ShopCartDelegate());
         items.put(new BottomTabBean("{fa-user}", "我的"), new IndexDelegate());
         return builder.addItems(items).build();
     }

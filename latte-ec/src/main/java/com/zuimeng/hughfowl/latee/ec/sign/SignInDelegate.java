@@ -68,10 +68,8 @@ public class SignInDelegate extends LatteDelegate {
 
             final String username = mName.getText().toString();
             final String password = mPassword.getText().toString();
-            final AVUser user = new AVUser();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.logInInBackground(username, password, new LogInCallback<AVUser>() {
+
+            AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
                 @Override
                 public void done(AVUser avUser, AVException e) {
                     if (e == null) {
@@ -108,6 +106,10 @@ public class SignInDelegate extends LatteDelegate {
     void onClickLink() {
         getSupportDelegate().start(new SignUpDelegate());
     }
+    @OnClick(R2.id.tv_phone_sign_up)
+    void onClickPhoneSignIn() {
+        getSupportDelegate().start(new PhoneSignInDelegate());
+    }
 
 
 
@@ -125,7 +127,7 @@ public class SignInDelegate extends LatteDelegate {
         }
 
         if (password.isEmpty() || password.length() < 6) {
-            mPassword.setError("请填写至少6位数密码");
+            mPassword.setError("请填写密码");
             isPass = false;
         } else {
             mPassword.setError(null);

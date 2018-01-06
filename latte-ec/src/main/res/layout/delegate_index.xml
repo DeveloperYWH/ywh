@@ -52,7 +52,7 @@
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_search_view"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:layout_weight="5"
                     android:background="@android:color/white"
@@ -71,40 +71,8 @@
                     android:text="{fa-bullhorn}"
                     android:textColor="@android:color/white"
                     android:textSize="25sp" />
-                <!--
                 </android.support.v7.widget.LinearLayoutCompat>
 
-                <android.support.v7.widget.LinearLayoutCompat
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:orientation="vertical">
-
-
-                    <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/banner_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                        />
-                    <com.daimajia.slider.library.Indicators.PagerIndicator
-                        android:layout_gravity="center"
-                        android:id="@+id/banner_custom_indicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        custom:selected_color="#FF5500"
-                        custom:unselected_color="#55333333"
-                        custom:shape="ring"
-                        custom:selected_padding_left="2dp"
-                        custom:selected_padding_right="2dp"
-                        custom:unselected_padding_left="2dp"
-                        custom:unselected_padding_right="2dp"
-                        custom:selected_width="16dp"
-                        custom:selected_height="3dp"
-                        custom:unselected_width="16dp"
-                        custom:unselected_height="3dp"
-                        />
-                        -->
-            </android.support.v7.widget.LinearLayoutCompat>
 
 
 
@@ -112,11 +80,47 @@
 
     </android.support.design.widget.AppBarLayout>
 
-
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/banner_linear"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            >
+
+
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/banner_slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                />
+            <com.daimajia.slider.library.Indicators.PagerIndicator
+                android:layout_gravity="center"
+                android:id="@+id/banner_custom_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                custom:selected_color="#FF5500"
+                custom:unselected_color="#55333333"
+                custom:shape="ring"
+                custom:selected_padding_left="2dp"
+                custom:selected_padding_right="2dp"
+                custom:unselected_padding_left="2dp"
+                custom:unselected_padding_right="2dp"
+                custom:selected_width="16dp"
+                custom:selected_height="3dp"
+                custom:unselected_width="16dp"
+                custom:unselected_height="3dp"
+                />
+        </android.support.v7.widget.LinearLayoutCompat>
+
+
 
         <com.zuimeng.hughfowl.latte.ui.button.StateButton
             android:id="@+id/stateButton"
@@ -124,6 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="StateButton"
+            android:layout_below="@+id/banner_linear"
 
             app:radius="5dp"
             app:round="true"
@@ -150,14 +155,6 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/index_recyc"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        >
-
-    </android.support.v7.widget.RecyclerView>
 
 
 

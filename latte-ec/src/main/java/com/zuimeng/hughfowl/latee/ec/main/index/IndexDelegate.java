@@ -48,14 +48,12 @@ public class IndexDelegate extends BottomItemDelegate{
     @BindView(R2.id.relative_layout)
     RelativeLayout relativeLayout = null;
 
-    @BindView(R2.id.index_recyc)
-    RecyclerView recyclerView1 = null;
 
 
-    //@BindView(R2.id.banner_slider)
-    //SliderLayout sliderShow = null;
-    //@BindView(R2.id.banner_custom_indicator)
-    //PagerIndicator custom_indicator = null;
+    @BindView(R2.id.banner_slider)
+    SliderLayout sliderShow = null;
+    @BindView(R2.id.banner_custom_indicator)
+    PagerIndicator custom_indicator = null;
 
 
     private RefreshHandler mRefreshHandler = null;
@@ -80,7 +78,7 @@ public class IndexDelegate extends BottomItemDelegate{
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
-       // setBannerView();
+        setBannerView();
     }
 
 
@@ -91,11 +89,11 @@ public class IndexDelegate extends BottomItemDelegate{
 
     @Override
     public void onStop() {
-    //    sliderShow.stopAutoCycle();
+        sliderShow.stopAutoCycle();
         super.onStop();
     }
 
-    /* public void setBannerView(){
+     public void setBannerView(){
 
 
         TextSliderView banner = new TextSliderView(getContext());
@@ -145,7 +143,6 @@ public class IndexDelegate extends BottomItemDelegate{
 
 
     }
-   */
 
 
 

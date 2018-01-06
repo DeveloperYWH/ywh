@@ -31,6 +31,10 @@ allprojects {
         maven {
             url "http://mvn.leancloud.cn/nexus/content/repositories/public"
         }
+        //BaseRecyclerViewAdapterHelper
+        maven{
+            url "https://jitpack.io"
+        }
     }
 }
 

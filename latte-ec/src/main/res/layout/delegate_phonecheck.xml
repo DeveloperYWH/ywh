@@ -68,6 +68,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
+                    android:layout_marginTop="24dp"
                     android:background="@color/bod_red_flower"
                     android:gravity="center"
                     android:padding="12dp"
@@ -84,11 +85,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="24dp"
                 android:background="@color/bod_red_flower"
                 android:gravity="center"
                 android:padding="12dp"
                 android:text="@string/checkfinish_btn"
+                android:textColor="@android:color/white"
+                tools:ignore="HardcodedText" />
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/dirc_signin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:background="@color/bod_red_flower"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/dircsign_btn"
                 android:textColor="@android:color/white"
                 tools:ignore="HardcodedText" />
 

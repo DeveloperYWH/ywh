@@ -40,15 +40,12 @@ public class IndexDelegate extends BottomItemDelegate{
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
     //@BindView(R2.id.icon_index_scan)
-    //IconTextView mIconScan = null;
+    //IconTextView  = null;
     @BindView(R2.id.et_search_view)
     AppCompatEditText mSearchView = null;
 
-
     @BindView(R2.id.relative_layout)
     RelativeLayout relativeLayout = null;
-
-
 
     @BindView(R2.id.banner_slider)
     SliderLayout sliderShow = null;

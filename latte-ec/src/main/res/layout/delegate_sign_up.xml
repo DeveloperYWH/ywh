@@ -86,12 +86,31 @@
                     android:id="@+id/edit_sign_up_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="3"
                     android:hint="@string/cellnumber"
                     android:inputType="phone"
                     tools:ignore="HardcodedText" />
             </android.support.design.widget.TextInputLayout>
 
 
+
+
+            <!--验证码
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="10dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_sign_up_checkword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/checkword"
+                    android:inputType="textPassword"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            -->
 
             <!--密码-->
             <android.support.design.widget.TextInputLayout

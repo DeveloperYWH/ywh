@@ -5,7 +5,8 @@
     <string name="you_xiang">邮箱</string>
     <string name="cellnumber">手机号码</string>
     <string name="checkword">验证码</string>
-    <string name="checkword_btn">发送短信</string>
+    <string name="checkword_btn">发送验证</string>
+    <string name="checkfinish_btn">验证手机</string>
     <string name="password">密码</string>
     <string name="repassword">重复密码</string>
     <string name="had_sign">已经注册啦？请登录Σ(oﾟдﾟoﾉ)</string>

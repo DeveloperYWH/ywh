@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.zuimeng.hughfowl.latee.ec.main.cart.ShopCartDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.index.IndexDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.PersonalDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BaseBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
@@ -25,7 +26,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         items.put(new BottomTabBean("{fa-sort}", "分类"), new SortDelegate());
         items.put(new BottomTabBean("{fa-compass}", "发现"), new IndexDelegate());
         items.put(new BottomTabBean("{fa-shopping-cart}", "购物车"), new ShopCartDelegate());
-        items.put(new BottomTabBean("{fa-user}", "我的"), new IndexDelegate());
+        items.put(new BottomTabBean("{fa-user}", "我的"), new PersonalDelegate());
         return builder.addItems(items).build();
     }
 

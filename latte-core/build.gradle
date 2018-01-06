@@ -115,4 +115,6 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     //RecyclerView 分割线
     compile 'com.choices.divider:RecyclerView_Divider:1.0.0'
+    //CircleImageView依赖
+    compile 'de.hdodenhof:circleimageview:2.2.0'
 }

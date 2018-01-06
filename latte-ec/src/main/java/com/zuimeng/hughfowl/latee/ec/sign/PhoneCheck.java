@@ -32,6 +32,7 @@ public class PhoneCheck extends LatteDelegate {
 
 
 
+
     @BindView(R2.id.edit_sign_up_checkword)
     TextInputEditText mCheck = null;
 
@@ -86,7 +87,7 @@ public class PhoneCheck extends LatteDelegate {
                     if (e == null) {
                         // 验证成功启动登录页面
                         getSupportDelegate().start(new SignInDelegate());
-                        Toast.makeText(getActivity(), "验证成功", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "验证成功(*≧∪≦)", Toast.LENGTH_LONG).show();
                     } else {
                         Log.d("SMS", "Verified failed!");
                     }
@@ -95,6 +96,12 @@ public class PhoneCheck extends LatteDelegate {
         }
 
     }
+    @OnClick(R2.id.dirc_signin)
+    void onClickSignIn() {
+        getSupportDelegate().start(new SignInDelegate());
+    }
+
+
     @Override
     public Object setLayout() {
         return R.layout.delegate_phonecheck;

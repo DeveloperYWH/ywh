@@ -1,16 +1,19 @@
 <resources>
     <string name="app_name">LateeEC</string>
     <string name="sign_up">注册</string>
+    <string name="phone_check">手机验证</string>
     <string name="xing_ming">昵称</string>
     <string name="you_xiang">邮箱</string>
     <string name="cellnumber">手机号码</string>
     <string name="checkword">验证码</string>
     <string name="checkword_btn">发送验证</string>
-    <string name="checkfinish_btn">验证手机</string>
+    <string name="checkfinish_btn">绑定手机</string>
+    <string name="dircsign_btn">不绑定 (`Д´*)9直接登录</string>
     <string name="password">密码</string>
     <string name="repassword">重复密码</string>
     <string name="had_sign">已经注册啦？请登录Σ(oﾟдﾟoﾉ)</string>
     <string name="sign_in">登录</string>
     <string name="no_accont">还没有账户？现在注册吧 (●ﾟωﾟ●)</string>
+    <string name="phone_sign_in">手机号登录</string>
     <string name="search">搜索</string>
 </resources>

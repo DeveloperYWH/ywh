@@ -144,7 +144,6 @@ public class SignUpDelegate extends LatteDelegate {
                     if (e == null) {
                         Log.v("Sign up", "OK!");//Dev
                         //注册成功状态回调本地状态
-
                         SignHandler.onSignUp( user , mISignListener);
                         //启动登录界面
                         getSupportDelegate().start(new SignInDelegate());

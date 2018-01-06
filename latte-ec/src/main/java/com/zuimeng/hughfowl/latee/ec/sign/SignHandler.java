@@ -23,7 +23,7 @@ public class SignHandler {
         final long userId = Long.parseLong(userprofile.getMobilePhoneNumber());
         final String name = userprofile.getUsername();
         final UserProfile profile = new UserProfile(userId, name);
-        DatabaseManager.getInstance().getDao().insert(profile);
+        DatabaseManager.getInstance().getDao().insertOrReplace(profile);
 
         //已经注册并登录成功了
         AccountManager.setSignState();

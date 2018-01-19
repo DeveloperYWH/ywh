@@ -18,10 +18,10 @@ public class MyLeanCloudApp extends Application {
         super.onCreate();
         Latte.init(this)
                 .withIcon(new FontAwesomeModule())
-                .withApiHost("http://114.67.235.114/RestServer/api/")
+                //.withApiHost("http://114.67.235.114/RestServer/api/")
                 .withInterceptor(new DebugInterceptor("test", R.raw.test))
-                .withWeChatAppId("微信AppKey")
-                .withWeChatAppSecret("微信AppSecret")
+                .withWeChatAppId("wx5c5541b353bdeebf")
+                .withWeChatAppSecret("f53da789f707a831e447f4859adaded8")
                 .configure();
         DatabaseManager.getInstance().init(this);
 

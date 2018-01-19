@@ -15,7 +15,7 @@ public class UserManage {
         mUser = user;
     }
 
-    public void gettUser(AVUser user){
+    public void getUser(AVUser user){
         user = mUser;
     }
 

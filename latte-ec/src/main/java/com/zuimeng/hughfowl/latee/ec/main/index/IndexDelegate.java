@@ -3,15 +3,24 @@ package com.zuimeng.hughfowl.latee.ec.main.index;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.GetCallback;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
 import com.daimajia.slider.library.SliderLayout;
@@ -21,8 +30,18 @@ import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
+import com.zuimeng.hughfowl.latte.ui.recycler.BaseDecoration;
+import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
+import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 import com.zuimeng.hughfowl.latte.ui.refresh.RefreshHandler;
+import com.zuimeng.hughfowl.latte.usermanage.DataManage;
+import com.zuimeng.hughfowl.latte.usermanage.ListMange;
+import com.zuimeng.hughfowl.latte.usermanage.StringMange;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -44,22 +63,27 @@ public class IndexDelegate extends BottomItemDelegate{
     @BindView(R2.id.et_search_view)
     AppCompatEditText mSearchView = null;
 
-    @BindView(R2.id.relative_layout)
-    RelativeLayout relativeLayout = null;
+    //@BindView(R2.id.relative_layout)
+    //RelativeLayout relativeLayout = null;
 
-    @BindView(R2.id.banner_slider)
-    SliderLayout sliderShow = null;
-    @BindView(R2.id.banner_custom_indicator)
-    PagerIndicator custom_indicator = null;
+    //@BindView(R2.id.banner_slider)
+    //SliderLayout sliderShow = null;
+    //@BindView(R2.id.banner_custom_indicator)
+    //PagerIndicator custom_indicator = null;
 
 
     private RefreshHandler mRefreshHandler = null;
 
 
 
+
+
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        mRefreshHandler = new RefreshHandler(mRefreshLayout);
+        mRefreshHandler = RefreshHandler.create(mRefreshLayout,mRecyclerView,new IndexDataConverter());
+
+
+
     }
 
     private void initRefreshLayout() {
@@ -71,11 +95,24 @@ public class IndexDelegate extends BottomItemDelegate{
         mRefreshLayout.setProgressViewOffset(true, 120, 300);
     }
 
+
+    private void initRecyclerView() {
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 4);
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.addItemDecoration
+                (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
+        //final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        //mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
+    }
+
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
-        setBannerView();
+        initRecyclerView();
+        mRefreshHandler.firstPage();
+
+        // setBannerView();
     }
 
 
@@ -86,11 +123,11 @@ public class IndexDelegate extends BottomItemDelegate{
 
     @Override
     public void onStop() {
-        sliderShow.stopAutoCycle();
+        // sliderShow.stopAutoCycle();
         super.onStop();
     }
 
-     public void setBannerView(){
+    /* public void setBannerView(){
 
 
         TextSliderView banner = new TextSliderView(getContext());
@@ -139,7 +176,7 @@ public class IndexDelegate extends BottomItemDelegate{
         //设置点击(事件)监听方法
 
 
-    }
+    }*/
 
 
 

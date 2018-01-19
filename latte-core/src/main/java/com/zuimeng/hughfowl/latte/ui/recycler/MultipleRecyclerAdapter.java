@@ -61,7 +61,7 @@ public class MultipleRecyclerAdapter extends
         addItemType(ItemType.TEXT, R.layout.item_multiple_text);
         addItemType(ItemType.IMAGE, R.layout.item_multiple_image);
         addItemType(ItemType.TEXT_IMAGE, R.layout.item_multiple_image_text);
-        //addItemType(ItemType.BANNER, R.layout.item_multiple_banner);
+        addItemType(ItemType.BANNER, R.layout.item_multiple_banner);
         //设置宽度监听
         setSpanSizeLookup(this);
         openLoadAnimation();
@@ -78,7 +78,7 @@ public class MultipleRecyclerAdapter extends
     protected void convert(MultipleViewHolder holder, MultipleItemEntity entity) {
         final String text;
         final String imageUrl;
-        //final ArrayList<String> bannerImages;
+        final ArrayList<String> bannerImages;
         switch (holder.getItemViewType()) {
             case ItemType.TEXT:
                 text = entity.getField(MultipleFields.TEXT);
@@ -100,14 +100,14 @@ public class MultipleRecyclerAdapter extends
                         .into((ImageView) holder.getView(R.id.img_multiple));
                 holder.setText(R.id.tv_multiple, text);
                 break;
-            /*case ItemType.BANNER:
+            case ItemType.BANNER:
                 if (!mIsInitBanner) {
                     bannerImages = entity.getField(MultipleFields.BANNERS);
                     final ConvenientBanner<String> convenientBanner = holder.getView(R.id.banner_recycler_item);
                     BannerCreator.setDefault(convenientBanner, bannerImages, this);
                     mIsInitBanner = true;
                 }
-                break;*/
+                break;
             default:
                 break;
         }

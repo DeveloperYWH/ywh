@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -97,7 +98,11 @@ public class ContentDelegate extends LatteDelegate {
                             final SectionAdapter sectionAdapter =
                                     new SectionAdapter(R.layout.item_section_content,
                                             R.layout.item_section_header, dataList);
-                            mRecyclerView.setAdapter(sectionAdapter);
+                            if(sectionAdapter == null){
+                                Toast.makeText(getContext(),"不要着急哦",Toast.LENGTH_SHORT);
+
+                            }
+                            else  mRecyclerView.setAdapter(sectionAdapter);
 
                         }
                     });

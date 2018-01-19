@@ -6,6 +6,9 @@ import com.zuimeng.hughfowl.latte.ui.recycler.ItemType;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class IndexDataConverter extends DataConverter {
         final int size = dataArray.size();
 
 
-        for (int i = 1; i < size; i++) {
+        for (int i = 0; i < size; i++) {
 
             final AVObject data = dataArray.get(i);
             String imageUrl = null;
@@ -47,7 +50,8 @@ public class IndexDataConverter extends DataConverter {
 
             final int spanSize = (int) data.getNumber("spanSize");
             final int id = (int) data.getNumber("goods_Id");
-
+            final JSONArray banners = data.getJSONArray("banner");
+            final ArrayList<String> bannerImages = new ArrayList<>();
 
             int type = 0;
             if (imageUrl == null && text != null) {
@@ -56,6 +60,20 @@ public class IndexDataConverter extends DataConverter {
                 type = ItemType.IMAGE;
             } else if (imageUrl != null) {
                 type = ItemType.TEXT_IMAGE;
+            }else if (banners != null) {
+                type = ItemType.BANNER;
+                //Banner的初始化
+                final int bannerSize = banners.length();
+                for (int j = 0; j < bannerSize; j++) {
+                    final String banner;
+                    try {
+                        banner = banners.getString(j);
+                        bannerImages.add(banner);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
 
             final MultipleItemEntity entity = MultipleItemEntity.builder()
@@ -64,6 +82,7 @@ public class IndexDataConverter extends DataConverter {
                     .setField(MultipleFields.ID,id)
                     .setField(MultipleFields.TEXT,text)
                     .setField(MultipleFields.IMAGE_URL,imageUrl)
+                    .setField(MultipleFields.BANNERS,bannerImages)
                     .build();
 
             ENTITIES.add(entity);

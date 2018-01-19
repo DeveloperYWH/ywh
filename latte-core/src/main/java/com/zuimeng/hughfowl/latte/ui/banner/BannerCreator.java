@@ -2,6 +2,7 @@ package com.zuimeng.hughfowl.latte.ui.banner;
 
 import android.widget.AdapterView;
 
+import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -21,10 +22,10 @@ public class BannerCreator {
 
         convenientBanner
                 .setPages(new HolderCreator(), banners)
-                //.setPageIndicator(new int[]{R.drawable.dot_normal, R.drawable.dot_focus})
+                .setPageIndicator(new int[]{R.drawable.dot_normal, R.drawable.dot_focus})
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.CENTER_HORIZONTAL)
                 .setOnItemClickListener(clickListener)
-                //.setPageTransformer(new DefaultTransformer())
+                .setPageTransformer(new DefaultTransformer())
                 .startTurning(3000)
                 .setCanLoop(true);
 

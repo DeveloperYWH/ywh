@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@android:color/transparent"
+            app:layout_behavior="com.zuimeng.hughfowl.latee.ec.main.index.TranslucentBehavior"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <android.support.v7.widget.LinearLayoutCompat

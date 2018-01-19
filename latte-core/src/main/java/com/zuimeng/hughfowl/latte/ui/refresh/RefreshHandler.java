@@ -73,7 +73,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         BEAN.setDelayed(1000);
         AVList.clear();
         AVQuery<AVObject> avQuery = new AVQuery<>("Index_Datas");
-        avQuery.orderByDescending("createdAt");
+        avQuery.whereGreaterThanOrEqualTo("goods_Id",0);
         avQuery.countInBackground(new CountCallback() {
             @Override
             public void done(final int i, AVException e) {
@@ -89,7 +89,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
 
         });
         AVQuery<AVObject> avQuery_1 = new AVQuery<>("Index_Datas");
-        avQuery_1.orderByDescending("createdAt");
+        avQuery_1.whereGreaterThanOrEqualTo("goods_Id",0);
         avQuery_1.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {

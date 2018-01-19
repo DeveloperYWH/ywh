@@ -16,4 +16,5 @@
     <string name="no_accont">还没有账户？现在注册吧 (●ﾟωﾟ●)</string>
     <string name="phone_sign_in">手机号登录</string>
     <string name="search">搜索</string>
+    <string name="sort">分类</string>
 </resources>

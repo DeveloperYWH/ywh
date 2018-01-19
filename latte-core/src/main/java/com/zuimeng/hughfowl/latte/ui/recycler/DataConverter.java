@@ -25,7 +25,7 @@ public abstract class DataConverter {
 
     public DataConverter setList(List<AVObject> object) {
         this.mObjectData.addAll(object);
-        Log.d("datalist",String.valueOf(mObjectData.size()));
+        //Log.d("datalist",String.valueOf(mObjectData.size()));
         return this;
     }
 

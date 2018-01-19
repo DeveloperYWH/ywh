@@ -63,9 +63,9 @@ public class IndexDelegate extends BottomItemDelegate{
     @BindView(R2.id.et_search_view)
     AppCompatEditText mSearchView = null;
 
+    //以下布局弃用
     //@BindView(R2.id.relative_layout)
     //RelativeLayout relativeLayout = null;
-
     //@BindView(R2.id.banner_slider)
     //SliderLayout sliderShow = null;
     //@BindView(R2.id.banner_custom_indicator)
@@ -101,8 +101,8 @@ public class IndexDelegate extends BottomItemDelegate{
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.addItemDecoration
                 (BaseDecoration.create(ContextCompat.getColor(getContext(), R.color.app_background), 5));
-        //final EcBottomDelegate ecBottomDelegate = getParentDelegate();
-        //mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
+        final EcBottomDelegate ecBottomDelegate = getParentDelegate();
+        mRecyclerView.addOnItemTouchListener(IndexItemClickListener.create(ecBottomDelegate));
     }
 
     @Override
@@ -127,6 +127,7 @@ public class IndexDelegate extends BottomItemDelegate{
         super.onStop();
     }
 
+    //弃用banner
     /* public void setBannerView(){
 
 

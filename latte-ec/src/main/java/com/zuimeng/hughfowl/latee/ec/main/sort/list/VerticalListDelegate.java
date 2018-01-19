@@ -37,6 +37,8 @@ import butterknife.BindView;
 
 public class VerticalListDelegate extends LatteDelegate {
 
+    private List<AVObject> AVList = new ArrayList<>();
+
     @BindView(R2.id.rv_vertical_menu_list)
     RecyclerView mRecyclerView = null;
     @Override
@@ -58,32 +60,23 @@ public class VerticalListDelegate extends LatteDelegate {
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
-        final ArrayList<MultipleItemEntity> dataList = new ArrayList<>();
         final AVQuery<AVObject> query = new AVQuery<>("Sort_left");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public  void done(List<AVObject> list, AVException e) {
-                for(AVObject obj:list)
-                {
-                    int id=obj.getInt("id");
-                    String name =obj.getString("name");
-                    final MultipleItemEntity entity = MultipleItemEntity.builder()
-                            .setField(MultipleFields.ITEM_TYPE, ItemType.VERTICAL_MENU_LIST)
-                            .setField(MultipleFields.ID, id-1)
-                            .setField(MultipleFields.TEXT, name)
-                            .setField(MultipleFields.TAG, false)
-                            .build();
-                    dataList.add(id-1,entity);
+
+                AVList.addAll(list);
+                final List<MultipleItemEntity> data =
+                        new  VerticalListDataConverter().setList(AVList).convert();
+
+                final SortDelegate delegate = getParentDelegate();
+                final SortRecyclerAdapter adapter = new SortRecyclerAdapter(data, delegate);
+                mRecyclerView.setAdapter(adapter);
 
 
-                }
-                    //设置第一个被选中
-                    dataList.get(0).setField(MultipleFields.TAG, true);
-                    final List<MultipleItemEntity> data =
-                            dataList;
-                    final SortDelegate delegate = getParentDelegate();
-                    final SortRecyclerAdapter adapter = new SortRecyclerAdapter(data, delegate);
-                    mRecyclerView.setAdapter(adapter);
+
+
+
             }
 
         });

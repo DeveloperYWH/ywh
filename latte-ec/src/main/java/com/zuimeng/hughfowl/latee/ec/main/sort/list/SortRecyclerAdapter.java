@@ -23,7 +23,7 @@ import me.yokeyword.fragmentation.SupportHelper;
  * Created by ywh on 2018/1/6.
  */
 
-public class SortRecyclerAdapter extends MultipleRecyclerAdapter {
+public class  SortRecyclerAdapter extends MultipleRecyclerAdapter {
 
     private final SortDelegate DELEGATE;
     private int mPrePosition = 0;

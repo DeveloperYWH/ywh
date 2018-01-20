@@ -31,6 +31,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.index.search.SearchDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.recycler.BaseDecoration;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
@@ -49,7 +50,7 @@ import butterknife.BindView;
  * Created by hughfowl on 2017/10/24.
  */
 
-public class IndexDelegate extends BottomItemDelegate{
+public class IndexDelegate extends BottomItemDelegate implements View.OnFocusChangeListener {
 
 
     @BindView(R2.id.rv_index)
@@ -82,7 +83,7 @@ public class IndexDelegate extends BottomItemDelegate{
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         mRefreshHandler = RefreshHandler.create(mRefreshLayout,mRecyclerView,new IndexDataConverter());
 
-
+        mSearchView.setOnFocusChangeListener(this);
 
     }
 
@@ -125,6 +126,13 @@ public class IndexDelegate extends BottomItemDelegate{
     public void onStop() {
         // sliderShow.stopAutoCycle();
         super.onStop();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            getParentDelegate().getSupportDelegate().start(new SearchDelegate());
+        }
     }
 
     //弃用banner

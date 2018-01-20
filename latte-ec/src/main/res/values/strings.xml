@@ -17,4 +17,10 @@
     <string name="phone_sign_in">手机号登录</string>
     <string name="search">搜索</string>
     <string name="sort">分类</string>
+    <string name="clear">清空</string>
+    <string name="cart">购物车</string>
+    <string name="delect">删除</string>
+    <string name="select_all">全选</string>
+    <string name="add_all">合计</string>
+    <string name="add_up">结算</string>
 </resources>

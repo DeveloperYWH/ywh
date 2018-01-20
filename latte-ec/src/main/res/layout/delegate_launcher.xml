@@ -6,16 +6,12 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_launcher_timer"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/border_circle_timer"
+        android:background="@mipmap/circle_timer"
         android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textColor="@color/timer_text"
+        android:textSize="20sp" />
 </RelativeLayout>

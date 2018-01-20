@@ -70,14 +70,17 @@ public class ContentDelegate extends LatteDelegate {
         query1.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done( List<AVObject> llist, AVException e) {
-                AVList.addAll(llist);
-                sectionDataConverter = new SectionDataConverter().setList(llist);
 
-                mData =  sectionDataConverter.convert();
+                    AVList.addAll(llist);
+                    sectionDataConverter = new SectionDataConverter().setList(llist);
 
-                final SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_section_content,
-                                            R.layout.item_section_header, mData);
-                mRecyclerView.setAdapter(sectionAdapter);
+                    mData =  sectionDataConverter.convert();
+
+                    final SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_section_content,
+                            R.layout.item_section_header, mData);
+
+                    mRecyclerView.setAdapter(sectionAdapter);
+
 
 
 
@@ -91,6 +94,8 @@ public class ContentDelegate extends LatteDelegate {
         final StaggeredGridLayoutManager manager =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
-        initData();
+
+            initData();
+
     }
 }

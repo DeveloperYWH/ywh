@@ -9,12 +9,13 @@
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/icon_item_shop_cart"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:gravity="center"
         android:text="{fa-check-circle}"
+        android:textSize="30sp"
         android:textColor="@android:color/darker_gray"
         tools:ignore="HardcodedText,RtlHardcoded" />
 
@@ -51,6 +52,7 @@
             android:text="商品描述"
             tools:ignore="HardcodedText" />
 
+
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_item_shop_cart_price"
             android:layout_width="wrap_content"
@@ -66,17 +68,17 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginBottom="20dp"
-        android:layout_weight="1"
+        android:layout_weight="1.2"
         android:gravity="bottom"
         android:orientation="horizontal">
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/icon_item_minus"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="{fa-minus-square-o}"
-            android:textSize="24sp"
+            android:textSize="35sp"
             tools:ignore="HardcodedText" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -90,11 +92,11 @@
 
         <com.joanzapata.iconify.widget.IconTextView
             android:id="@+id/icon_item_plus"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="{fa-plus-square-o}"
-            android:textSize="24sp"
+            android:textSize="35sp"
             tools:ignore="HardcodedText" />
 
     </android.support.v7.widget.LinearLayoutCompat>

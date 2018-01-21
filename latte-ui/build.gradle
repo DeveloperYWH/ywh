@@ -74,5 +74,9 @@ dependencies {
     provided 'com.google.auto.value:auto-value:1.4.1'
     annotationProcessor "com.google.auto.value:auto-value:1.4.1"
 
+    //Loader依赖
+    compile 'com.wang.avi:library:2.1.3'
+
+
 
 }

@@ -75,6 +75,7 @@ public class SignInDelegate extends LatteDelegate {
                     if (e == null) {
                         Log.v("Sign in", "OK!");//Dev
                         //Sign in callback here.
+
                         SignHandler.onSignIn( avUser , mISignListener);
                     } else {
                         Log.v("Sign in", "Fail!");//Dev

@@ -31,7 +31,7 @@ public class SortDelegate extends BottomItemDelegate{
 
         super.onLazyInitView(savedInstanceState);
         final VerticalListDelegate listDelegate = new VerticalListDelegate();
-        loadRootFragment(R.id.vertical_list_container, listDelegate);
+        getSupportDelegate().loadRootFragment(R.id.vertical_list_container, listDelegate);
         //设置右侧第一个分类显示，默认显示分类一
         getSupportDelegate().loadRootFragment(R.id.sort_content_container, ContentDelegate.newInstance(0));//这里的数字0需要根据SectionDataConverter代码改变
     }

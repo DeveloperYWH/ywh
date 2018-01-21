@@ -206,8 +206,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
 
 
-
-
         final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override

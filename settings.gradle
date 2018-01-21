@@ -1,1 +1,1 @@
-include ':bod', ':latte-annotations', ':latte-compilter', ':latte-core', ':latte-ec'
+include ':bod', ':latte-annotations', ':latte-compilter', ':latte-core', ':latte-ec',':latte-ui'

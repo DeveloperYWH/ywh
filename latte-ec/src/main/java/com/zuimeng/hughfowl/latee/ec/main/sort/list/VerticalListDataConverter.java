@@ -29,7 +29,6 @@ public final class VerticalListDataConverter extends DataConverter {
     public ArrayList<MultipleItemEntity> convert() {
 
         final ArrayList<MultipleItemEntity> dataList = new ArrayList<>();
-
         List<AVObject> dataArray = new ArrayList<>();
         dataArray.addAll(mList);
 

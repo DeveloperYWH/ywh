@@ -72,7 +72,7 @@ public class CameraHandler implements View.OnClickListener {
             contentValues.put(MediaStore.Images.Media.DATA, tempFile.getPath());
             final Uri uri = DELEGATE.getContext().getContentResolver().
                     insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-            //需要讲Uri路径转化为实际路径
+            //需要将Uri路径转化为实际路径
             final File realFile = FileUtils.getFileByPath(FileUtil.getRealFilePath(DELEGATE.getContext(), uri));
             final Uri realUri = Uri.fromFile(realFile);
             CameraImageBean.getInstance().setPath(realUri);

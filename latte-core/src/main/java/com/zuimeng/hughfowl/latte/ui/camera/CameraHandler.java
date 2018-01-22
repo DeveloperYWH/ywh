@@ -16,7 +16,7 @@ import android.view.WindowManager;
 import com.blankj.utilcode.util.FileUtils;
 import com.zuimeng.hughfowl.latte.delegates.PermissionCheckerDelegate;
 import com.zuimeng.hughfowl.latte.util.file.FileUtil;
-import com.zuimeng.hughfowl.latte_ui.R;
+import com.zuimeng.hughfowl.latte.R;
 
 import java.io.File;
 

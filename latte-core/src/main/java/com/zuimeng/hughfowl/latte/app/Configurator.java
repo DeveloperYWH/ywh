@@ -1,12 +1,13 @@
 package com.zuimeng.hughfowl.latte.app;
 
 import android.app.Activity;
+import android.app.Application;
 import android.os.Handler;
 
+import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
-import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,6 +57,7 @@ public class Configurator {
     public  final  void configure(){
         initIcons();
         LATTE_CONFIGS.put(ConfigKeys.CONFIG_READY.name(),true);
+        Utils.init((Application) Latte.getApplicationContext());
     }
 
     public final Configurator withApiHost(String host){

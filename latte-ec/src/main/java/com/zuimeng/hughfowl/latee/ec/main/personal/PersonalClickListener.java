@@ -1,5 +1,6 @@
-package com.zuimeng.hughfowl.latee.ec.main.personal;/*
 package com.zuimeng.hughfowl.latee.ec.main.personal;
+
+import com.chad.library.adapter.base.listener.SimpleClickListener;
 
 import android.view.View;
 
@@ -8,10 +9,6 @@ import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
-*/
-/**
- * Created by hczz
- *//*
 
 
 public class PersonalClickListener extends SimpleClickListener {
@@ -53,4 +50,3 @@ public class PersonalClickListener extends SimpleClickListener {
 
     }
 }
-*/

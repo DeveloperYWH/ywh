@@ -22,6 +22,7 @@ public class UserProfile {
     public UserProfile() {
     }
     public long getUserId() {
+
         return this.userId;
     }
     public void setUserId(long userId) {

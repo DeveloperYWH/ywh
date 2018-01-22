@@ -52,6 +52,18 @@ public class ExampleActivity extends ProxyActivity implements
         });
 
     }
+        @Override
+        protected void onPause() {
+            super.onPause();
+            //JPushInterface.onPause(this);
+        }
+
+        @Override
+        protected void onResume() {
+            super.onResume();
+            //JPushInterface.onResume(this);
+        }
+
 
     @Override
     public LatteDelegate setRootDelegate() {
@@ -62,14 +74,12 @@ public class ExampleActivity extends ProxyActivity implements
         @Override
         public void onSignInSuccess() {
             Toast.makeText(this, "登录成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
-            getSupportDelegate().startWithPop(new EcBottomDelegate());
-
+            getSupportDelegate().start(new EcBottomDelegate());
         }
 
         @Override
         public void onSignUpSuccess() {
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
-
         }
 
         @Override

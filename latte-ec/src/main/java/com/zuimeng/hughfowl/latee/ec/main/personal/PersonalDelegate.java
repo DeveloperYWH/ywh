@@ -12,6 +12,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
+import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 
@@ -48,6 +49,20 @@ public class PersonalDelegate extends BottomItemDelegate {
     void onClickAvatar() {
         getParentDelegate().getSupportDelegate().start(new UserProfileDelegate());
     }
+    
+    @OnClick(R2.id.tv_all_order)
+    void onClickAllOrder() {
+        mArgs.putString(ORDER_TYPE, "all");
+        startOrderListByType();
+    }
+
+
+    private void startOrderListByType() {
+        final OrderListDelegate delegate = new OrderListDelegate();
+        delegate.setArguments(mArgs);
+        getParentDelegate().getSupportDelegate().start(delegate);
+    }
+
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
@@ -58,14 +73,21 @@ public class PersonalDelegate extends BottomItemDelegate {
                 .setText("收货地址")
                 .build();
 
-        final ListBean system = new ListBean.Builder()
+        final ListBean body_size = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
+                .setText("身材数据")
+                .build();
+
+        final ListBean system = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(3)
                 .setText("系统设置")
                 .build();
 
         final List<ListBean> data = new ArrayList<>();
         data.add(address);
+        data.add(body_size);
         data.add(system);
 
         //设置RecyclerView

@@ -23,6 +23,8 @@ public class MyLeanCloudApp extends Application {
                 .withWeChatAppId("wx5c5541b353bdeebf")
                 .withWeChatAppSecret("f53da789f707a831e447f4859adaded8")
                 .configure();
+
+        //初始化greendao数据库
         DatabaseManager.getInstance().init(this);
 
         // 初始化参数依次为 this, AppId, AppKey

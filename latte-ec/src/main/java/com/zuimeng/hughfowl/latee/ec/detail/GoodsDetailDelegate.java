@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -19,6 +20,10 @@ import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -27,12 +32,16 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.sort.list.SortRecyclerAdapter;
+import com.zuimeng.hughfowl.latee.ec.main.sort.list.VerticalListDataConverter;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.net.RestClient;
 import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierAnimation;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierUtil;
 import com.zuimeng.hughfowl.latte.ui.banner.HolderCreator;
+import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 import com.zuimeng.hughfowl.latte.ui.widget.CircleTextView;
 import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
 
@@ -52,6 +61,8 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 public class GoodsDetailDelegate extends LatteDelegate implements
         AppBarLayout.OnOffsetChangedListener,
         BezierUtil.AnimationListener {
+
+    private List<AVObject> AVList = new ArrayList<>();
 
     @BindView(R2.id.goods_detail_toolbar)
     Toolbar mToolbar = null;
@@ -168,6 +179,17 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 })
                 .build()
                 .get();*/
+        final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+        query.whereEqualTo("id",mGoodsId);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public  void done(List<AVObject> list, AVException e) {
+
+                AVList.addAll(list);
+                initBanner();
+            }
+
+        });
     }
 
     /*private void initGoodsInfo(JSONObject data) {
@@ -176,12 +198,16 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 loadRootFragment(R.id.frame_goods_info, GoodsInfoDelegate.create(goodsData));
     }*/
 
-    private void initBanner(JSONObject data) {
-        final JSONArray array = data.getJSONArray("banners");
+    private void initBanner() {
+        final AVObject avObject=AVList.get(0);
+        final String Jdata = avObject.toJSONObject().toString();
+        final JSONArray array = JSON.parseObject(Jdata).getJSONArray("banner_pics");
         final List<String> images = new ArrayList<>();
         final int size = array.size();
         for (int i = 0; i < size; i++) {
-            images.add(array.getString(i));
+            final JSONObject content_data = array.getJSONObject(i);
+            final String goodsThumb = content_data.getString("goods_thumb");
+            images.add(goodsThumb);
         }
         mBanner
                 .setPages(new HolderCreator(), images)

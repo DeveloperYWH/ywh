@@ -187,16 +187,21 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
                 AVList.addAll(list);
                 initBanner();
+                initGoodsInfo();
             }
 
         });
     }
 
-    /*private void initGoodsInfo(JSONObject data) {
-        final String goodsData = data.toJSONString();
+    private void initGoodsInfo() {
+        final AVObject object=AVList.get(0);
+        final String Jdata = object.toJSONObject().toString();
+        final JSONArray array = JSON.parseObject(Jdata).getJSONArray("data");
+        final JSONObject goodData = array.getJSONObject(0);
+        final String data = goodData.toJSONString();
         getSupportDelegate().
-                loadRootFragment(R.id.frame_goods_info, GoodsInfoDelegate.create(goodsData));
-    }*/
+                loadRootFragment(R.id.frame_goods_info, GoodsInfoDelegate.create(data));
+    }
 
     private void initBanner() {
         final AVObject avObject=AVList.get(0);

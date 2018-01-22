@@ -12,38 +12,20 @@ import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
  * Created by hughfowl on 2017/10/24.
  */
 
-public abstract class BottomItemDelegate extends LatteDelegate implements View.OnKeyListener{
+public abstract class BottomItemDelegate extends LatteDelegate {
 
     // 再点一次退出程序时间设置
-    private long mEixtTime = 0;
-    //private static final long WAIT_TIME = 2000L;
-    //private long TOUCH_TIME = 0;
+    private static final long WAIT_TIME = 2000L;
+    private long TOUCH_TIME = 0;
 
     @Override
-    public void onResume() {
-        super.onResume();
-        final View rootView = getView();
-        if (rootView !=null) {
-            rootView.setFocusableInTouchMode(true);
-            rootView.requestFocus();
-            rootView.setOnKeyListener(this);
+    public boolean onBackPressedSupport() {
+        if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+            _mActivity.finish();
+        } else {
+            TOUCH_TIME = System.currentTimeMillis();
+            Toast.makeText(_mActivity, "双击退出" + Latte.getApplicationContext().getString(R.string.app_name), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public boolean onKey(View view, int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - mEixtTime)> mEixtTime){
-                Toast.makeText(getContext(),"双击退出"+getString(R.string.app_name),Toast.LENGTH_LONG);
-                mEixtTime = System.currentTimeMillis();
-            }else {
-                _mActivity.finish();
-                if (mEixtTime != 0){
-                    mEixtTime = 0;
-                }
-            }
-            return true;
-        }
-        return false;
+        return true;
     }
 }

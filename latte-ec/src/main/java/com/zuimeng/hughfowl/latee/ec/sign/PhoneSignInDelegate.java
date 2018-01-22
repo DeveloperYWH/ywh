@@ -15,6 +15,7 @@ import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
 import butterknife.BindView;
@@ -90,7 +91,7 @@ public class PhoneSignInDelegate extends LatteDelegate {
 
                 }
             });
-
+            getSupportDelegate().startWithPop(new EcBottomDelegate());
         }
     }
 

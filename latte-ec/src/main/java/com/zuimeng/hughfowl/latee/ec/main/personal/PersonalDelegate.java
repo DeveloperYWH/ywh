@@ -58,14 +58,21 @@ public class PersonalDelegate extends BottomItemDelegate {
                 .setText("收货地址")
                 .build();
 
-        final ListBean system = new ListBean.Builder()
+        final ListBean body_size = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
+                .setText("身材数据")
+                .build();
+
+        final ListBean system = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(3)
                 .setText("系统设置")
                 .build();
 
         final List<ListBean> data = new ArrayList<>();
         data.add(address);
+        data.add(body_size);
         data.add(system);
 
         //设置RecyclerView

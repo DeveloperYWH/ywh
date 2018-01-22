@@ -16,6 +16,8 @@ import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.net.RestClient;
 import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
@@ -52,19 +54,6 @@ public class SignInDelegate extends LatteDelegate {
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-            //RestClient.builder()
-            //        .url("https://leancloud.cn:443/1.1/login")
-            //        .params("email", mName.getText().toString())
-            //        .params("password", mPassword.getText().toString())
-            //        .success(new ISuccess() {
-            //            @Override
-            //            public void onSuccess(String response) {
-            //                LatteLogger.json("USER_PROFILE", response);
-            //                SignHandler.onSignIn(response, mISignListener);
-            //            }
-            //        })
-            //        .build()
-            //        .post();
 
             final String username = mName.getText().toString();
             final String password = mPassword.getText().toString();
@@ -75,8 +64,8 @@ public class SignInDelegate extends LatteDelegate {
                     if (e == null) {
                         Log.v("Sign in", "OK!");//Dev
                         //Sign in callback here.
-
                         SignHandler.onSignIn( avUser , mISignListener);
+
                     } else {
                         Log.v("Sign in", "Fail!");//Dev
                         //Sign in exception handle here.
@@ -85,6 +74,8 @@ public class SignInDelegate extends LatteDelegate {
                 }
             }
             );
+
+            getSupportDelegate().startWithPop(new LauncherDelegate());
 
         }
     }

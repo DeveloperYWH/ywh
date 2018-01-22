@@ -1,12 +1,9 @@
 package com.zuimeng.hughfowl.latte.ui.banner;
 
-import android.widget.AdapterView;
-
 import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.zuimeng.hughfowl.latte.R;
+import com.zuimeng.hughfowl.latte_ui.R;
 
 import java.util.ArrayList;
 

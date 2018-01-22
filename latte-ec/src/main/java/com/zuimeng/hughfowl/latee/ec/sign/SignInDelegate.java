@@ -6,20 +6,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
-import com.avos.avoscloud.SignUpCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
-import com.zuimeng.hughfowl.latte.net.RestClient;
-import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
-import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
 import com.zuimeng.hughfowl.latte.wechat.LatteWeChat;
 import com.zuimeng.hughfowl.latte.wechat.callbacks.IWeChatSignInCallback;
 
@@ -75,7 +71,7 @@ public class SignInDelegate extends LatteDelegate {
                     if (e == null) {
                         Log.v("Sign in", "OK!");//Dev
                         //Sign in callback here.
-
+                        getSupportDelegate().startWithPop(new EcBottomDelegate());
                         SignHandler.onSignIn( avUser , mISignListener);
                     } else {
                         Log.v("Sign in", "Fail!");//Dev

@@ -137,6 +137,7 @@ dependencies {
     compile 'com.github.yalantis:ucrop:2.2.1-native'
     //工具包
     compile 'com.blankj:utilcode:1.12.0'
-
-
+    //动态权限处理
+    compile 'com.github.hotchemi:permissionsdispatcher:2.4.0'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
 }

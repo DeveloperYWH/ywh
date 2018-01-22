@@ -11,6 +11,7 @@ import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.zuimeng.hughfowl.latte.app.Latte;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.DataConverter;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleRecyclerAdapter;
 
@@ -72,6 +73,8 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
     public void firstPage() {
         BEAN.setDelayed(1000);
         AVList.clear();
+
+        //首页计数
         AVQuery<AVObject> avQuery = new AVQuery<>("Index_Datas");
         avQuery.whereGreaterThanOrEqualTo("goods_Id",0);
         avQuery.countInBackground(new CountCallback() {
@@ -91,6 +94,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
         AVQuery<AVObject> avQuery_1 = new AVQuery<>("Index_Datas");
         avQuery_1.whereGreaterThanOrEqualTo("goods_Id",0);
         avQuery_1.findInBackground(new FindCallback<AVObject>() {
+
             @Override
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
@@ -113,7 +117,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
 
 
             }
-        });
+        } );
 
 
 

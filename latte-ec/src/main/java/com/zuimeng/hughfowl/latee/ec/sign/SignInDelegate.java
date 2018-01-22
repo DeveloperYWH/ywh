@@ -58,13 +58,12 @@ public class SignInDelegate extends LatteDelegate {
                 public void done(AVUser avUser, AVException e) {
                     if (e == null) {
                        // Log.v("Sign in", "OK!");
-
                         SignHandler.onSignIn( avUser , mISignListener);
 
                     } else {
                         Log.v("Sign in", "Fail!");//Dev
                         //Sign in exception handle here.
-                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }

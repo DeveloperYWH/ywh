@@ -53,7 +53,8 @@
                     android:background="@android:color/white"
                     android:gravity="center_vertical"
                     android:hint="@string/search"
-                    android:paddingLeft="20dp" />
+                    android:paddingLeft="20dp"
+                    android:editable="false"/>
 
                 <com.joanzapata.iconify.widget.IconTextView
                     android:id="@+id/icon_index_message"

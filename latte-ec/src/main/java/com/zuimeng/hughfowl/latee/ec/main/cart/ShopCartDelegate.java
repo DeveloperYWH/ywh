@@ -26,6 +26,7 @@ import com.zuimeng.hughfowl.latee.ec.main.sort.list.SortRecyclerAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.sort.list.VerticalListDataConverter;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 
 import java.math.BigDecimal;
@@ -207,6 +208,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
 
         final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
+        LatteLoader.showLoading(getContext());
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public  void done(List<AVObject> list, AVException e) {
@@ -223,6 +225,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 mTotalPrice = mAdapter.getTotalPrice();
                 mTvTotalPrice.setText(String.valueOf(mTotalPrice));
                 checkItemCount();
+                LatteLoader.stopLoading();
 
 
             }

@@ -35,7 +35,7 @@ public class SectionDataConverter {
             final AVObject data = dataArray.get(i);
 
             final int id = (int) data.getNumber("id");
-            final String title = "分类"+data.getString("name");
+            final String title = data.getString("name");
 
             //添加title
             final SectionBean sectionTitleBean = new SectionBean(true, title);

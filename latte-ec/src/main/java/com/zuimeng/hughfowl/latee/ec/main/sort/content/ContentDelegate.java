@@ -14,6 +14,7 @@ import com.avos.avoscloud.FindCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,6 @@ public class ContentDelegate extends LatteDelegate {
     private int mContentId = 0;
 
     private List<AVObject> AVList = new ArrayList<>();
-    //private List<AVObject> AVrList = new ArrayList<>();
     private List<SectionBean> mData = null;
     private SectionDataConverter sectionDataConverter = null;
 
@@ -63,28 +63,25 @@ public class ContentDelegate extends LatteDelegate {
 
 
         //String id="1";
-        //final List<SectionBean> dataList = new ArrayList<>();
 
         final AVQuery<AVObject> query1 = new AVQuery<>("Sort_right"+(mContentId+1));
-        //query1.whereEqualTo("id",mContentId+1);
+        LatteLoader.showLoading(getContext());
         query1.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public void done( List<AVObject> llist, AVException e) {
+            public void done( List<AVObject> list, AVException e) {
+                if (e == null) {
+                    AVList.addAll(list);
+                    sectionDataConverter = new SectionDataConverter().setList(list);
 
-                    AVList.addAll(llist);
-                    sectionDataConverter = new SectionDataConverter().setList(llist);
-
-                    mData =  sectionDataConverter.convert();
+                    mData = sectionDataConverter.convert();
 
                     final SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_section_content,
                             R.layout.item_section_header, mData);
 
                     mRecyclerView.setAdapter(sectionAdapter);
-
-
-
-
+                    LatteLoader.stopLoading();
                 }
+            }
         });
 
     }

@@ -22,6 +22,7 @@ import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.net.RestClient;
 import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.ItemType;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
@@ -61,25 +62,31 @@ public class VerticalListDelegate extends LatteDelegate {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         final AVQuery<AVObject> query = new AVQuery<>("Sort_left");
+        LatteLoader.showLoading(getContext());
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public  void done(List<AVObject> list, AVException e) {
+            public void done(List<AVObject> list, AVException e) {
+                if (e  ==null) {
+                    AVList.addAll(list);
 
-                AVList.addAll(list);
-                final List<MultipleItemEntity> data =
-                        new  VerticalListDataConverter().setList(AVList).convert();
+                    final List<MultipleItemEntity> data =
+                            new VerticalListDataConverter().setList(AVList).convert();
 
-                final SortDelegate delegate = getParentDelegate();
-                final SortRecyclerAdapter adapter = new SortRecyclerAdapter(data, delegate);
-                mRecyclerView.setAdapter(adapter);
-
-
-
-
-
+                    final SortDelegate delegate = getParentDelegate();
+                    final SortRecyclerAdapter adapter = new SortRecyclerAdapter(data, delegate);
+                    mRecyclerView.setAdapter(adapter);
+                    LatteLoader.stopLoading();
+                }
             }
 
         });
 
+        final AVQuery<AVObject> query_1 = new AVQuery<>("Sort_left");
+        query_1.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+
+            }
+        });
     }
 }

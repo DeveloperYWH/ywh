@@ -7,13 +7,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.database.UserProfile;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.NameDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +33,8 @@ import butterknife.BindView;
 
 public class UserProfileDelegate extends LatteDelegate {
 
+    private String avatar_imageUrl = null;
+
     @BindView(R2.id.rv_user_profile)
     RecyclerView mRecyclerView = null;
 
@@ -36,45 +45,69 @@ public class UserProfileDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        final ListBean image = new ListBean.Builder()
-                .setItemType(ListItemType.ITEM_AVATAR)
-                .setId(1)
-                .setImageUrl("http://i9.qhimg.com/t017d891ca365ef60b5.jpg")
-                .build();
 
-        final ListBean name = new ListBean.Builder()
-                .setItemType(ListItemType.ITEM_NORMAL)
-                .setId(2)
-                .setText("姓名")
-                .setDelegate(new NameDelegate())
-                .setValue("未设置姓名")
-                .build();
 
-        final ListBean gender = new ListBean.Builder()
-                .setItemType(ListItemType.ITEM_NORMAL)
-                .setId(3)
-                .setText("性别")
-                .setValue("未设置性别")
-                .build();
+        final AVQuery<AVObject> query = new AVQuery<>("User_avater");
+        LatteLoader.showLoading(getContext());
+        query.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                                .getInstance()
+                                .getDao()
+                                .queryBuilder()
+                                .listLazy()
+                                .get(0)
+                                .getUserId()));
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
 
-        final ListBean birth = new ListBean.Builder()
-                .setItemType(ListItemType.ITEM_NORMAL)
-                .setId(4)
-                .setText("生日")
-                .setValue("未设置生日")
-                .build();
+                avatar_imageUrl = list.get(0).getAVFile("image").getUrl();
 
-        final List<ListBean> data = new ArrayList<>();
-        data.add(image);
-        data.add(name);
-        data.add(gender);
-        data.add(birth);
+                final ListBean image = new ListBean.Builder()
+                        .setItemType(ListItemType.ITEM_AVATAR)
+                        .setId(1)
+                        .setImageUrl(avatar_imageUrl)
+                        .build();
 
-        //设置RecyclerView
-        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(manager);
-        final ListAdapter adapter = new ListAdapter(data);
-        mRecyclerView.setAdapter(adapter);
-        mRecyclerView.addOnItemTouchListener(new UserProfileClickListener(this));
+                final ListBean name = new ListBean.Builder()
+                        .setItemType(ListItemType.ITEM_NORMAL)
+                        .setId(2)
+                        .setText("姓名")
+                        .setDelegate(new NameDelegate())
+                        .setValue("未设置姓名")
+                        .build();
+
+                final ListBean gender = new ListBean.Builder()
+                        .setItemType(ListItemType.ITEM_NORMAL)
+                        .setId(3)
+                        .setText("性别")
+                        .setValue("未设置性别")
+                        .build();
+
+                final ListBean birth = new ListBean.Builder()
+                        .setItemType(ListItemType.ITEM_NORMAL)
+                        .setId(4)
+                        .setText("生日")
+                        .setValue("未设置生日")
+                        .build();
+
+                final List<ListBean> data = new ArrayList<>();
+
+                data.add(image);
+                data.add(name);
+                data.add(gender);
+                data.add(birth);
+
+                //设置RecyclerView
+                final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                mRecyclerView.setLayoutManager(manager);
+                final ListAdapter adapter = new ListAdapter(data);
+                mRecyclerView.setAdapter(adapter);
+                mRecyclerView.addOnItemTouchListener(new UserProfileClickListener(UserProfileDelegate.this));
+                LatteLoader.stopLoading();
+            }
+        });
+
+
     }
 }

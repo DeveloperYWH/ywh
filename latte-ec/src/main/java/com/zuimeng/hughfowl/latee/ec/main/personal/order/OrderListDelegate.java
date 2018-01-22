@@ -21,7 +21,9 @@ import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.database.UserProfile;
 import com.zuimeng.hughfowl.latee.ec.database.UserProfileDao;
 import com.zuimeng.hughfowl.latee.ec.main.personal.PersonalDelegate;
+import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class OrderListDelegate extends LatteDelegate {
 
 
         final AVQuery<AVObject> query = new AVQuery<>("Order_list_test");
+        LatteLoader.showLoading(getContext());
         query.whereEqualTo("user_id",
                 String.valueOf(DatabaseManager
                         .getInstance()
@@ -71,26 +74,21 @@ public class OrderListDelegate extends LatteDelegate {
                         .queryBuilder()
                         .listLazy()
                         .get(0).getUserId()));
-
-        query.orderByDescending("createdAt");
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public  void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     list.get(0).put("type", mType);
-
                     AVList.addAll(list);
                     final List<MultipleItemEntity> data =
                             new OrderListDataConverter().setList(AVList).convert();
-
-
                     final LinearLayoutManager manager = new LinearLayoutManager(getContext());
                     mRecyclerView.setLayoutManager(manager);
-
 
                     final OrderListAdapter adapter = new OrderListAdapter(data);
                     mRecyclerView.setAdapter(adapter);
                     mRecyclerView.addOnItemTouchListener(new OrderListClickListener(OrderListDelegate.this));
+                    LatteLoader.stopLoading();
                 }
                 else {
                     Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();

@@ -33,6 +33,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.index.search.SearchDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.BaseDecoration;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
@@ -111,6 +112,7 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
         initRecyclerView();
+
         mRefreshHandler.firstPage();
 
         // setBannerView();

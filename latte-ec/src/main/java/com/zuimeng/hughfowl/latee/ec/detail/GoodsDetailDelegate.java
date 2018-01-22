@@ -147,10 +147,12 @@ public class GoodsDetailDelegate extends LatteDelegate implements
         initTabLayout();
     }
 
-    /*private void initPager(JSONObject data) {
-        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(), data);
+    private void initPager() {
+        final AVObject object=AVList.get(0);
+        final String Jdata = object.toJSONObject().toString();
+        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(),Jdata);
         mViewPager.setAdapter(adapter);
-    }*/
+    }
 
     private void initTabLayout() {
         mTabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -188,6 +190,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 AVList.addAll(list);
                 initBanner();
                 initGoodsInfo();
+                initPager();
             }
 
         });

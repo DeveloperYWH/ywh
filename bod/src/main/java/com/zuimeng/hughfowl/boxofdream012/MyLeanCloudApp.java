@@ -2,6 +2,8 @@ package com.zuimeng.hughfowl.boxofdream012;
 
 import android.app.Application;
 
+import com.avos.avoscloud.AVInstallation;
+import com.avos.avoscloud.PushService;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 
 import com.zuimeng.hughfowl.latee.ec.database.DaoMaster;
@@ -27,11 +29,12 @@ public class MyLeanCloudApp extends Application {
         //初始化greendao数据库
         DatabaseManager.getInstance().init(this);
 
+
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this,"WrycWyNhrQIQpAzPkPgxSfLS-gzGzoHsz","yrg5tlPipRT4L7dm9Rkcmpns");
-
+        AVInstallation.getCurrentInstallation().saveInBackground();
         // 调试日志开启，发布前关闭，放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
-        AVOSCloud.setDebugLogEnabled(true);
+        //AVOSCloud.setDebugLogEnabled(true);
 
 
 

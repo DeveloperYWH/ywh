@@ -15,6 +15,7 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SettingsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 
 import java.util.ArrayList;
@@ -77,13 +78,14 @@ public class PersonalDelegate extends BottomItemDelegate {
 
         final ListBean body_size = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
-                .setId(2)
+                .setId(3)
                 .setText("身材数据")
                 .build();
 
         final ListBean system = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
-                .setId(3)
+                .setId(2)
+                .setDelegate(new SettingsDelegate())
                 .setText("系统设置")
                 .build();
 

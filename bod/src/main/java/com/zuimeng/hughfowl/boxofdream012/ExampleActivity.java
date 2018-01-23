@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.avos.avoscloud.PushService;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherScrollDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
@@ -39,17 +40,22 @@ public class ExampleActivity extends ProxyActivity implements
         Latte.getConfigurator().withActivity(this);
         StatusBarCompat.translucentStatusBar(this,true);
 
+        //开启推送
+        // 设置默认打开的 Activity
+        PushService.setDefaultPushCallback(this, ExampleActivity.class);
+
         // 测试 SDK 是否正常工作的代码
-        AVObject testObject = new AVObject("TestObject");
-        testObject.put("words","Hello World!");
-        testObject.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                if(e == null){
-                    Log.d("saved","success!");
-                }
-            }
-        });
+//        AVObject testObject = new AVObject("TestObject");
+//        testObject.put("words","Hello World!");
+//        testObject.saveInBackground(new SaveCallback() {
+//            @Override
+//            public void done(AVException e) {
+//                if(e == null){
+//                    Log.d("saved","success!");
+//                }
+//            }
+//        });
+
 
     }
         @Override

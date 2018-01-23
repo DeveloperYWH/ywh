@@ -99,7 +99,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
             .dontAnimate()
             .override(100, 100);
 
-    /*@OnClick(R2.id.rl_add_shop_cart)
+    @OnClick(R2.id.rl_add_shop_cart)
     void onClickAddShopCart() {
         final CircleImageView animImg = new CircleImageView(getContext());
         Glide.with(this)
@@ -107,13 +107,18 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 .apply(OPTIONS)
                 .into(animImg);
         BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
-    }*/
+    }
 
-    private void setShopCartCount(JSONObject data) {
-        mGoodsThumbUrl = data.getString("thumb");
+    private void setShopCartCount() {
         if (mShopCount == 0) {
             mCircleTextView.setVisibility(View.GONE);
         }
+        final AVObject object=AVList.get(0);
+        final String Jdata = object.toJSONObject().toString();
+        final JSONArray array = JSON.parseObject(Jdata).getJSONArray("thumb");
+        final JSONObject data = array.getJSONObject(0);
+        mGoodsThumbUrl = data.getString("goods_thumb");
+
     }
 
     public static GoodsDetailDelegate create(int goodsId) {
@@ -164,23 +169,6 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     }
 
     private void initData() {
-        /*RestClient.builder()
-                .url("goods_detail.php")
-                .params("goods_id", mGoodsId)
-                .loader(getContext())
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        final JSONObject data =
-                                JSON.parseObject(response).getJSONObject("data");
-                        initBanner(data);
-                        initGoodsInfo(data);
-                        initPager(data);
-                        setShopCartCount(data);
-                    }
-                })
-                .build()
-                .get();*/
         final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
         query.whereEqualTo("id",mGoodsId);
         query.findInBackground(new FindCallback<AVObject>() {
@@ -191,6 +179,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 initBanner();
                 initGoodsInfo();
                 initPager();
+                setShopCartCount();
             }
 
         });
@@ -236,27 +225,16 @@ public class GoodsDetailDelegate extends LatteDelegate implements
         return new DefaultHorizontalAnimator();
     }
 
-    /*@Override
+
+
+    @Override
     public void onAnimationEnd() {
         YoYo.with(new ScaleUpAnimator())
                 .duration(500)
                 .playOn(mIconShopCart);
-        RestClient.builder()
-                .url("add_shop_cart_count.php")
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        LatteLogger.json("ADD", response);
-                        final boolean isAdded = JSON.parseObject(response).getBoolean("data");
-                        if (isAdded) {
-                            mShopCount++;
-                            mCircleTextView.setVisibility(View.VISIBLE);
-                            mCircleTextView.setText(String.valueOf(mShopCount));
-                        }
-                    }
-                })
-                .params("count", mShopCount)
-                .build()
-                .post();
-    }*/
+        //与购物车数据逻辑连接部分
+        mShopCount++;
+        mCircleTextView.setVisibility(View.VISIBLE);
+        mCircleTextView.setText(String.valueOf(mShopCount));
+    }
 }

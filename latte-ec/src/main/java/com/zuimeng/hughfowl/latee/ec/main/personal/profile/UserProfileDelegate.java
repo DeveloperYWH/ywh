@@ -19,6 +19,7 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.NameDelegate;
+import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -68,43 +69,60 @@ public class UserProfileDelegate extends LatteDelegate {
                         .setId(1)
                         .setImageUrl(avatar_imageUrl)
                         .build();
+                final AVQuery<AVObject> info_query = new AVQuery<>("User_info");
+                LatteLoader.showLoading(getContext());
+                info_query.whereEqualTo("user_id",
+                        String.valueOf(DatabaseManager
+                                .getInstance()
+                                .getDao()
+                                .queryBuilder()
+                                .listLazy()
+                                .get(0)
+                                .getUserId()));
+                info_query.findInBackground(new FindCallback<AVObject>() {
+                    @Override
+                    public void done(List<AVObject> list, AVException e) {
 
-                final ListBean name = new ListBean.Builder()
-                        .setItemType(ListItemType.ITEM_NORMAL)
-                        .setId(2)
-                        .setText("姓名")
-                        .setDelegate(new NameDelegate())
-                        .setValue("未设置姓名")
-                        .build();
+                        final ListBean name = new ListBean.Builder()
+                                .setItemType(ListItemType.ITEM_NORMAL)
+                                .setId(2)
+                                .setText("姓名")
+                                .setDelegate(new NameDelegate())
+                                .setValue(list.get(0).getString("user_name"))
+                                .build();
+                        final ListBean gender = new ListBean.Builder()
+                                .setItemType(ListItemType.ITEM_NORMAL)
+                                .setId(3)
+                                .setText("性别")
+                                .setValue(list.get(0).getString("user_gender"))
+                                .build();
 
-                final ListBean gender = new ListBean.Builder()
-                        .setItemType(ListItemType.ITEM_NORMAL)
-                        .setId(3)
-                        .setText("性别")
-                        .setValue("未设置性别")
-                        .build();
+                        final ListBean birth = new ListBean.Builder()
+                                .setItemType(ListItemType.ITEM_NORMAL)
+                                .setId(4)
+                                .setText("生日")
+                                .setValue("未设置生日")
+                                .build();
 
-                final ListBean birth = new ListBean.Builder()
-                        .setItemType(ListItemType.ITEM_NORMAL)
-                        .setId(4)
-                        .setText("生日")
-                        .setValue("未设置生日")
-                        .build();
+                        final List<ListBean> data = new ArrayList<>();
 
-                final List<ListBean> data = new ArrayList<>();
+                        data.add(image);
+                        data.add(name);
+                        data.add(gender);
+                        data.add(birth);
 
-                data.add(image);
-                data.add(name);
-                data.add(gender);
-                data.add(birth);
+                        //设置RecyclerView
+                        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                        mRecyclerView.setLayoutManager(manager);
+                        final ListAdapter adapter = new ListAdapter(data);
+                        mRecyclerView.setAdapter(adapter);
+                        mRecyclerView.addOnItemTouchListener(new UserProfileClickListener(UserProfileDelegate.this));
+                        LatteLoader.stopLoading();
+                    }
+                });
 
-                //设置RecyclerView
-                final LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                mRecyclerView.setLayoutManager(manager);
-                final ListAdapter adapter = new ListAdapter(data);
-                mRecyclerView.setAdapter(adapter);
-                mRecyclerView.addOnItemTouchListener(new UserProfileClickListener(UserProfileDelegate.this));
-                LatteLoader.stopLoading();
+
+
             }
         });
 

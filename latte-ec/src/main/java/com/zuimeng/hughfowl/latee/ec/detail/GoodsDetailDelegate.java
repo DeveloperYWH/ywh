@@ -12,9 +12,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.alibaba.fastjson.JSON;
@@ -32,18 +32,12 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.sort.list.SortRecyclerAdapter;
-import com.zuimeng.hughfowl.latee.ec.main.sort.list.VerticalListDataConverter;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
-import com.zuimeng.hughfowl.latte.net.RestClient;
-import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierAnimation;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierUtil;
 import com.zuimeng.hughfowl.latte.ui.banner.HolderCreator;
-import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 import com.zuimeng.hughfowl.latte.ui.widget.CircleTextView;
-import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +102,15 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 .into(animImg);
         BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
     }
+    @OnClick(R2.id.icon_shop_cart)
+    void onClickShopCart() {
+        Toast.makeText(getContext(),"切换到购物车",Toast.LENGTH_LONG).show();
+        EcBottomDelegate delegate=new EcBottomDelegate();
+        delegate.setFlag(3);
+        getSupportDelegate().start(delegate);
+
+    }
+
 
     private void setShopCartCount() {
         if (mShopCount == 0) {

@@ -41,11 +41,15 @@ import com.zuimeng.hughfowl.latte.ui.refresh.RefreshHandler;
 import com.zuimeng.hughfowl.latte.usermanage.DataManage;
 import com.zuimeng.hughfowl.latte.usermanage.ListMange;
 import com.zuimeng.hughfowl.latte.usermanage.StringMange;
+import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
+import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
+import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by hughfowl on 2017/10/24.
@@ -60,8 +64,8 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
     SwipeRefreshLayout mRefreshLayout = null;
     @BindView(R2.id.tb_index)
     Toolbar mToolbar = null;
-    //@BindView(R2.id.icon_index_scan)
-    //IconTextView  = null;
+    @BindView(R2.id.icon_index_scan)
+    IconTextView  mIconTextView = null;
     @BindView(R2.id.et_search_view)
     AppCompatEditText mSearchView = null;
 
@@ -77,13 +81,23 @@ public class IndexDelegate extends BottomItemDelegate implements View.OnFocusCha
     private RefreshHandler mRefreshHandler = null;
 
 
+    @OnClick(R2.id.icon_index_scan)
+    void onClickScanQrCode() {
+        startScanWithCheck(this.getParentDelegate());
+    }
 
 
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         mRefreshHandler = RefreshHandler.create(mRefreshLayout,mRecyclerView,new IndexDataConverter());
-
+        CallbackManager.getInstance()
+                .addCallback(CallbackType.ON_SCAN, new IGlobalCallback<String>() {
+                    @Override
+                    public void executeCallback(@Nullable String args) {
+                        Toast.makeText(getContext(),"得到的二维码是"+args,Toast.LENGTH_LONG).show();
+                    }
+                });
         mSearchView.setOnFocusChangeListener(this);
 
     }

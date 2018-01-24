@@ -30,7 +30,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <!--
                 <com.joanzapata.iconify.widget.IconTextView
                     android:id="@+id/icon_index_scan"
                     android:layout_width="0dp"
@@ -39,10 +38,9 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:paddingRight="10dp"
-                    android:text="{icon-scan}"
+                    android:background="@color/bod_red_flower"
                     android:textColor="@android:color/white"
                     android:textSize="25sp" />
-                    -->
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/et_search_view"

@@ -141,5 +141,6 @@ dependencies {
     //动态权限处理
     compile 'com.github.hotchemi:permissionsdispatcher:2.4.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
-
+    //二维码扫描
+    compile 'me.dm7.barcodescanner:zbar:1.9.3'
 }

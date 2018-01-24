@@ -62,7 +62,10 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         super.onCreate(savedInstanceState);
         mIndexDelegate = setIndexDelegate();
         if(flag!=0)
+        {
             mIndexDelegate=flag;
+            mCurrentDelegate=flag;
+        }
 
         if (setClickedColor() != 0) {
             mClickedColor = setClickedColor();
@@ -104,7 +107,6 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
 
         final ISupportFragment[] delegateArray = ITEM_DELEGATES.toArray(new ISupportFragment[size]);
         getSupportDelegate().loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, delegateArray);
-        flag=0;
     }
 
     private void resetColor() {

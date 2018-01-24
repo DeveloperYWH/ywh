@@ -61,8 +61,8 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mIndexDelegate = setIndexDelegate();
-        if(flag!=0)
-            mIndexDelegate=flag;
+        mIndexDelegate=flag;
+        mCurrentDelegate=flag;
 
         if (setClickedColor() != 0) {
             mClickedColor = setClickedColor();

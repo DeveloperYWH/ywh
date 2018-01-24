@@ -10,6 +10,7 @@ import com.yalantis.ucrop.UCrop;
 import com.zuimeng.hughfowl.latte.ui.camera.CameraImageBean;
 import com.zuimeng.hughfowl.latte.ui.camera.LatteCamera;
 import com.zuimeng.hughfowl.latte.ui.camera.RequestCodes;
+import com.zuimeng.hughfowl.latte.ui.scanner.ScannerDelegate;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
 import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
@@ -39,15 +40,15 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
         PermissionCheckerDelegatePermissionsDispatcher.startCameraWithCheck(this);
     }
 
-//    扫描二维码(不直接调用)
-//    @NeedsPermission(Manifest.permission.CAMERA)
-//    void startScan(BaseDelegate delegate) {
-//        delegate.getSupportDelegate().startForResult(new ScannerDelegate(), RequestCodes.SCAN);
-//    }
-//
-//    public void startScanWithCheck(BaseDelegate delegate) {
-//        PermissionCheckerDelegatePermissionsDispatcher.startScanWithCheck(this, delegate);
-//    }
+    //扫描二维码(不直接调用)
+    @NeedsPermission(Manifest.permission.CAMERA)
+    void startScan(BaseDelegate delegate) {
+        delegate.getSupportDelegate().startForResult(new ScannerDelegate(), RequestCodes.SCAN);
+    }
+
+    public void startScanWithCheck(BaseDelegate delegate) {
+        PermissionCheckerDelegatePermissionsDispatcher.startScanWithCheck(this, delegate);
+    }
 
     @OnPermissionDenied(Manifest.permission.CAMERA)
     void onCameraDenied() {

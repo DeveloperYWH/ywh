@@ -1,5 +1,7 @@
 package com.zuimeng.hughfowl.latee.ec.main.index;
 
+import android.util.Log;
+
 import com.avos.avoscloud.AVObject;
 import com.zuimeng.hughfowl.latte.ui.recycler.DataConverter;
 import com.zuimeng.hughfowl.latte.ui.recycler.ItemType;
@@ -21,24 +23,20 @@ public class IndexDataConverter extends DataConverter {
     private List<AVObject> mList = new ArrayList<>();
 
     public DataConverter setList(List<AVObject> mList) {
-         this.mList.addAll(mList);
+         this.mList.addAll(this.mList.size(),mList);
         return this;
     }
 
     @Override
-    public ArrayList<MultipleItemEntity> convert()
-    {
-        List<AVObject> dataArray = new ArrayList<>();
-        dataArray.addAll(mList);
-        //Log.d("datalist",String.valueOf(mObjectData.size()));
+    public ArrayList<MultipleItemEntity> convert(){
 
         //获取对象个数
-        final int size = dataArray.size();
+        final int size = mList.size();
 
-
+//        Log.d("fuck",String.valueOf(i)+"dc");
         for (int i = 0; i < size; i++) {
 
-            final AVObject data = dataArray.get(i);
+            final AVObject data = mList.get(i);
             String imageUrl = null;
             if(data.getAVFile("Image") != null){
                 imageUrl = data.getAVFile("Image").getUrl();
@@ -84,13 +82,10 @@ public class IndexDataConverter extends DataConverter {
                     .setField(MultipleFields.IMAGE_URL,imageUrl)
                     .setField(MultipleFields.BANNERS,bannerImages)
                     .build();
-
             ENTITIES.add(entity);
 
-
-
-
         }
+//        Log.d("fuck","返回了"+String.valueOf(ENTITIES.size()));
         return ENTITIES;
     }
 

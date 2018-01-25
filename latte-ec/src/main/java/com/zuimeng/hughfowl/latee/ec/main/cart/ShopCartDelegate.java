@@ -81,31 +81,32 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     @OnClick(R2.id.tv_top_shop_cart_remove_selected)
     void onClickRemoveSelectedItem() {
+        LatteLoader.showLoading(getContext());
         final List<MultipleItemEntity> data = mAdapter.getData();
         //要删除的数据
-        final List<MultipleItemEntity> deleteEntities = new ArrayList<>();
+        final List<Integer> deleteEntities = new ArrayList<>();
         for (MultipleItemEntity entity : data) {
             final boolean isSelected = entity.getField(ShopCartItemFields.IS_SELECTED);
             if (isSelected) {
-                deleteEntities.add(entity);
+                deleteEntities.add(data.indexOf(entity));
             }
         }
-        for (MultipleItemEntity entity : deleteEntities) {
-            int removePosition;
-            final int entityPosition = entity.getField(ShopCartItemFields.POSITION);
-            if (entityPosition > mCurrentCount - 1) {
-                removePosition = entityPosition - (mTotalCount - mCurrentCount);
-            } else {
-                removePosition = entityPosition;
-            }
-            if (removePosition <= mAdapter.getItemCount()) {
-                mAdapter.remove(removePosition);
-                mCurrentCount = mAdapter.getItemCount();
-                //更新数据
-                mAdapter.notifyItemRangeChanged(removePosition, mAdapter.getItemCount());
-            }
+        for (int entity : deleteEntities) {
+            AVList.remove(entity);
         }
+        final ArrayList<MultipleItemEntity> mdata =
+                new ShopCartDataConverter().setList(AVList).convert();
+
+
+        mAdapter = new ShopCartAdapter(mdata);
+        mAdapter.setCartItemListener(ShopCartDelegate.this);
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
+        mTotalPrice = mAdapter.getTotalPrice();
+        mTvTotalPrice.setText(String.valueOf(mTotalPrice));
         checkItemCount();
+        LatteLoader.stopLoading();
     }
 
     @OnClick(R2.id.tv_top_shop_cart_clear)

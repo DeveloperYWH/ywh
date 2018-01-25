@@ -91,8 +91,10 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 deleteEntities.add(data.indexOf(entity));
             }
         }
+        int i=0;
         for (int entity : deleteEntities) {
-            AVList.remove(entity);
+            AVList.remove((entity-i));
+            i++;
         }
         final ArrayList<MultipleItemEntity> mdata =
                 new ShopCartDataConverter().setList(AVList).convert();

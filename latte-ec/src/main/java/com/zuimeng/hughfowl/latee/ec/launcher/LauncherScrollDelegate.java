@@ -85,7 +85,7 @@ public class LauncherScrollDelegate extends LatteDelegate implements OnItemClick
 
                 }
             });
-            getSupportDelegate().startWithPop(new SignInDelegate());
+            getSupportDelegate().replaceFragment(new SignInDelegate(),false);
 
 
 

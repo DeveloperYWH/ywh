@@ -129,86 +129,70 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                         }
                     }
                 });
-                //添加加减事件
-                iconMinus.setOnClickListener(new View.OnClickListener() {
-                    private double temp_M_Price = 0.00;
+                final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
+                query.whereEqualTo("id",id);//查询当前商品
+                query.findInBackground(new FindCallback<AVObject>() {
                     @Override
-                    public void onClick(View v) {
-                        final int currentCount = entity.getField(ShopCartItemFields.COUNT);
-                        if (Integer.parseInt(tvCount.getText().toString()) > 1) {
+                    public  void done(List<AVObject> list, AVException e) {
+                        final AVObject data = list.get(0);
 
+                        //添加加减事件
+                        iconMinus.setOnClickListener(new View.OnClickListener() {
+                            private double temp_M_Price = 0.00;
+                            @Override
+                            public void onClick(View v) {
+                                final int currentCount = entity.getField(ShopCartItemFields.COUNT);
+                                if (Integer.parseInt(tvCount.getText().toString()) > 1) {
 
-                            final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
-                            query.whereEqualTo("id",id);//查询当前商品
-                            query.findInBackground(new FindCallback<AVObject>() {
-                                @Override
-                                public  void done(List<AVObject> list, AVException e) {
-                                    final AVObject data = list.get(0);
+                                            int countNum = data.getInt("count");
+                                            countNum--;
+                                            tvCount.setText(String.valueOf(countNum));
 
+                                            data.put("count",countNum);
+                                            data.saveInBackground();
 
-                                    int countNum = Integer.parseInt(tvCount.getText().toString());
-                                    countNum--;
-                                    tvCount.setText(String.valueOf(countNum));
+                                            if (mCartItemListener != null) {
+                                                final double itemTotal = countNum* price;
 
-                                    data.put("count",countNum);
-                                    data.saveInBackground();
+                                                    mTotalPrice = mTotalPrice - price;
+                                                    mCartItemListener.onItemClick(itemTotal);
+                                                    temp_M_Price = itemTotal;
+                                            }
 
-                                    if (mCartItemListener != null) {
-                                        final double itemTotal = (int)data.getNumber("count") * price;
-
-                                        if (itemTotal != temp_M_Price){
-                                            mTotalPrice = mTotalPrice - price;
-                                            mCartItemListener.onItemClick(itemTotal);
-                                            temp_M_Price = itemTotal;
-                                        }
-                                    }
 
                                 }
-
-                            });
-
-
-                        }
-                    }
-                });
-                iconPlus.setOnClickListener(new View.OnClickListener() {
-                    private double temp_P_Price = 0.00;
-                    @Override
-                    public void onClick(View v) {
-                        final int currentCount = entity.getField(ShopCartItemFields.COUNT);
-                        final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
-                        query.whereEqualTo("id",id);//查询当前商品
-                        query.findInBackground(new FindCallback<AVObject>() {
+                            }
+                        });
+                        iconPlus.setOnClickListener(new View.OnClickListener() {
+                            private double temp_P_Price = 0.00;
                             @Override
-                            public  void done(List<AVObject> list, AVException e) {
-                                    final AVObject data = list.get(0);
+                            public void onClick(View v) {
+                                final int currentCount = entity.getField(ShopCartItemFields.COUNT);
 
-                                    int countNum = data.getInt("count");
-                                    countNum++;
-                                    tvCount.setText(String.valueOf(countNum));
+                                        int countNum = data.getInt("count");
+                                        countNum++;
+                                        tvCount.setText(String.valueOf(countNum));
 
-                                    data.put("count",countNum);
-                                    data.saveInBackground();
-                                    //Log.d("count",String.valueOf(countNum));
+                                        data.put("count",countNum);
+                                        data.saveInBackground();
+                                        //Log.d("count",String.valueOf(countNum));
 
-                                    if (mCartItemListener != null) {
-                                        final double itemTotal = (int)data.getNumber("count") * price;
-                                        //Log.d("itemTal",String.valueOf(itemTotal));
+                                        if (mCartItemListener != null) {
+                                            final double itemTotal = countNum * price;
+                                            //Log.d("itemTal",String.valueOf(itemTotal));
 
-                                        if (itemTotal != temp_P_Price){
-                                            mTotalPrice = mTotalPrice + price;
-                                            mCartItemListener.onItemClick(itemTotal);
-                                            temp_P_Price = itemTotal;
+                                                mTotalPrice = mTotalPrice + price;
+                                                mCartItemListener.onItemClick(itemTotal);
+                                                temp_P_Price = itemTotal;
+
                                         }
 
-                                    }
+
 
                             }
-
                         });
-
-
                     }
+
                 });
 
                 break;

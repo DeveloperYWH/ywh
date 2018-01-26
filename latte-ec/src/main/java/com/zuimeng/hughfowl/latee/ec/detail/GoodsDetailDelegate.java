@@ -35,10 +35,12 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierAnimation;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierUtil;
 import com.zuimeng.hughfowl.latte.ui.banner.HolderCreator;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.widget.CircleTextView;
 
 import java.util.ArrayList;
@@ -97,6 +99,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     @OnClick(R2.id.rl_add_shop_cart)
     void onClickAddShopCart() {
+        LatteLoader.showLoading(getContext());
         final CircleImageView animImg = new CircleImageView(getContext());
         Glide.with(this)
                 .load(mGoodsThumbUrl)
@@ -277,10 +280,10 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                         else
                         {
                             AVObject avObject1=list.get(0);
-                            Log.d("ms",String.valueOf(mShopCount));
                             avObject1.put("count",mShopCount);
                             avObject1.saveInBackground();
                         }
+                        LatteLoader.stopLoading();
                     }
                 });
             }

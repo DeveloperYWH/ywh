@@ -1,6 +1,5 @@
 package com.zuimeng.hughfowl.latee.ec.main.cart;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,18 +20,13 @@ import com.avos.avoscloud.FindCallback;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.sort.list.SortRecyclerAdapter;
-import com.zuimeng.hughfowl.latee.ec.main.sort.list.VerticalListDataConverter;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
-import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +35,7 @@ import butterknife.OnClick;
  * Created by Rhapsody on 2018/1/5.
  */
 
-public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener{
+public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener {
 
     private List<AVObject> AVList = new ArrayList<>();
 
@@ -60,6 +54,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     ViewStubCompat mStubNoItem = null;
     @BindView(R2.id.tv_shop_cart_total_price)
     AppCompatTextView mTvTotalPrice = null;
+    @BindView((R2.id.tv_top_shop_cart_clear))
+    AppCompatTextView mButton = null;
 
     @OnClick(R2.id.icon_shop_cart_select_all)
     void onClickSelectAll() {
@@ -91,9 +87,9 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 deleteEntities.add(data.indexOf(entity));
             }
         }
-        int i=0;
+        int i = 0;
         for (int entity : deleteEntities) {
-            AVList.remove((entity-i));
+            AVList.remove((entity - i));
             i++;
         }
         final ArrayList<MultipleItemEntity> mdata =
@@ -107,7 +103,9 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         mRecyclerView.setAdapter(mAdapter);
         mTotalPrice = mAdapter.getTotalPrice();
         mTvTotalPrice.setText(String.valueOf(mTotalPrice));
-        checkItemCount();
+        if (mAdapter.getItemCount() != 0) {
+            checkItemCount();
+        }
         LatteLoader.stopLoading();
     }
 
@@ -125,7 +123,10 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         mRecyclerView.setAdapter(mAdapter);
         mTotalPrice = mAdapter.getTotalPrice();
         mTvTotalPrice.setText(String.valueOf(mTotalPrice));
+        //if (mAdapter.getItemCount() != 0) {
         checkItemCount();
+        mButton.setClickable(false);
+        //}
     }
 
     @OnClick(R2.id.tv_shop_cart_pay)
@@ -144,14 +145,14 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         userQuery.findInBackground(new FindCallback<AVUser>() {
             @Override
             public void done(List<AVUser> list, AVException e) {
-                mOrder.put("user_id",list.get(0).getMobilePhoneNumber());
+                mOrder.put("user_id", list.get(0).getMobilePhoneNumber());
             }
         });
-        mOrder.put("amount",0.01);
-        mOrder.put("comment","测试支付");
-        mOrder.put("type",1);
-        mOrder.put("order_type",0);
-        mOrder.put("is_anonymous",true);
+        mOrder.put("amount", 0.01);
+        mOrder.put("comment", "测试支付");
+        mOrder.put("type", 1);
+        mOrder.put("order_type", 0);
+        mOrder.put("is_anonymous", true);
         mOrder.saveInBackground();
 
 
@@ -178,7 +179,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                */
 
     }
-
 
 
     @SuppressWarnings("RestrictedApi")
@@ -219,12 +219,11 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         super.onLazyInitView(savedInstanceState);
 
 
-
         final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
         LatteLoader.showLoading(getContext());
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public  void done(List<AVObject> list, AVException e) {
+            public void done(List<AVObject> list, AVException e) {
                 AVList.addAll(list);
                 final ArrayList<MultipleItemEntity> data =
                         new ShopCartDataConverter().setList(AVList).convert();
@@ -238,6 +237,9 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 mTotalPrice = mAdapter.getTotalPrice();
                 mTvTotalPrice.setText(String.valueOf(mTotalPrice));
                 checkItemCount();
+                if(mAdapter.getItemCount()!=0){
+                    mButton.setClickable(true);
+                }
                 LatteLoader.stopLoading();
 
 
@@ -249,8 +251,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     @Override
     public void onItemClick(double itemTotalPrice) {
         final double price = mAdapter.getTotalPrice();
-        BigDecimal fix   =   new   BigDecimal(price);
-        double   fix_price   =   fix.setScale(2,   BigDecimal.ROUND_HALF_UP).doubleValue();
+        BigDecimal fix = new BigDecimal(price);
+        double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         mTvTotalPrice.setText(String.valueOf(fix_price));
     }
 }

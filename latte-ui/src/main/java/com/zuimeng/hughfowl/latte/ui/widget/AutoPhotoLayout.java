@@ -9,7 +9,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -38,8 +37,6 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
     private LayoutParams mParams = null;
     //要删除的图片ID
     private int mDeleteId = 0;
-    //选中的图片ID
-    private int mSelected = 0;
     private AppCompatImageView mTargetImageVew = null;
     private final int mImageMargin;
     private LatteDelegate mDelegate = null;
@@ -251,9 +248,7 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
                 final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
                 //设置子View的边距
                 final int lc = left + lp.leftMargin;
-                Log.d("lcaaa",String.valueOf(lc));
                 final int tc = top + lp.topMargin;
-                Log.d("tc",String.valueOf(tc));
                 final int rc = lc + child.getMeasuredWidth() - mImageMargin;
                 final int bc = tc + child.getMeasuredHeight();
                 //为子View进行布局

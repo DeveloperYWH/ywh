@@ -37,9 +37,9 @@ public class ShopCartDataConverter extends DataConverter{
             final  int id = (int) data.getNumber("id");
             final String title = data.getString("title");
             final String desc = data.getString("desc");
-            final String thumb = data.getAVFile("thumb").getUrl();
+            final String thumb = data.getString("thumb");
             final  int count = (int) data.getNumber("count");
-            final  double price = data.getNumber("price").doubleValue();
+            final  double price = Double.parseDouble(data.getString("price"));
 
             final MultipleItemEntity entiity = MultipleItemEntity.builder()
                     .setField(MultipleFields.ITEM_TYPE, ShopCartItemType.SHOP_CART_ITEM)

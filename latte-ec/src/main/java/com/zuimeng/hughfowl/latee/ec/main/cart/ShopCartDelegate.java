@@ -219,7 +219,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         super.onLazyInitView(savedInstanceState);
 
 
-        final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
+        final AVQuery<AVObject> query = new AVQuery<>("Cart_ywh");
         LatteLoader.showLoading(getContext());
         query.findInBackground(new FindCallback<AVObject>() {
             @Override

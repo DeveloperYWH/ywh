@@ -129,7 +129,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                         }
                     }
                 });
-                final AVQuery<AVObject> query = new AVQuery<>("Cart_Data_test");
+                final AVQuery<AVObject> query = new AVQuery<>("Cart_ywh");
                 query.whereEqualTo("id",id);//查询当前商品
                 query.findInBackground(new FindCallback<AVObject>() {
                     @Override

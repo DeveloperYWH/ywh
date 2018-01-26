@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -239,5 +241,50 @@ public class GoodsDetailDelegate extends LatteDelegate implements
         mShopCount++;
         mCircleTextView.setVisibility(View.VISIBLE);
         mCircleTextView.setText(String.valueOf(mShopCount));
+        final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+        query.whereEqualTo("id",mGoodsId);
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public  void done(List<AVObject> list, AVException e) {
+
+                AVList.addAll(list);
+                final AVObject avObject=AVList.get(0);
+                final String Jdata = avObject.toJSONObject().toString();
+                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("data");
+                final JSONObject goodData = marray.getJSONObject(0);
+                final String name=goodData.getString("name");
+                final String des=goodData.getString("des");
+                final String price=goodData.getString("price");
+                final JSONArray array = JSON.parseObject(Jdata).getJSONArray("banner_pics");
+                final JSONObject content_data = array.getJSONObject(0);
+                final String goodsThumb = content_data.getString("goods_thumb");
+                final AVQuery<AVObject> query = new AVQuery<>("Cart_ywh");
+                query.whereEqualTo("id",mGoodsId);
+                query.findInBackground(new FindCallback<AVObject>() {
+                    @Override
+                    public void done(List<AVObject> list, AVException e) {
+                        if(list.size()==0)
+                        {
+                            AVObject item=new AVObject("Cart_ywh");
+                            item.put("thumb",goodsThumb);
+                            item.put("desc",des);
+                            item.put("title",name);
+                            item.put("price",price);
+                            item.put("id",mGoodsId);
+                            item.put("count",mShopCount);
+                            item.saveInBackground();
+                        }
+                        else
+                        {
+                            AVObject avObject1=list.get(0);
+                            Log.d("ms",String.valueOf(mShopCount));
+                            avObject1.put("count",mShopCount);
+                            avObject1.saveInBackground();
+                        }
+                    }
+                });
+            }
+
+        });
     }
 }

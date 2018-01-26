@@ -113,8 +113,18 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     @OnClick(R2.id.tv_top_shop_cart_clear)
     void onClickClear() {
-        mAdapter.getData().clear();
-        mAdapter.notifyDataSetChanged();
+        AVList.clear();
+        final ArrayList<MultipleItemEntity> mdata =
+                new ShopCartDataConverter().setList(AVList).convert();
+
+
+        mAdapter = new ShopCartAdapter(mdata);
+        mAdapter.setCartItemListener(ShopCartDelegate.this);
+        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(manager);
+        mRecyclerView.setAdapter(mAdapter);
+        mTotalPrice = mAdapter.getTotalPrice();
+        mTvTotalPrice.setText(String.valueOf(mTotalPrice));
         checkItemCount();
     }
 

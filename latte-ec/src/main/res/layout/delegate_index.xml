@@ -38,7 +38,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:paddingRight="10dp"
-                    android:background="@color/bod_red_flower"
+                    android:text="{icon-scan}"
                     android:textColor="@android:color/white"
                     android:textSize="25sp" />
 
@@ -62,7 +62,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:paddingLeft="10dp"
-                    android:text="{fa-bullhorn}"
+                    android:text="{icon-message}"
                     android:textColor="@android:color/white"
                     android:textSize="25sp" />
                 <android.support.v7.widget.AppCompatTextView
@@ -77,95 +77,6 @@
                     android:textSize="18sp" />
                 </android.support.v7.widget.LinearLayoutCompat>
 
-
-
-
         </android.support.v7.widget.Toolbar>
-    <!--<android.support.v7.widget.RecyclerView-->
-        <!--android:id="@+id/rv_search"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent" />-->
-
-    <!--
-        <RelativeLayout
-            android:id="@+id/relative_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior          >
-
-            <android.support.v7.widget.LinearLayoutCompat
-                android:id="@+id/banner_linear"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                >
-
-
-                <com.daimajia.slider.library.SliderLayout
-                    android:id="@+id/banner_slider"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    />
-                <com.daimajia.slider.library.Indicators.PagerIndicator
-                    android:layout_gravity="center"
-                    android:id="@+id/banner_custom_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    custom:selected_color="#FF5500"
-                    custom:unselected_color="#55333333"
-                    custom:shape="ring"
-                    custom:selected_padding_left="2dp"
-                    custom:selected_padding_right="2dp"
-                    custom:unselected_padding_left="2dp"
-                    custom:unselected_padding_right="2dp"
-                    custom:selected_width="16dp"
-                    custom:selected_height="3dp"
-                    custom:unselected_width="16dp"
-                    custom:unselected_height="3dp"
-                    />
-            </android.support.v7.widget.LinearLayoutCompat>
-
-
-
-
-            <com.zuimeng.hughfowl.latte.ui.button.StateButton
-                android:id="@+id/stateButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="StateButton"
-                android:layout_below="@+id/banner_linear"
-
-                app:radius="5dp"
-                app:round="true"
-                app:animationDuration="200"
-
-                app:strokeDashGap="2dp"
-                app:strokeDashWidth="5dp"
-                app:normalStrokeWidth="2dp"
-                app:pressedStrokeWidth="2dp"
-                app:unableStrokeWidth="2dp"
-
-                app:normalStrokeColor="@android:color/white"
-                app:pressedStrokeColor="@android:color/white"
-                app:unableStrokeColor="@android:color/white"
-
-                app:normalTextColor="@android:color/white"
-                app:pressedTextColor="@android:color/white"
-                app:unableTextColor="@android:color/white"
-
-                app:normalBackgroundColor="@color/bod_red_flower"
-                app:pressedBackgroundColor="@color/bod_red_flower"
-                app:unableBackgroundColor="@color/bod_red_flower"/>
-
-
-
-    </RelativeLayout>
-    -->
-
-
-
-
 
 </android.support.design.widget.CoordinatorLayout>

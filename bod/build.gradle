@@ -18,6 +18,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'lib/x86/libweibosdkcore.so'
+        exclude 'lib/armeabi/libweibosdkcore.so'
+
+    }
+
 }
 
 repositories {
@@ -32,11 +38,6 @@ dependencies {
     annotationProcessor project(':latte-compilter')
     testCompile 'junit:junit:4.12'
     //noinspection GradleCompatible
-
-
-
-
-
-
-
 }
+
+

@@ -37,6 +37,6 @@ public class EcBottomDelegate extends BaseBottomDelegate {
 
     @Override
     public int setClickedColor() {
-        return Color.parseColor("#ffff8800");
+        return Color.parseColor("#b82328");
     }
 }

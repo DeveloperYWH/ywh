@@ -4,7 +4,7 @@
     android:id="@+id/rl_vertical_list_container"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="@android:color/white">
+    android:background="#dd8c8b">
 
     <View
         android:id="@+id/view_line"
@@ -20,7 +20,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_toRightOf="@+id/view_line"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         tools:ignore="RtlHardcoded" />
 
     <View

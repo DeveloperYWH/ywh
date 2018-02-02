@@ -1,4 +1,4 @@
-package com.zuimeng.hughfowl.latte.usermanage;
+package com.zuimeng.hughfowl.latte.datamanage;
 
 /**
  * Created by hughfowl on 2018/1/18.

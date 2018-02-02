@@ -16,6 +16,10 @@ android {
 
         multiDexEnabled true
 
+        ndk {
+            abiFilters "armeabi-v7a", "armeabi","x86"
+        }
+
     }
     buildTypes {
         release {
@@ -23,9 +27,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     //为了解决部分第三方库重复打包了META-INF的问题
     packagingOptions{
+        pickFirst 'META-INF/*'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
@@ -90,7 +97,6 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2'
     //微信依赖（包含统计）
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.3.4'
-    //mob短信验证
     //底部bar
     compile 'com.roughike:bottom-bar:2.3.1'
     // LeanCloud 基础包
@@ -143,4 +149,7 @@ dependencies {
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
     //二维码扫描
     compile 'me.dm7.barcodescanner:zbar:1.9.3'
+
+    //weibo
+    compile 'com.sina.weibo.sdk:core:4.1.4:openDefaultRelease@aar'
 }

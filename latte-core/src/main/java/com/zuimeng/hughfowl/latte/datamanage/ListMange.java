@@ -1,4 +1,4 @@
-package com.zuimeng.hughfowl.latte.usermanage;
+package com.zuimeng.hughfowl.latte.datamanage;
 
 import com.avos.avoscloud.AVObject;
 

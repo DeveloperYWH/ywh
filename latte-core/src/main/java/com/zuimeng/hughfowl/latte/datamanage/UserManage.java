@@ -1,4 +1,4 @@
-package com.zuimeng.hughfowl.latte.usermanage;
+package com.zuimeng.hughfowl.latte.datamanage;
 
 import com.avos.avoscloud.AVUser;
 
@@ -12,11 +12,12 @@ public class UserManage {
     AVUser mUser = new AVUser();
 
     public   void postUser(AVUser user){
+        mUser = null;
         mUser = user;
     }
 
-    public void getUser(AVUser user){
-        user = mUser;
+    public AVUser getUser(){
+        return mUser;
     }
 
 }

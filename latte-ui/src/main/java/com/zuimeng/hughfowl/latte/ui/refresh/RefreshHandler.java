@@ -105,7 +105,7 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                     BEAN.setPageSize(6);
                     //设置Adapter
                     mAdapter = MultipleRecyclerAdapter.create(CONVERTER.setList(AVList));
-                    Log.d("fuck","第一次有了"+String.valueOf(mAdapter.getData().size()));
+//                    Log.d("fuck","第一次有了"+String.valueOf(mAdapter.getData().size()));
                     mAdapter.setOnLoadMoreListener(RefreshHandler.this, RECYCLERVIEW);
                     RECYCLERVIEW.setAdapter(mAdapter);
                     BEAN.setCurrentCount(BEAN.getCurrentCount()+list.size());

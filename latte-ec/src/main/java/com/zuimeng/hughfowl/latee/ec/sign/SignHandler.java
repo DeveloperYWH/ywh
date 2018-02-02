@@ -25,6 +25,36 @@ public class SignHandler {
         final UserProfile profile = new UserProfile(userId, name);
         DatabaseManager.getInstance().getDao().insertOrReplace(profile);
 
+        AVObject info = new AVObject("User_info");
+        AVObject avater = new AVObject("User_avater");
+        AVObject cart_datas = new AVObject("Cart_Datas");
+        AVObject address = new AVObject("User_address");
+        AVObject order_list = new AVObject("Order_list_test");
+
+        info.put("user_id",userId);
+        info.put("user_name",name);
+        avater.put("user_id",userId);
+        cart_datas.put("user_id",userId);
+        address.put("user_id",userId);
+        order_list.put("user_id",userId);
+
+        info.saveInBackground();
+        avater.saveInBackground();
+        cart_datas.saveInBackground();
+        address.saveInBackground();
+        order_list.saveInBackground();
+
+        //已经注册并登录成功了
+        AccountManager.setSignState();
+        signListener.onSignInSuccess();
+    }
+    public static void onQQSignIn( ISignListener signListener) {
+//
+//        final long userId = Long.parseLong(userprofile.getMobilePhoneNumber());
+//        final String name = userprofile.getUsername();
+//        final UserProfile profile = new UserProfile(userId, name);
+//        DatabaseManager.getInstance().getDao().insertOrReplace(profile);
+
         //已经注册并登录成功了
         AccountManager.setSignState();
         signListener.onSignInSuccess();

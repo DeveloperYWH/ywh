@@ -35,4 +35,9 @@ public class SearchDataConverter extends DataConverter {
 
         return ENTITIES;
     }
+
+    @Override
+    public void clearData() {
+        ENTITIES.clear();
+    }
 }

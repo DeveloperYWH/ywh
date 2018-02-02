@@ -49,7 +49,6 @@ public class VerticalListDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-
         initRecyclerView();
     }
     private void initRecyclerView() {
@@ -81,12 +80,12 @@ public class VerticalListDelegate extends LatteDelegate {
 
         });
 
-        final AVQuery<AVObject> query_1 = new AVQuery<>("Sort_left");
-        query_1.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-
-            }
-        });
+//        final AVQuery<AVObject> query_1 = new AVQuery<>("Sort_left");
+//        query_1.findInBackground(new FindCallback<AVObject>() {
+//            @Override
+//            public void done(List<AVObject> list, AVException e) {
+//
+//            }
+//        });
     }
 }

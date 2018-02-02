@@ -1,6 +1,7 @@
 package com.zuimeng.hughfowl.latee.ec.sign;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,13 +13,19 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.avos.sns.SNS;
+import com.avos.sns.SNSBase;
+import com.avos.sns.SNSCallback;
+import com.avos.sns.SNSException;
+import com.avos.sns.SNSType;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latte.datamanage.UserManage;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.wechat.LatteWeChat;
 import com.zuimeng.hughfowl.latte.wechat.callbacks.IWeChatSignInCallback;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,6 +42,31 @@ public class SignInDelegate extends LatteDelegate {
     TextInputEditText mPassword = null;
 
     private ISignListener mISignListener = null;
+
+    // 1、定义一个 ThirdPartyType 变量
+    private SNSType ThirdPartyType;
+
+    final SNSCallback myCallback = new SNSCallback() {
+        @Override
+        public void done(SNSBase object, SNSException e) {
+            if (e == null) {
+                SNS.loginWithAuthData(object.userInfo(), new LogInCallback<AVUser>() {
+                    @Override
+                    public void done(AVUser avUser, AVException e) {
+                        // 5、关联成功，已在 _User 表新增一条用户数据
+                        avUser.saveInBackground();
+//
+//                        UserManage userManage = new UserManage();
+//                        userManage.postUser(avUser);
+                    }
+                });
+            } else {
+                e.printStackTrace();
+            }
+        }
+    };
+
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -85,6 +117,40 @@ public class SignInDelegate extends LatteDelegate {
                 .signIn();
 
     }
+    @OnClick(R2.id.icon_sign_in_qq)
+    void onClickQQ(){
+        try {
+            ThirdPartyType = SNSType.AVOSCloudSNSQQ;
+            SNS.setupPlatform(getContext(), SNSType.AVOSCloudSNSQQ, "1106626403", "ZVAYa4MahNpXkQEd", "https://leancloud.cn/1.1/sns/callback/ydjn335g5op2lzpk");
+            SNS.loginWithCallback(getActivity(), SNSType.AVOSCloudSNSQQ, myCallback);
+//            getSupportDelegate().start(new PhoneBand());
+
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+    @OnClick(R2.id.icon_sign_in_weibo)
+    void onClickWeibo(){
+        try {
+            ThirdPartyType = SNSType.AVOSCloudSNSSinaWeibo;
+            SNS.setupPlatform(getContext(), SNSType.AVOSCloudSNSSinaWeibo, "4003695468", "17be45202b1bd675f02275e1c7aa9b81", "https://leancloud.cn/1.1/sns/callback/or06i941pmh53uru");
+            SNS.loginWithCallback(getActivity(), SNSType.AVOSCloudSNSSinaWeibo, myCallback);
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 4、在页面 activity 回调里填写 ThirdPartyType
+        if (resultCode == RESULT_OK) {
+            SNS.onActivityResult(requestCode, resultCode, data, ThirdPartyType);
+            Toast.makeText(getContext(),SNS.userInfo(SNSType.AVOSCloudSNSQQ).size(),Toast.LENGTH_LONG).show();
+        }
+    }
 
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLink() {
@@ -94,8 +160,10 @@ public class SignInDelegate extends LatteDelegate {
     void onClickPhoneSignIn() {
         getSupportDelegate().start(new PhoneSignInDelegate());
     }
+    @OnClick(R2.id.tv_shop_enter)
+    void onClickShop(){
 
-
+    }
 
     private boolean checkForm() {
         final String name = mName.getText().toString();
@@ -129,7 +197,5 @@ public class SignInDelegate extends LatteDelegate {
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
     }
-
-
 
 }

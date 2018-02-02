@@ -2,7 +2,7 @@
     <string name="app_name">LateeEC</string>
     <string name="sign_up">注册</string>
     <string name="phone_check">手机验证</string>
-    <string name="xing_ming">昵称</string>
+    <string name="xing_ming">用户名</string>
     <string name="you_xiang">邮箱</string>
     <string name="cellnumber">手机号码</string>
     <string name="checkword">验证码</string>

@@ -1,5 +1,6 @@
 package com.zuimeng.hughfowl.latte.delegates.bottom;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -34,7 +35,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         private final LinkedHashMap<BottomTabBean, BottomItemDelegate> ITEMS = new LinkedHashMap<>();
         private int mCurrentDelegate = 0;
         private int mIndexDelegate = 0;
-        private int mClickedColor = Color.RED;
+        private int mClickedColor = R.color.bottom_clicked;
         public static int flag=0;
 
         @BindView(R2.id.bottom_bar)
@@ -57,6 +58,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
     }
 
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +81,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         final int size = ITEMS.size();
@@ -112,12 +115,13 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         for (int i = 0; i < count; i++) {
             final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);
             final IconTextView itemIcon = (IconTextView) item.getChildAt(0);
-            itemIcon.setTextColor(Color.GRAY);
+            itemIcon.setTextColor(Color.WHITE);
             final AppCompatTextView itemTitle = (AppCompatTextView) item.getChildAt(1);
-            itemTitle.setTextColor(Color.GRAY);
+            itemTitle.setTextColor(Color.WHITE);
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
         final int tag = (int) v.getTag();

@@ -22,7 +22,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bod_signin_bcg">
 
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -106,6 +107,16 @@
                 android:textSize="16sp"
                 android:textColor="@color/bod_pink"
                 tools:ignore="HardcodedText" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_shop_enter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="店家入口"
+                android:textSize="16sp"
+                android:textColor="@color/bod_pink"
+                tools:ignore="HardcodedText" />
 
 
             <android.support.v7.widget.LinearLayoutCompat
@@ -113,7 +124,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-
             <com.joanzapata.iconify.widget.IconTextView
                 android:id="@+id/icon_sign_in_wechat"
                 android:layout_width="110dp"
@@ -135,7 +145,7 @@
                 android:textSize="40sp" />
 
             <com.joanzapata.iconify.widget.IconTextView
-                android:id="@+id/icon_sign_in_xinlang"
+                android:id="@+id/icon_sign_in_weibo"
                 android:layout_width="110dp"
                 android:layout_height="110dp"
                 android:layout_gravity="center_horizontal"

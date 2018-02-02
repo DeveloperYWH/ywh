@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:background="@drawable/header_color"
     android:orientation="horizontal">
 
     <android.support.v7.widget.AppCompatTextView
@@ -12,7 +13,7 @@
         android:layout_weight="1"
         android:gravity="center|left"
         android:paddingLeft="30dp"
-        android:textColor="@color/we_chat_black"
+        android:textColor="#dd8c8b"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -24,7 +25,7 @@
         android:gravity="center|right"
         android:paddingRight="10dp"
         android:text="more >"
-        android:textColor="@color/we_chat_black"
+        android:textColor="#804140"
         tools:ignore="HardcodedText" />
 
 </android.support.v7.widget.LinearLayoutCompat>

@@ -13,6 +13,7 @@
     <color name="app_main">#a6c6e2</color>
     <color name="sort_left">#dd8c8b</color>
     <color name="sort_left_back">#fff1f2</color>
+    <color name="bottom_clicked">#b82328</color>
     <color name="timer">#e7ecf2</color>
     <color name="timer_text">#a6c6e2</color>
 </resources>

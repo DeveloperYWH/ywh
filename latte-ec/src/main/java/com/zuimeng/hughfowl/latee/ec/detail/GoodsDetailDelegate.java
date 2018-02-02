@@ -34,6 +34,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
@@ -90,6 +91,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     private String mGoodsThumbUrl = null;
     private int mShopCount = 0;
+    private boolean isExist = false;
 
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -255,35 +257,62 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 final String Jdata = avObject.toJSONObject().toString();
                 final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("data");
                 final JSONObject goodData = marray.getJSONObject(0);
+                final int uid=goodData.getInteger("uid");
                 final String name=goodData.getString("name");
                 final String des=goodData.getString("des");
                 final String price=goodData.getString("price");
                 final JSONArray array = JSON.parseObject(Jdata).getJSONArray("banner_pics");
                 final JSONObject content_data = array.getJSONObject(0);
                 final String goodsThumb = content_data.getString("goods_thumb");
-                final AVQuery<AVObject> query = new AVQuery<>("Cart_ywh");
-                query.whereEqualTo("id",mGoodsId);
+
+                final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
+                LatteLoader.showLoading(getContext());
+                query.whereEqualTo("user_id",
+                        String.valueOf(DatabaseManager
+                                .getInstance()
+                                .getDao()
+                                .queryBuilder()
+                                .listLazy()
+                                .get(0).getUserId()));
                 query.findInBackground(new FindCallback<AVObject>() {
                     @Override
                     public void done(List<AVObject> list, AVException e) {
-                        if(list.size()==0)
+                        final AVObject data = list.get(0);
+                        final String Jdata = data.toJSONObject().toString();
+                        final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
+//                        Toast.makeText(getContext(),String.valueOf(cart_list.size()),Toast.LENGTH_LONG).show();
+                        final int goodSize = cart_list.size();
+                        for (int j = 0;  j <  goodSize; j++) {
+                            final JSONObject cart_data = cart_list.getJSONObject(j);
+                            Log.d("fuck",String.valueOf(isExist));
+                            if (cart_data.getInteger("id") == mGoodsId ){
+                                isExist = true;
+                                JSONObject object= cart_list.getJSONObject(mGoodsId-1);
+                                object.put("count",mShopCount);
+                                data.put("shop_cart_data",cart_list);
+                                data.saveInBackground();
+                                break;
+                            }
+                            else isExist = false;
+                        }
+                        Log.d("fuck",String.valueOf(isExist));
+                        if(!isExist)
                         {
-                            AVObject item=new AVObject("Cart_ywh");
+                            JSONObject item = new JSONObject();
                             item.put("thumb",goodsThumb);
                             item.put("desc",des);
                             item.put("title",name);
                             item.put("price",price);
                             item.put("id",mGoodsId);
                             item.put("count",mShopCount);
-                            item.saveInBackground();
-                        }
-                        else
-                        {
-                            AVObject avObject1=list.get(0);
-                            avObject1.put("count",mShopCount);
-                            avObject1.saveInBackground();
+                            cart_list.add(item);
+                            Toast.makeText(getContext(),String.valueOf(cart_list.size()),Toast.LENGTH_LONG).show();
+                            data.put("shop_cart_data",cart_list);
+                            data.saveInBackground();
+                            isExist = true;
                         }
                         LatteLoader.stopLoading();
+                        Toast.makeText(getContext(),String.valueOf(isExist),Toast.LENGTH_LONG).show();
                     }
                 });
             }

@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
@@ -17,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
+import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
@@ -129,13 +133,23 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                         }
                     }
                 });
-                final AVQuery<AVObject> query = new AVQuery<>("Cart_ywh");
-                query.whereEqualTo("id",id);//查询当前商品
+                final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
+                query.whereEqualTo("user_id",
+                        String.valueOf(DatabaseManager
+                                .getInstance()
+                                .getDao()
+                                .queryBuilder()
+                                .listLazy()
+                                .get(0).getUserId()));
+                //query.whereEqualTo("id",id);
                 query.findInBackground(new FindCallback<AVObject>() {
                     @Override
                     public  void done(List<AVObject> list, AVException e) {
                         final AVObject data = list.get(0);
-
+                        final String Jdata = data.toJSONObject().toString();
+                        final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
+                        //查询当前商品
+                        final JSONObject good_data = (JSONObject) cart_list.get(id-1);
                         //添加加减事件
                         iconMinus.setOnClickListener(new View.OnClickListener() {
                             private double temp_M_Price = 0.00;
@@ -144,13 +158,12 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                                 final int currentCount = entity.getField(ShopCartItemFields.COUNT);
                                 if (Integer.parseInt(tvCount.getText().toString()) > 1) {
 
-                                            int countNum = data.getInt("count");
+                                            int countNum = good_data.getInteger("count");
                                             countNum--;
                                             tvCount.setText(String.valueOf(countNum));
-
-                                            data.put("count",countNum);
+                                            ((JSONObject) cart_list.get(id-1)).put("count",countNum);
+                                            data.put("shop_cart_data",cart_list);
                                             data.saveInBackground();
-
                                             if (mCartItemListener != null) {
                                                 final double itemTotal = countNum* price;
 
@@ -163,32 +176,27 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                                 }
                             }
                         });
+
                         iconPlus.setOnClickListener(new View.OnClickListener() {
                             private double temp_P_Price = 0.00;
                             @Override
                             public void onClick(View v) {
                                 final int currentCount = entity.getField(ShopCartItemFields.COUNT);
+                                int countNum = good_data.getInteger("count");
+                                countNum++;
+                                tvCount.setText(String.valueOf(countNum));
+                                ((JSONObject) cart_list.get(id - 1)).put("count", countNum);
+                                data.put("shop_cart_data", cart_list);
+                                data.saveInBackground();
+                                //Log.d("count",String.valueOf(countNum));
+                                if (mCartItemListener != null) {
+                                    final double itemTotal = countNum * price;
+                                    //Log.d("itemTal",String.valueOf(itemTotal));
 
-                                        int countNum = data.getInt("count");
-                                        countNum++;
-                                        tvCount.setText(String.valueOf(countNum));
-
-                                        data.put("count",countNum);
-                                        data.saveInBackground();
-                                        //Log.d("count",String.valueOf(countNum));
-
-                                        if (mCartItemListener != null) {
-                                            final double itemTotal = countNum * price;
-                                            //Log.d("itemTal",String.valueOf(itemTotal));
-
-                                                mTotalPrice = mTotalPrice + price;
-                                                mCartItemListener.onItemClick(itemTotal);
-                                                temp_P_Price = itemTotal;
-
-                                        }
-
-
-
+                                    mTotalPrice = mTotalPrice + price;
+                                    mCartItemListener.onItemClick(itemTotal);
+                                    temp_P_Price = itemTotal;
+                                }
                             }
                         });
                     }

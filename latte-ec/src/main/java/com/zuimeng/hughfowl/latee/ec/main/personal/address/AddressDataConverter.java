@@ -24,6 +24,11 @@ public class AddressDataConverter extends DataConverter {
     }
 
     @Override
+    public void clearData() {
+        ENTITIES.clear();
+    }
+
+    @Override
     public ArrayList<MultipleItemEntity> convert() {
         final ArrayList<MultipleItemEntity> dataList = new ArrayList<>();
         List<AVObject> dataArray = new ArrayList<>();

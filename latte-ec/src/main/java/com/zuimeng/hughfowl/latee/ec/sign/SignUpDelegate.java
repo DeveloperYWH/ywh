@@ -12,16 +12,11 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.SignUpCallback;
-import com.tencent.qc.stat.common.User;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
-import com.zuimeng.hughfowl.latte.net.RestClient;
-import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
-import com.zuimeng.hughfowl.latte.usermanage.UserManage;
-import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
+import com.zuimeng.hughfowl.latte.datamanage.UserManage;
 
 import butterknife.BindView;
 import butterknife.OnClick;

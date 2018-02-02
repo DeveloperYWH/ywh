@@ -20,6 +20,7 @@ import com.avos.avoscloud.FindCallback;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
+import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
@@ -219,8 +220,15 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         super.onLazyInitView(savedInstanceState);
 
 
-        final AVQuery<AVObject> query = new AVQuery<>("Cart_ywh");
+        final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
         LatteLoader.showLoading(getContext());
+        query.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0).getUserId()));
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {

@@ -162,7 +162,7 @@ public class SignInDelegate extends LatteDelegate {
     }
     @OnClick(R2.id.tv_shop_enter)
     void onClickShop(){
-
+        getSupportDelegate().start(new ShopSignInDelegate());
     }
 
     private boolean checkForm() {

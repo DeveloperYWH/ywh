@@ -87,7 +87,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     private int mGoodsId = -1;
     private String mGoodsThumbUrl = null;
     private int mShopCount = 0;
-
+    private int isExist = 0;
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
@@ -276,7 +276,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                         final String Jdata = data.toJSONObject().toString();
                         final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
                         if (cart_list != null) {
-                            boolean isExist = false;
+                            isExist = 0;
                             final int goodSize = cart_list.size();
                             for (int j = 0; j < goodSize; j++) {
                                 final JSONObject cart_data = cart_list.getJSONObject(j);
@@ -285,10 +285,25 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                                     object.put("count", mShopCount);
                                     data.put("shop_cart_data", cart_list);
                                     data.saveInBackground();
-                                    isExist = true;
+                                    isExist = 1;
                                 }
                             }
-                        } if(cart_list == null) {
+                            if (isExist==0) {
+                                JSONObject item = new JSONObject();
+                                item.put("thumb", goodsThumb);
+                                item.put("desc", des);
+                                item.put("title", name);
+                                item.put("price", price);
+                                item.put("id", mGoodsId);
+                                item.put("count", mShopCount);
+                                JSONObject cartInfo = new JSONObject();
+                                cartInfo.putAll(item);
+                                cart_list.add(cartInfo);
+                                data.put("shop_cart_data", cart_list);
+                                data.saveInBackground();
+                            }
+                        }
+                        if (cart_list == null) {
                             JSONObject item = new JSONObject();
                             item.put("thumb", goodsThumb);
                             item.put("desc", des);

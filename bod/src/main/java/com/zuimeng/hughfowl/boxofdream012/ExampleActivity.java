@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.PushService;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.sign.ISignListener;
 import com.zuimeng.hughfowl.latee.ec.sign.SignUpDelegate;
 import com.zuimeng.hughfowl.latte.activities.ProxyActivity;
@@ -79,6 +80,11 @@ public class ExampleActivity extends ProxyActivity implements
         @Override
         public void onSignUpSuccess() {
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
+        }
+        @Override
+        public void onShopSignInSuccess() {
+            Toast.makeText(this, "登录成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
+            getSupportDelegate().start(new ShopBottomDelegate());
         }
 
         @Override

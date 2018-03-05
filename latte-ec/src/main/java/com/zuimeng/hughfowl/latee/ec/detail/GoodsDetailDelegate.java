@@ -12,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
-import com.avos.avoscloud.SaveCallback;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -36,7 +34,6 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
-import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierAnimation;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierUtil;
@@ -88,10 +85,8 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     private static final String ARG_GOODS_ID = "ARG_GOODS_ID";
     private int mGoodsId = -1;
-
     private String mGoodsThumbUrl = null;
     private int mShopCount = 0;
-    private boolean isExist = false;
 
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -109,12 +104,13 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 .into(animImg);
         BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
     }
+
     @OnClick(R2.id.icon_shop_cart)
     void onClickShopCart() {
-        Toast.makeText(getContext(),"切换到购物车",Toast.LENGTH_LONG).show();
-        EcBottomDelegate delegate=new EcBottomDelegate();
+        Toast.makeText(getContext(), "切换到购物车", Toast.LENGTH_LONG).show();
+        EcBottomDelegate delegate = new EcBottomDelegate();
         delegate.setFlag(3);
-        getSupportDelegate().replaceFragment(delegate,false);
+        getSupportDelegate().replaceFragment(delegate, false);
 
     }
 
@@ -123,7 +119,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
         if (mShopCount == 0) {
             mCircleTextView.setVisibility(View.GONE);
         }
-        final AVObject object=AVList.get(0);
+        final AVObject object = AVList.get(0);
         final String Jdata = object.toJSONObject().toString();
         final JSONArray array = JSON.parseObject(Jdata).getJSONArray("thumb");
         final JSONObject data = array.getJSONObject(0);
@@ -163,9 +159,9 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     }
 
     private void initPager() {
-        final AVObject object=AVList.get(0);
+        final AVObject object = AVList.get(0);
         final String Jdata = object.toJSONObject().toString();
-        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(),Jdata);
+        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(), Jdata);
         mViewPager.setAdapter(adapter);
     }
 
@@ -180,10 +176,10 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     private void initData() {
         final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
-        query.whereEqualTo("id",mGoodsId);
+        query.whereEqualTo("id", mGoodsId);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public  void done(List<AVObject> list, AVException e) {
+            public void done(List<AVObject> list, AVException e) {
 
                 AVList.addAll(list);
                 initBanner();
@@ -196,7 +192,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     }
 
     private void initGoodsInfo() {
-        final AVObject object=AVList.get(0);
+        final AVObject object = AVList.get(0);
         final String Jdata = object.toJSONObject().toString();
         final JSONArray array = JSON.parseObject(Jdata).getJSONArray("data");
         final JSONObject goodData = array.getJSONObject(0);
@@ -206,7 +202,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     }
 
     private void initBanner() {
-        final AVObject avObject=AVList.get(0);
+        final AVObject avObject = AVList.get(0);
         final String Jdata = avObject.toJSONObject().toString();
         final JSONArray array = JSON.parseObject(Jdata).getJSONArray("banner_pics");
         final List<String> images = new ArrayList<>();
@@ -236,7 +232,6 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     }
 
 
-
     @Override
     public void onAnimationEnd() {
         YoYo.with(new ScaleUpAnimator())
@@ -247,20 +242,20 @@ public class GoodsDetailDelegate extends LatteDelegate implements
         mCircleTextView.setVisibility(View.VISIBLE);
         mCircleTextView.setText(String.valueOf(mShopCount));
         final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
-        query.whereEqualTo("id",mGoodsId);
+        query.whereEqualTo("id", mGoodsId);
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
-            public  void done(List<AVObject> list, AVException e) {
+            public void done(List<AVObject> list, AVException e) {
 
                 AVList.addAll(list);
-                final AVObject avObject=AVList.get(0);
+                final AVObject avObject = AVList.get(0);
                 final String Jdata = avObject.toJSONObject().toString();
                 final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("data");
                 final JSONObject goodData = marray.getJSONObject(0);
-                final int uid=goodData.getInteger("uid");
-                final String name=goodData.getString("name");
-                final String des=goodData.getString("des");
-                final String price=goodData.getString("price");
+                //final int uid = goodData.getInteger("uid");
+                final String name = goodData.getString("name");
+                final String des = goodData.getString("des");
+                final String price = goodData.getString("price");
                 final JSONArray array = JSON.parseObject(Jdata).getJSONArray("banner_pics");
                 final JSONObject content_data = array.getJSONObject(0);
                 final String goodsThumb = content_data.getString("goods_thumb");
@@ -280,39 +275,33 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                         final AVObject data = list.get(0);
                         final String Jdata = data.toJSONObject().toString();
                         final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
-//                        Toast.makeText(getContext(),String.valueOf(cart_list.size()),Toast.LENGTH_LONG).show();
-                        final int goodSize = cart_list.size();
-                        for (int j = 0;  j <  goodSize; j++) {
-                            final JSONObject cart_data = cart_list.getJSONObject(j);
-                            Log.d("fuck",String.valueOf(isExist));
-                            if (cart_data.getInteger("id") == mGoodsId ){
-                                isExist = true;
-                                JSONObject object= cart_list.getJSONObject(mGoodsId-1);
-                                object.put("count",mShopCount);
-                                data.put("shop_cart_data",cart_list);
-                                data.saveInBackground();
-                                break;
+                        if (cart_list != null) {
+                            boolean isExist = false;
+                            final int goodSize = cart_list.size();
+                            for (int j = 0; j < goodSize; j++) {
+                                final JSONObject cart_data = cart_list.getJSONObject(j);
+                                if (cart_data.getInteger("id") == mGoodsId) {
+                                    JSONObject object = cart_list.getJSONObject(j);
+                                    object.put("count", mShopCount);
+                                    data.put("shop_cart_data", cart_list);
+                                    data.saveInBackground();
+                                    isExist = true;
+                                }
                             }
-                            else isExist = false;
-                        }
-                        Log.d("fuck",String.valueOf(isExist));
-                        if(!isExist)
-                        {
+                        } if(cart_list == null) {
                             JSONObject item = new JSONObject();
-                            item.put("thumb",goodsThumb);
-                            item.put("desc",des);
-                            item.put("title",name);
-                            item.put("price",price);
-                            item.put("id",mGoodsId);
-                            item.put("count",mShopCount);
-                            cart_list.add(item);
-                            Toast.makeText(getContext(),String.valueOf(cart_list.size()),Toast.LENGTH_LONG).show();
-                            data.put("shop_cart_data",cart_list);
+                            item.put("thumb", goodsThumb);
+                            item.put("desc", des);
+                            item.put("title", name);
+                            item.put("price", price);
+                            item.put("id", mGoodsId);
+                            item.put("count", mShopCount);
+                            JSONArray cartInfo = new JSONArray();
+                            cartInfo.add(item);
+                            data.put("shop_cart_data", cartInfo);
                             data.saveInBackground();
-                            isExist = true;
                         }
                         LatteLoader.stopLoading();
-                        Toast.makeText(getContext(),String.valueOf(isExist),Toast.LENGTH_LONG).show();
                     }
                 });
             }

@@ -12,6 +12,10 @@ import com.zuimeng.hughfowl.latte.net.interceptors.DebugInterceptor;
 
 public class MyLeanCloudApp extends Application {
 
+    MyLeanCloudApp(){
+
+    }
+
     @Override
      public void onCreate() {
         super.onCreate();

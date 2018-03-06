@@ -257,7 +257,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     }
 
     @Override
-    public void onItemClick(double itemTotalPrice) {
+    public void onItemClick() {
         final double price = mAdapter.getTotalPrice();
         BigDecimal fix = new BigDecimal(price);
         double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();

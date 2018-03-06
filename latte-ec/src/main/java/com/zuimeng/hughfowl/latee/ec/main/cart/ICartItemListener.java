@@ -5,6 +5,6 @@ package com.zuimeng.hughfowl.latee.ec.main.cart;
  */
 
 public interface ICartItemListener {
-    void onItemClick(double itemTotalPrice);
+    void onItemClick( );
 
 }

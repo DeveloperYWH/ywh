@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
@@ -22,21 +20,18 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latte.app.Latte;
-import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleRecyclerAdapter;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Rhapsody on 2018/1/5.
  */
 
-public class ShopCartAdapter extends MultipleRecyclerAdapter  {
-
+public class ShopCartAdapter extends MultipleRecyclerAdapter {
 
     private boolean mIsSelectedAll = false;
     private ICartItemListener mCartItemListener = null;
@@ -51,7 +46,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
     ShopCartAdapter(List<MultipleItemEntity> data) {
         super(data);
         for (MultipleItemEntity entity : data) {
-            final int id = entity.getField(MultipleFields.ID);
+            //final int id = entity.getField(MultipleFields.ID);
             final double price = entity.getField(ShopCartItemFields.PRICE);
             final int count = entity.getField(ShopCartItemFields.COUNT);
             final double total = price * count;
@@ -70,9 +65,9 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
     }
 
     public double getTotalPrice() {
+
         return mTotalPrice;
     }
-
 
 
     @Override
@@ -134,6 +129,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                         }
                     }
                 });
+
                 final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
                 query.whereEqualTo("user_id",
                         String.valueOf(DatabaseManager
@@ -142,68 +138,90 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter  {
                                 .queryBuilder()
                                 .listLazy()
                                 .get(0).getUserId()));
-                //query.whereEqualTo("id",id);
-                query.findInBackground(new FindCallback<AVObject>() {
-                    @Override
-                    public  void done(List<AVObject> list, AVException e) {
-                        final AVObject data = list.get(0);
-                        final String Jdata = data.toJSONObject().toString();
-                        final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
-                        //查询当前商品
-                        final JSONObject good_data = (JSONObject) cart_list.get(id-1);
-                        //添加加减事件
-                        iconMinus.setOnClickListener(new View.OnClickListener() {
-                            private double temp_M_Price = 0.00;
-                            @Override
-                            public void onClick(View v) {
-                                final int currentCount = entity.getField(ShopCartItemFields.COUNT);
-                                if (Integer.parseInt(tvCount.getText().toString()) > 1) {
 
-                                            int countNum = good_data.getInteger("count");
+
+                //添加加减事件
+                iconMinus.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        query.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                final AVObject data = list.get(0);
+
+                                final String Jdata = data.toJSONObject().toString();
+                                final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
+
+                                final int goodsId = entity.getField(MultipleFields.ID);
+                                for (int i = 0; i < cart_list.size(); i++) {
+                                    JSONObject goodsInfo = (JSONObject) cart_list.get(i);
+                                    if (goodsId == goodsInfo.getInteger("id")) {
+
+                                        if (goodsInfo.getInteger("count") > 1) {
+                                            int countNum = goodsInfo.getInteger("count");
                                             countNum--;
                                             tvCount.setText(String.valueOf(countNum));
-                                            ((JSONObject) cart_list.get(id-1)).put("count",countNum);
-                                            data.put("shop_cart_data",cart_list);
+                                            goodsInfo.put("count", countNum);
+                                            data.put("shop_cart_data", cart_list);
                                             data.saveInBackground();
-                                            if (mCartItemListener != null) {
-                                                final double itemTotal = countNum* price;
-
-                                                    mTotalPrice = mTotalPrice - price;
-                                                    mCartItemListener.onItemClick(itemTotal);
-                                                    temp_M_Price = itemTotal;
-                                            }
-
-
+                                        }
+                                    }
                                 }
-                            }
-                        });
-
-                        iconPlus.setOnClickListener(new View.OnClickListener() {
-                            private double temp_P_Price = 0.00;
-                            @Override
-                            public void onClick(View v) {
-                                final int currentCount = entity.getField(ShopCartItemFields.COUNT);
-                                int countNum = good_data.getInteger("count");
-                                countNum++;
-                                tvCount.setText(String.valueOf(countNum));
-                                ((JSONObject) cart_list.get(id - 1)).put("count", countNum);
-                                data.put("shop_cart_data", cart_list);
-                                data.saveInBackground();
-                                //Log.d("count",String.valueOf(countNum));
                                 if (mCartItemListener != null) {
-                                    final double itemTotal = countNum * price;
-                                    //Log.d("itemTal",String.valueOf(itemTotal));
-
-                                    mTotalPrice = mTotalPrice + price;
-                                    mCartItemListener.onItemClick(itemTotal);
-                                    temp_P_Price = itemTotal;
+                                    double totalPrice = 0.00;
+                                    for (int i = 0; i < cart_list.size(); i++) {
+                                        JSONObject goodsInfo = (JSONObject) cart_list.get(i);
+                                        totalPrice = totalPrice + goodsInfo.getInteger("count") *
+                                                goodsInfo.getDouble("price");
+                                    }
+                                    mTotalPrice = totalPrice;
+                                    mCartItemListener.onItemClick();
                                 }
                             }
                         });
                     }
-
                 });
 
+                iconPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        query.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                final AVObject data = list.get(0);
+
+                                final String Jdata = data.toJSONObject().toString();
+                                final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
+
+                                final int goodsId = entity.getField(MultipleFields.ID);
+                                for (int i = 0; i < cart_list.size(); i++) {
+                                    JSONObject goodsInfo = (JSONObject) cart_list.get(i);
+                                    if (goodsId == goodsInfo.getInteger("id")) {
+                                        int countNum = goodsInfo.getInteger("count");
+                                        countNum++;
+                                        tvCount.setText(String.valueOf(countNum));
+                                        goodsInfo.put("count", countNum);
+                                        data.put("shop_cart_data", cart_list);
+                                        data.saveInBackground();
+                                    }
+                                }
+                                if (mCartItemListener != null) {
+                                    double totalPrice = 0.00;
+                                    for (int i = 0; i < cart_list.size(); i++) {
+                                        JSONObject goodsInfo = (JSONObject) cart_list.get(i);
+                                        totalPrice = totalPrice + goodsInfo.getInteger("count") *
+                                                goodsInfo.getDouble("price");
+                                    }
+                                    mTotalPrice = totalPrice;
+                                    mCartItemListener.onItemClick();
+                                }
+                            }
+                        });
+                    }
+                });
                 break;
             default:
                 break;

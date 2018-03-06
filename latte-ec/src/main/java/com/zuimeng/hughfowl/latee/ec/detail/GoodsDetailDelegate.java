@@ -87,7 +87,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
     private int mGoodsId = -1;
     private String mGoodsThumbUrl = null;
     private int mShopCount = 0;
-    private int isExist = 0;
+    private boolean isExist = false;
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .centerCrop()
@@ -103,6 +103,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                 .apply(OPTIONS)
                 .into(animImg);
         BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
+
     }
 
     @OnClick(R2.id.icon_shop_cart)
@@ -276,7 +277,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                         final String Jdata = data.toJSONObject().toString();
                         final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
                         if (cart_list != null) {
-                            isExist = 0;
+                            isExist = false;
                             final int goodSize = cart_list.size();
                             for (int j = 0; j < goodSize; j++) {
                                 final JSONObject cart_data = cart_list.getJSONObject(j);
@@ -285,10 +286,10 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                                     object.put("count", mShopCount);
                                     data.put("shop_cart_data", cart_list);
                                     data.saveInBackground();
-                                    isExist = 1;
+                                    isExist = true;
                                 }
                             }
-                            if (isExist==0) {
+                            if (!isExist) {
                                 JSONObject item = new JSONObject();
                                 item.put("thumb", goodsThumb);
                                 item.put("desc", des);
@@ -320,7 +321,6 @@ public class GoodsDetailDelegate extends LatteDelegate implements
                     }
                 });
             }
-
         });
     }
 }

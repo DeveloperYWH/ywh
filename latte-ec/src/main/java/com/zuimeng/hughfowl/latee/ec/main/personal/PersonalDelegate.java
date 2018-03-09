@@ -18,12 +18,14 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.personal.address.AddressDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.billdate.BillDateDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SettingsDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -158,10 +160,11 @@ public class PersonalDelegate extends BottomItemDelegate {
                 .setText("收货地址")
                 .build();
 
-        final ListBean body_size = new ListBean.Builder()
+        final ListBean bill_date = new ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(3)
-                .setText("身材数据")
+                .setDelegate(new BillDateDelegate())
+                .setText("尾款日历")
                 .build();
 
         final ListBean system = new ListBean.Builder()
@@ -171,10 +174,19 @@ public class PersonalDelegate extends BottomItemDelegate {
                 .setText("系统设置")
                 .build();
 
+        final ListBean my_shop = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(4)
+                .setDelegate(new ShopBottomDelegate())
+                .setText("我的店铺")
+                .build();
+
+
         final List<ListBean> data = new ArrayList<>();
         data.add(address);
-        data.add(body_size);
+        data.add(bill_date);
         data.add(system);
+        data.add(my_shop);
 
         //设置RecyclerView
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());

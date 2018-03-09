@@ -133,7 +133,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="待收货"
+                    android:text="补款中"
                     android:textSize="10sp" />
 
             </LinearLayout>
@@ -160,7 +160,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="待评价"
+                    android:text="待出货"
                     android:textSize="10sp" />
 
             </LinearLayout>
@@ -187,7 +187,34 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="售后"
+                    android:text="待收货"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/ll_comments"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="{fa-comments-o}"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="待评价"
                     android:textSize="10sp" />
 
             </LinearLayout>

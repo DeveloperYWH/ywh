@@ -3,6 +3,7 @@ package com.zuimeng.hughfowl.latee.ec.main;
 import android.graphics.Color;
 
 import com.zuimeng.hughfowl.latee.ec.main.cart.ShopCartDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.ExplorerDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.index.IndexDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.PersonalDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.sort.SortDelegate;
@@ -24,7 +25,7 @@ public class EcBottomDelegate extends BaseBottomDelegate {
         final LinkedHashMap<BottomTabBean, BottomItemDelegate> items = new LinkedHashMap<>();
         items.put(new BottomTabBean("{icon-home-page}", "主页"), new IndexDelegate());
         items.put(new BottomTabBean("{icon-sort}", "分类"), new SortDelegate());
-        items.put(new BottomTabBean("{icon-find-1}", "发现"), new IndexDelegate());
+        items.put(new BottomTabBean("{icon-find-1}", "发现"), new ExplorerDelegate());
         items.put(new BottomTabBean("{icon-shop-cart}", "购物车"), new ShopCartDelegate());
         items.put(new BottomTabBean("{icon-myself}", "我的"), new PersonalDelegate());
         return builder.addItems(items).build();

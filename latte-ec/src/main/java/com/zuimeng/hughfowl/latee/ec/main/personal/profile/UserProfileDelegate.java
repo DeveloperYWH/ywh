@@ -86,7 +86,7 @@ public class UserProfileDelegate extends LatteDelegate {
                         final ListBean name = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(2)
-                                .setText("姓名")
+                                .setText("昵称")
                                 .setDelegate(new NameDelegate())
                                 .setValue(list.get(0).getString("user_name"))
                                 .build();
@@ -104,12 +104,21 @@ public class UserProfileDelegate extends LatteDelegate {
                                 .setValue("未设置生日")
                                 .build();
 
+                        final ListBean body = new ListBean.Builder()
+                                .setItemType(ListItemType.ITEM_NORMAL)
+                                .setId(5)
+                                .setText("身体尺码")
+                                .setValue("三围等")
+                                .build();
+
+
                         final List<ListBean> data = new ArrayList<>();
 
                         data.add(image);
                         data.add(name);
                         data.add(gender);
                         data.add(birth);
+                        data.add(body);
 
                         //设置RecyclerView
                         final LinearLayoutManager manager = new LinearLayoutManager(getContext());

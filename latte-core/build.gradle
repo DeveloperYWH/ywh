@@ -152,5 +152,13 @@ dependencies {
     compile 'com.sina.weibo.sdk:core:4.1.4:openDefaultRelease@aar'
     //日历控件
     compile 'com.kelin.mvvmlight:library:1.0.0'
+    //timeline
+    //compile 'com.github.vipulasri:timelineview:1.0.6'
+
+    //动态list
+    compile 'com.borjabravo:focusresize:1.0.0'
+    //漂浮按钮
+    compile 'com.github.clans:fab:1.6.4'
+
 
 }

@@ -47,5 +47,90 @@
             android:textColor="@color/app_main"
             android:textSize="20sp" />
     </android.support.v7.widget.LinearLayoutCompat>
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+
+            android:layout_marginRight="10dp">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bod_red_flower"
+                android:text="你的尺寸" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/my_size"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="a:\nb:\nc:\n" />
+        </android.support.v7.widget.LinearLayoutCompat>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:textAlignment="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/bod_red_flower"
+                android:text="商品尺寸" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/sale_size"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="a:\nb:\nc:\n" />
+        </android.support.v7.widget.LinearLayoutCompat>
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1.75">
+            <Button
+                android:id="@+id/plus"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_weight="0.3"
+                android:paddingRight="3dp"
+                android:textAlignment="center"
+                android:text="+"
+                android:background="@color/bod_red_flower"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/constant_size"
+                android:paddingLeft="5dp"
+                android:text="M"
+                android:textAlignment="center"
+                android:layout_weight="1"
+                />
+            <Button
+                android:id="@+id/minus"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:paddingRight="3dp"
+                android:background="@color/bod_red_flower"
+                android:textAlignment="center"
+                android:text="-"
+                android:layout_weight="0.3"/>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.LinearLayoutCompat>
+
 
 </android.support.v7.widget.LinearLayoutCompat>

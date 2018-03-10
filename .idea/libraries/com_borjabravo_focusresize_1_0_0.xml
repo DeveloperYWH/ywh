@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.borjabravo:focusresize-1.0.0">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/focusresize-1.0.0.aar/ae1b70a78f13c3ddb7d6bba1bac95b9f/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/focusresize-1.0.0.aar/ae1b70a78f13c3ddb7d6bba1bac95b9f/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.borjabravo/focusresize/1.0.0/1b2d07b3d5f1dd4ff4cdfb6e642824275b0243c7/focusresize-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

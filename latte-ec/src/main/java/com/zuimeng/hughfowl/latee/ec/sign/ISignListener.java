@@ -9,5 +9,4 @@ public interface ISignListener {
 
     void onSignUpSuccess();
 
-    void onShopSignInSuccess();
 }

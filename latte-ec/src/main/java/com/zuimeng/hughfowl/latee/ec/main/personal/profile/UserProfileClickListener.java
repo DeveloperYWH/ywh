@@ -170,6 +170,9 @@ public class UserProfileClickListener extends SimpleClickListener {
                 });
                 dateDialogUtil.showDialog(DELEGATE.getContext());
                 break;
+            case 5:
+
+                break;
             default:
                 break;
         }

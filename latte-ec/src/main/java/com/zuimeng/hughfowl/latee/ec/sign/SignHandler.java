@@ -47,8 +47,8 @@ public class SignHandler {
         //已经注册并登录成功了
         AccountManager.setSignState();
         signListener.onSignInSuccess();
-        signListener.onShopSignInSuccess();
     }
+
     public static void onQQSignIn( ISignListener signListener) {
 //
 //        final long userId = Long.parseLong(userprofile.getMobilePhoneNumber());

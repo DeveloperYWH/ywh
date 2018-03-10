@@ -81,11 +81,6 @@ public class ExampleActivity extends ProxyActivity implements
         public void onSignUpSuccess() {
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
         }
-        @Override
-        public void onShopSignInSuccess() {
-            Toast.makeText(this, "登录成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
-            getSupportDelegate().start(new ShopBottomDelegate());
-        }
 
         @Override
         public void onLauncherFinsh(OnLauncherFinshTag tag) {

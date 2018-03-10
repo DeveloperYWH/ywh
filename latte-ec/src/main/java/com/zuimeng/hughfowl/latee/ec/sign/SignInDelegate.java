@@ -161,10 +161,6 @@ public class SignInDelegate extends LatteDelegate {
     void onClickPhoneSignIn() {
         getSupportDelegate().start(new PhoneSignInDelegate());
     }
-    @OnClick(R2.id.tv_shop_enter)
-    void onClickShop(){
-        getSupportDelegate().start(new ShopSignInDelegate());
-    }
 
     private boolean checkForm() {
         final String name = mName.getText().toString();

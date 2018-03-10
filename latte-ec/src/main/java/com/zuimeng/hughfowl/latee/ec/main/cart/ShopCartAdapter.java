@@ -20,11 +20,13 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latte.app.Latte;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleRecyclerAdapter;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleViewHolder;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -51,6 +53,8 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
             final int count = entity.getField(ShopCartItemFields.COUNT);
             final double total = price * count;
             mTotalPrice = mTotalPrice + total;
+            BigDecimal fix = new BigDecimal(mTotalPrice);
+            mTotalPrice = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         }
         //添加购物测item布局
         addItemType(ShopCartItemType.SHOP_CART_ITEM, R.layout.item_shop_cart);
@@ -139,13 +143,12 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                 .listLazy()
                                 .get(0).getUserId()));
 
-
                 //添加加减事件
                 iconMinus.setOnClickListener(new View.OnClickListener() {
 
                     @Override
                     public void onClick(View v) {
-
+                        LatteLoader.showLoading(v.getContext());
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
@@ -178,6 +181,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                     }
                                     mTotalPrice = totalPrice;
                                     mCartItemListener.onItemClick();
+                                    LatteLoader.stopLoading();
                                 }
                             }
                         });
@@ -187,12 +191,11 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                 iconPlus.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        LatteLoader.showLoading(v.getContext());
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
                                 final AVObject data = list.get(0);
-
                                 final String Jdata = data.toJSONObject().toString();
                                 final JSONArray cart_list = JSON.parseObject(Jdata).getJSONArray("shop_cart_data");
 
@@ -217,6 +220,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                     }
                                     mTotalPrice = totalPrice;
                                     mCartItemListener.onItemClick();
+                                    LatteLoader.stopLoading();
                                 }
                             }
                         });

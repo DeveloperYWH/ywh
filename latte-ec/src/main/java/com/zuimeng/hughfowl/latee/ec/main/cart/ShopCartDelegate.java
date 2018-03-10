@@ -9,9 +9,13 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ViewStubCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
@@ -38,14 +42,8 @@ import butterknife.OnClick;
 
 public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener {
 
-    private List<AVObject> AVList = new ArrayList<>();
-
     private ShopCartAdapter mAdapter = null;
-    //购物车数量标记
-    private int mCurrentCount = 0;
-    private int mTotalCount = 0;
     private double mTotalPrice = 0.00;
-
 
     @BindView(R2.id.rv_shop_cart)
     RecyclerView mRecyclerView = null;
@@ -78,56 +76,100 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     @OnClick(R2.id.tv_top_shop_cart_remove_selected)
     void onClickRemoveSelectedItem() {
+
+        final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
         LatteLoader.showLoading(getContext());
-        final List<MultipleItemEntity> data = mAdapter.getData();
-        //要删除的数据
-        final List<Integer> deleteEntities = new ArrayList<>();
-        for (MultipleItemEntity entity : data) {
-            final boolean isSelected = entity.getField(ShopCartItemFields.IS_SELECTED);
-            if (isSelected) {
-                deleteEntities.add(data.indexOf(entity));
+        query.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0).getUserId()));
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+
+                double totalPrice = 0.00;
+                AVObject cartData = list.get(0);
+                String cartDataStr = cartData.toJSONObject().toString();
+                JSONArray cartList = JSON.parseObject(cartDataStr).getJSONArray("shop_cart_data");
+                final List<MultipleItemEntity> data = mAdapter.getData();
+                //要删除的数据
+                final List<MultipleItemEntity> deleteEntities = new ArrayList<>();
+                for (MultipleItemEntity entity : data) {
+                    final boolean isSelected = entity.getField(ShopCartItemFields.IS_SELECTED);
+                    if (isSelected) {
+                        deleteEntities.add(entity);
+                    }
+                }
+                if (deleteEntities.size() > 0) {
+                    for (int i = 0; i < deleteEntities.size(); i++) {
+                        int DataCount = data.size();
+                        int currentPosition = deleteEntities.get(i).getField(ShopCartItemFields.POSITION);
+                        if (currentPosition < DataCount) {
+                            cartList.remove(currentPosition);
+                            Log.d("www", String.valueOf(currentPosition));
+                            cartData.put("shop_cart_data", cartList);
+                            for (; currentPosition < DataCount - 1; currentPosition++) {
+                                int rawItemPos = data.get(currentPosition).getField(ShopCartItemFields.POSITION);
+                                data.get(currentPosition).setField(ShopCartItemFields.POSITION, rawItemPos - 1);
+                            }
+                        }
+                    }
+                    cartData.saveInBackground();
+                    for (int i = 0; i < cartList.size(); i++) {
+                        JSONObject goodsInfo = (JSONObject) cartList.get(i);
+                        totalPrice = totalPrice + goodsInfo.getInteger("count") *
+                                goodsInfo.getDouble("price");
+                    }
+                    BigDecimal fix = new BigDecimal(totalPrice);
+                    double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                    mTvTotalPrice.setText(String.valueOf(fix_price));
+
+                    final List<MultipleItemEntity> Data = new ShopCartDataConverter()
+                            .setList(list)
+                            .convert();
+                    mAdapter.refresh(Data);
+                    checkItemCount();
+                }
+                LatteLoader.stopLoading();
             }
-        }
-        int i = 0;
-        for (int entity : deleteEntities) {
-            AVList.remove((entity - i));
-            i++;
-        }
-        final ArrayList<MultipleItemEntity> mdata =
-                new ShopCartDataConverter().setList(AVList).convert();
-
-
-        mAdapter = new ShopCartAdapter(mdata);
-        mAdapter.setCartItemListener(ShopCartDelegate.this);
-        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
-        mTotalPrice = mAdapter.getTotalPrice();
-        mTvTotalPrice.setText(String.valueOf(mTotalPrice));
-        if (mAdapter.getItemCount() != 0) {
-            checkItemCount();
-        }
-        LatteLoader.stopLoading();
+        });
     }
 
     @OnClick(R2.id.tv_top_shop_cart_clear)
     void onClickClear() {
-        AVList.clear();
-        final ArrayList<MultipleItemEntity> mdata =
-                new ShopCartDataConverter().setList(AVList).convert();
 
-
-        mAdapter = new ShopCartAdapter(mdata);
-        mAdapter.setCartItemListener(ShopCartDelegate.this);
-        final LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mAdapter);
-        mTotalPrice = mAdapter.getTotalPrice();
-        mTvTotalPrice.setText(String.valueOf(mTotalPrice));
-        //if (mAdapter.getItemCount() != 0) {
-        checkItemCount();
-        mButton.setClickable(false);
-        //}
+        final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
+        query.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0).getUserId()));
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                AVObject cartList = list.get(0);
+                String cartData = list.get(0).toJSONObject().toString();
+                JSONArray goodsInfo = JSON.parseObject(cartData).getJSONArray("shop_cart_data");
+                goodsInfo.clear();
+                cartList.put("shop_cart_data", goodsInfo);
+                cartList.saveInBackground();
+                mAdapter.getData().clear();
+                mAdapter.notifyDataSetChanged();
+                for (int i = 0; i < goodsInfo.size(); i++) {
+                    mAdapter.remove(i);
+                }
+                mTotalPrice = 0.00;
+                BigDecimal fix = new BigDecimal(mTotalPrice);
+                double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                mTvTotalPrice.setText(String.valueOf(fix_price));
+                checkItemCount();
+            }
+        });
     }
 
     @OnClick(R2.id.tv_shop_cart_pay)
@@ -137,6 +179,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
 
     //创建订单，注意，和支付是没有关系的
+
     private void createOrder() {
 
         final AVObject mOrder = new AVObject("Order_test");
@@ -190,7 +233,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
             final View stubView = mStubNoItem.inflate();
 
             final AppCompatTextView tvToBuy =
-                    (AppCompatTextView) stubView.findViewById(R.id.tv_stub_to_buy);
+                    stubView.findViewById(R.id.tv_stub_to_buy);
             tvToBuy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -232,10 +275,10 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                AVList.addAll(list);
                 final ArrayList<MultipleItemEntity> data =
-                        new ShopCartDataConverter().setList(AVList).convert();
-
+                        new ShopCartDataConverter()
+                                .setList(list)
+                                .convert();
 
                 mAdapter = new ShopCartAdapter(data);
                 mAdapter.setCartItemListener(ShopCartDelegate.this);
@@ -245,14 +288,11 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 mTotalPrice = mAdapter.getTotalPrice();
                 mTvTotalPrice.setText(String.valueOf(mTotalPrice));
                 checkItemCount();
-                if(mAdapter.getItemCount()!=0){
+                if (mAdapter.getItemCount() != 0) {
                     mButton.setClickable(true);
                 }
                 LatteLoader.stopLoading();
-
-
             }
-
         });
     }
 

@@ -9,7 +9,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ViewStubCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -108,8 +107,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                         int DataCount = data.size();
                         int currentPosition = deleteEntities.get(i).getField(ShopCartItemFields.POSITION);
                         if (currentPosition < DataCount) {
+                            mAdapter.remove(currentPosition);
                             cartList.remove(currentPosition);
-                            Log.d("www", String.valueOf(currentPosition));
                             cartData.put("shop_cart_data", cartList);
                             for (; currentPosition < DataCount - 1; currentPosition++) {
                                 int rawItemPos = data.get(currentPosition).getField(ShopCartItemFields.POSITION);
@@ -126,11 +125,11 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                     BigDecimal fix = new BigDecimal(totalPrice);
                     double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                     mTvTotalPrice.setText(String.valueOf(fix_price));
-
-                    final List<MultipleItemEntity> Data = new ShopCartDataConverter()
-                            .setList(list)
-                            .convert();
-                    mAdapter.refresh(Data);
+                    for(int i = 0;i<cartList.size();i++){
+                        JSONObject goodsInfo = (JSONObject) cartList.get(i);
+                        mAdapter.getData().get(i).setField(ShopCartItemFields.COUNT,
+                                goodsInfo.getInteger("count"));
+                    }
                     checkItemCount();
                 }
                 LatteLoader.stopLoading();

@@ -12,7 +12,7 @@
         <!--头像部分-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="130dp"
             android:background="@color/orange_dark">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -22,6 +22,15 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="13dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="15dp"
+                android:text="TextView" />
         </RelativeLayout>
 
 
@@ -47,7 +56,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-credit-card}"
+                    android:text="1"
                     android:textSize="20sp" />
 
                 <TextView
@@ -74,7 +83,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-truck}"
+                    android:text="2"
                     android:textSize="20sp" />
 
                 <TextView
@@ -102,7 +111,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-clone}"
+                    android:text="3"
                     android:textSize="20sp" />
 
                 <TextView
@@ -129,7 +138,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-comments-o}"
+                    android:text="4"
                     android:textSize="20sp" />
 
                 <TextView

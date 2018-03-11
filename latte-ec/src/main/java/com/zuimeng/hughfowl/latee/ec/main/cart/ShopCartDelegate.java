@@ -261,7 +261,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-
         final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
         LatteLoader.showLoading(getContext());
         query.whereEqualTo("user_id",

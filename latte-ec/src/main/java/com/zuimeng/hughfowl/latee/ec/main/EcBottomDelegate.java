@@ -1,6 +1,8 @@
 package com.zuimeng.hughfowl.latee.ec.main;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.view.View;
 
 import com.zuimeng.hughfowl.latee.ec.main.cart.ShopCartDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.ExplorerDelegate;
@@ -39,5 +41,17 @@ public class EcBottomDelegate extends BaseBottomDelegate {
     @Override
     public int setClickedColor() {
         return Color.parseColor("#b82328");
+    }
+
+    @SuppressLint("ResourceAsColor")
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        final int tag = (int) v.getTag();
+        if (tag == 3) {
+            EcBottomDelegate delegate = new EcBottomDelegate();
+            delegate.setFlag(3);
+            getSupportDelegate().replaceFragment(delegate, false);
+        }
     }
 }

@@ -14,7 +14,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.DefaultTransformer;
 import com.alibaba.fastjson.JSON;
@@ -108,11 +107,9 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     @OnClick(R2.id.icon_shop_cart)
     void onClickShopCart() {
-        Toast.makeText(getContext(), "切换到购物车", Toast.LENGTH_LONG).show();
         EcBottomDelegate delegate = new EcBottomDelegate();
         delegate.setFlag(3);
         getSupportDelegate().replaceFragment(delegate, false);
-
     }
 
 

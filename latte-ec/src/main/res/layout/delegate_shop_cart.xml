@@ -126,7 +126,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center|left"
-                android:text="￥0.01"
+                android:text="0.0"
                 android:textColor="@color/orange_dark"
                 android:textSize="20sp" />
         </android.support.v7.widget.LinearLayoutCompat>

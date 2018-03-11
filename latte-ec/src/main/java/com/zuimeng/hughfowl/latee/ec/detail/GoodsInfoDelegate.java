@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.util.Log;
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
@@ -144,7 +145,8 @@ public class GoodsInfoDelegate extends LatteDelegate {
                 final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("user_size");
                 final JSONObject goodData = marray.getJSONObject(0);
                 String usersize=goodData.getString("my_size");
-                if (usersize.length()==0)
+                Log.d("length",String.valueOf(usersize.length()));
+                if (usersize.length()==20)
                     userSize.setText("快去添加你的尺码吧！");
                 else
                     userSize.setText(usersize);

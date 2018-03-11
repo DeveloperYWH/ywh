@@ -19,6 +19,7 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.NameDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SizeDelegate;
 import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
@@ -108,6 +109,7 @@ public class UserProfileDelegate extends LatteDelegate {
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(5)
                                 .setText("身体尺码")
+                                .setDelegate(new SizeDelegate())
                                 .setValue("三围等")
                                 .build();
 

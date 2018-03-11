@@ -171,7 +171,8 @@ public class UserProfileClickListener extends SimpleClickListener {
                 dateDialogUtil.showDialog(DELEGATE.getContext());
                 break;
             case 5:
-
+                final LatteDelegate sizeDelegate = bean.getDelegate();
+                DELEGATE.getSupportDelegate().start(sizeDelegate);
                 break;
             default:
                 break;

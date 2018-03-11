@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_weight="0.3"
-                android:paddingRight="3dp"
+                android:layout_marginRight="3dp"
                 android:textAlignment="center"
                 android:text="+"
                 android:background="@color/bod_red_flower"/>
@@ -124,7 +124,7 @@
                 android:id="@+id/minus"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:paddingRight="3dp"
+                android:layout_marginRight="3dp"
                 android:background="@color/bod_red_flower"
                 android:textAlignment="center"
                 android:text="-"

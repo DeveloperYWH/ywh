@@ -1,7 +1,5 @@
 package com.zuimeng.hughfowl.latee.ec.main.personal;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +12,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.bumptech.glide.Glide;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
@@ -26,14 +25,10 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SettingsDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.CheckDelegate;
-import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +46,7 @@ public class PersonalDelegate extends BottomItemDelegate {
     @BindView(R2.id.rv_personal_setting)
     RecyclerView mRvSettings = null;
     @BindView(R2.id.img_user_avatar)
-    CircleImageView mcircleImageView = null;
+    CircleImageView mCircleImageView = null;
     @BindView(R2.id.user_name)
     TextView mtextView = null;
 
@@ -73,7 +68,7 @@ public class PersonalDelegate extends BottomItemDelegate {
     void onClickAvatar() {
         getParentDelegate().getSupportDelegate().start(new UserProfileDelegate());
     }
-    
+
     @OnClick(R2.id.tv_all_order)
     void onClickAllOrder() {
         mArgs.putString(ORDER_TYPE, "all");
@@ -89,9 +84,7 @@ public class PersonalDelegate extends BottomItemDelegate {
 
 
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-
-
+    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull final View rootView) {
         //获取头像
         final AVQuery<AVObject> query = new AVQuery<>("User_avater");
         LatteLoader.showLoading(getContext());
@@ -107,30 +100,15 @@ public class PersonalDelegate extends BottomItemDelegate {
             @Override
             public void done(final List<AVObject> list, AVException e) {
 
-                new Thread(new Runnable(){
-                    @Override
-                    public void run() {
-                        URL url = null;
-                        try {
-                            url = new URL((list.get(0).getAVFile("image").getUrl()));
-
-                            try {
-                                mcircleImageView.setImageBitmap(BitmapFactory.decodeStream(url.openStream()));
-                                LatteLoader.stopLoading();
-                            } catch (IOException e1) {
-                                e1.printStackTrace();
-                            }
-
-                        } catch (MalformedURLException e1) {
-                            e1.printStackTrace();
-                        }
-
-
-                    }
-                }).start();
-
-
-
+                try {
+                    URL url = new URL((list.get(0).getAVFile("image").getUrl()));
+                    Glide.with(rootView)
+                            .load(url)
+                            .into(mCircleImageView);
+                    LatteLoader.stopLoading();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
 
@@ -148,8 +126,7 @@ public class PersonalDelegate extends BottomItemDelegate {
         query_name.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                //noinspection ResultOfMethodCallIgnored
-                mtextView.setText( list.get(0).getString("user_name").toCharArray(),0,list.get(0).getString("user_name").toCharArray().length);
+                mtextView.setText(list.get(0).getString("user_name").toCharArray(), 0, list.get(0).getString("user_name").toCharArray().length);
             }
         });
 
@@ -196,16 +173,4 @@ public class PersonalDelegate extends BottomItemDelegate {
         mRvSettings.setAdapter(adapter);
         mRvSettings.addOnItemTouchListener(new PersonalClickListener(this));
     }
-//
-//    public Bitmap returnBitMap(String url){
-//        Bitmap bitmap = null;
-//        try {
-//            //加载一个网络图片
-//            InputStream is = new URL(url).openStream();
-//            bitmap = BitmapFactory.decodeStream(is);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return bitmap;
-//    }
 }

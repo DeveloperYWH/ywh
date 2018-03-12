@@ -102,7 +102,7 @@ public class UserProfileDelegate extends LatteDelegate {
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(4)
                                 .setText("生日")
-                                .setValue("未设置生日")
+                                .setValue(list.get(0).getString("user_birth"))
                                 .build();
 
                         final ListBean body = new ListBean.Builder()

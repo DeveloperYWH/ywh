@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
@@ -20,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
@@ -46,6 +48,26 @@ public class UserProfileClickListener extends SimpleClickListener {
 
     public UserProfileClickListener(UserProfileDelegate DELEGATE) {
         this.DELEGATE = DELEGATE;
+    }
+
+    private void setwhich(){
+        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
+        query_name.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0)
+                        .getUserId()));
+        query_name.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                final AVObject avObject = list.get(0);
+                String Jdata=avObject.toJSONObject().toString();
+                final String marray = JSON.parseObject(Jdata).getString("user_gender");
+            }
+        });
     }
 
     @Override
@@ -153,6 +175,23 @@ public class UserProfileClickListener extends SimpleClickListener {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         final TextView textView = view.findViewById(R.id.tv_arrow_value);
+                        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
+                        query_name.whereEqualTo("user_id",
+                                String.valueOf(DatabaseManager
+                                        .getInstance()
+                                        .getDao()
+                                        .queryBuilder()
+                                        .listLazy()
+                                        .get(0)
+                                        .getUserId()));
+                        query_name.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                final AVObject avObject = list.get(0);
+                                avObject.put("user_gender",textView.getText());
+                                avObject.saveInBackground();
+                            }
+                        });
                         textView.setText(mGenders[which]);
                         mWhich = which;
                         dialog.cancel();
@@ -163,8 +202,25 @@ public class UserProfileClickListener extends SimpleClickListener {
                 final DateDialogUtil dateDialogUtil = new DateDialogUtil();
                 dateDialogUtil.setDateListener(new DateDialogUtil.IDateListener() {
                     @Override
-                    public void onDateChange(String date) {
+                    public void onDateChange(final String date) {
                         final TextView textView = view.findViewById(R.id.tv_arrow_value);
+                        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
+                        query_name.whereEqualTo("user_id",
+                                String.valueOf(DatabaseManager
+                                        .getInstance()
+                                        .getDao()
+                                        .queryBuilder()
+                                        .listLazy()
+                                        .get(0)
+                                        .getUserId()));
+                        query_name.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                final AVObject avObject = list.get(0);
+                                avObject.put("user_birth",date);
+                                avObject.saveInBackground();
+                            }
+                        });
                         textView.setText(date);
                     }
                 });

@@ -11,20 +11,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.github.clans.fab.FloatingActionButton
-        android:id="@+id/fab"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="160dp"
-        android:src="@drawable/ic_menu"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="10dp"
+        fab:menu_icon="@drawable/ic_star"
+        fab:menu_animationDelayPerItem="0"
+        fab:menu_colorNormal="#43A047"
+        fab:menu_colorPressed="#2E7D32"
+        fab:menu_colorRipple="#1B5E20"
+        fab:menu_labels_maxLines="2"
+        fab:menu_labels_ellipsize="end">
 
-        fab:fab_colorNormal="@color/bod_jiezi"
-        fab:fab_colorPressed="@color/bod_red_flower"
-        fab:fab_colorRipple="@color/bod_weibo"
-        />
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="Menu item 1"
+            style="@style/MenuButtonsSmall.Green" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_label="Menu item 2"
+            style="@style/MenuButtonsSmall.Green" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_edit"
+            fab:fab_label=""
+            style="@style/MenuButtonsSmall.Green" />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 
 </RelativeLayout>

@@ -1,17 +1,29 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.library.FocusResizeAdapter;
 import com.zuimeng.hughfowl.latee.ec.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,11 +125,19 @@ public class CustomAdapter extends FocusResizeAdapter<RecyclerView.ViewHolder> {
         fill((CustomViewHolder) holder, customObject);
     }
 
-    private void fill(CustomViewHolder holder, CustomObject customObject) {
+    @SuppressLint("StaticFieldLeak")
+    private void fill(final CustomViewHolder holder, final CustomObject customObject) {
         holder.titleTextView.setText(customObject.getTitle());
         holder.subtitleTextView.setText(customObject.getSubTitle());
-        holder.image.setImageResource(customObject.getDrawable());
+        Glide.with(holder.image)
+                .load(customObject.getDrawable())
+                .into(holder.image);
+        //        holder.image.setImageBitmap(BitmapFactory.decodeStream(customObject.getDrawable().openStream()));
     }
+
+
+
+
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
 

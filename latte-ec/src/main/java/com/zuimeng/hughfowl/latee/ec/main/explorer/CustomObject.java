@@ -1,5 +1,8 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * Created by hughfowl on 2018/3/10.
  */
@@ -8,9 +11,9 @@ public class CustomObject {
 
     String title;
     String subTitle;
-    int drawable;
+    String drawable;
 
-    public CustomObject(String title, String subTitle, int drawable) {
+    public CustomObject(String title, String subTitle, String drawable) {
         this.title = title;
         this.subTitle = subTitle;
         this.drawable = drawable;
@@ -32,11 +35,11 @@ public class CustomObject {
         this.subTitle = subTitle;
     }
 
-    public int getDrawable() {
+    public String getDrawable() {
         return drawable;
     }
 
-    public void setDrawable(int drawable) {
+    public void setDrawable(String drawable) {
         this.drawable = drawable;
     }
 

@@ -20,6 +20,8 @@ import com.avos.avoscloud.FindCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.PersonalDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
@@ -67,14 +69,15 @@ public class SizeDelegate extends LatteDelegate {
                 final String Jdata = avObject.toJSONObject().toString();
                 final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("user_size");
                 final  JSONObject sizeData = marray.getJSONObject(0);
-                sizeData.put("my_size","胸围:"+mNameText1.getText()+"\n"+"腰围:"+mNameText2.getText()+"\n"+"臀围:"+mNameText4.getText()+"\n"+"身高:"+mNameText3.getText()+"\n"+"鞋码:"+mNameText5.getText()+"\n");
+                sizeData.put("my_size","胸围:"+mNameText1.getText()+"\n"+"腰围:"+mNameText2.getText()+"\n"+"臀围:"+mNameText3.getText()+"\n"+"身高:"+mNameText4.getText()+"\n"+"鞋码:"+mNameText5.getText()+"\n");
                 marray.set(0,sizeData);
                 avObject.put("user_size",marray);
                 avObject.saveInBackground();
+                getSupportDelegate().replaceFragment(new EcBottomDelegate(),false);
                 LatteLoader.stopLoading();
             }
         });
-        Toast.makeText(getContext(),"添加成功！",Toast.LENGTH_LONG);
+        Toast.makeText(this.getContext(),"添加成功！",Toast.LENGTH_LONG).show();
     }
     @Override
     public Object setLayout() {
@@ -83,6 +86,65 @@ public class SizeDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-
+        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
+        LatteLoader.showLoading(getContext());
+        query_name.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0)
+                        .getUserId()));
+        query_name.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                final AVObject avObject = list.get(0);
+                final String Jdata = avObject.toJSONObject().toString();
+                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("user_size");
+                final  JSONObject sizeData = marray.getJSONObject(0);
+                final String size=sizeData.getString("my_size");
+                if(size.length()>20) {
+                    String[] parts = size.split("\n");
+                    String[] data;
+                    for (int i = 0; i < parts.length; i++) {
+                        data = parts[i].split(":");
+                        switch (i) {
+                            case 0:
+                                if(data.length!=1)
+                                mNameText1.setText(data[1]);
+                                else
+                                    mNameText1.setText("");
+                                break;
+                            case 1:
+                                if(data.length!=1)
+                                mNameText2.setText(data[1]);
+                                else
+                                    mNameText2.setText("");
+                                break;
+                            case 2:
+                                if(data.length!=1)
+                                mNameText3.setText(data[1]);
+                                else
+                                    mNameText3.setText("");
+                                break;
+                            case 3:
+                                if(data.length!=1)
+                                mNameText4.setText(data[1]);
+                                else
+                                    mNameText4.setText("");
+                                break;
+                            case 4:
+                                if(data.length!=1)
+                                mNameText5.setText(data[1]);
+                                else
+                                    mNameText5.setText("");
+                                break;
+                        }
+                    }
+                }
+                LatteLoader.stopLoading();
+            }
+        });
     }
 }

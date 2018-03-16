@@ -13,7 +13,16 @@ public enum EcIcons implements Icon{
     icon_message('\ue6ba'),
     icon_shop_cart('\ue603'),
     icon_sort('\ue605'),
-    icon_myself('\ue604');
+    icon_myself('\ue604'),
+    icon_ali_pay('\ue665'),
+    icon_extra_money('\ue607'),
+    icon_waiting_for_pay('\ue608'),
+    icon_waiting_for_comment('\ue609'),
+    icon_waiting_for_delivery('\ue60a'),
+    icon_take_delivering('\ue60b'),
+    icon_pitch_on('\ue60e'),
+    icon_plus('\ue60c'),
+    icon_minus('\ue60d');
     private char character;
 
     EcIcons(char character){

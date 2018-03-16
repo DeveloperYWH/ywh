@@ -96,7 +96,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-credit-card}"
+                    android:text="{icon-waiting-for-pay}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -123,7 +123,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-truck}"
+                    android:text="{icon-extra-money}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-clone}"
+                    android:text="{icon-take-delivering}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -178,7 +178,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-comments-o}"
+                    android:text="{icon-waiting-for-delivery}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -205,7 +205,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:text="{fa-comments-o}"
+                    android:text="{icon-waiting-for-comment}"
                     android:textSize="20sp" />
 
                 <TextView

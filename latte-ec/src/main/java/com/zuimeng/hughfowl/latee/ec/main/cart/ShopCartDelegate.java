@@ -24,13 +24,19 @@ import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.pay.FastPay;
+import com.zuimeng.hughfowl.latee.ec.pay.IAliPayResultListener;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
+import com.zuimeng.hughfowl.latte.net.RestClient;
+import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
+import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -39,7 +45,7 @@ import butterknife.OnClick;
  * Created by Rhapsody on 2018/1/5.
  */
 
-public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener {
+public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener,IAliPayResultListener {
 
     private ShopCartAdapter mAdapter = null;
     private double mTotalPrice = 0.00;
@@ -173,13 +179,16 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     @OnClick(R2.id.tv_shop_cart_pay)
     void onClickPay() {
-        //createOrder();
+        createOrder();
     }
 
 
     //创建订单，注意，和支付是没有关系的
 
     private void createOrder() {
+
+        final String orderUrl = "你的生成订单的API";
+        final WeakHashMap<String, Object> orderParams = new WeakHashMap<>();
 
         final AVObject mOrder = new AVObject("Order_test");
 
@@ -199,7 +208,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         mOrder.saveInBackground();
 
 
-        /*
         RestClient.builder()
                 .url(orderUrl)
                 .loader(getContext())
@@ -210,17 +218,14 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                         //进行具体的支付
                         LatteLogger.d("ORDER", response);
                         final int orderId = JSON.parseObject(response).getInteger("result");
-                        FastPay.create(ShopCartDelegate.this)
+                        FastPay.creat(ShopCartDelegate.this)
                                 .setPayResultListener(ShopCartDelegate.this)
                                 .setOrderId(orderId)
-                                .beginPayDialog();
+                                .beginDialog();
                     }
                 })
                 .build()
                 .post();
-
-               */
-
     }
 
 
@@ -300,5 +305,30 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         BigDecimal fix = new BigDecimal(price);
         double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         mTvTotalPrice.setText(String.valueOf(fix_price));
+    }
+
+    @Override
+    public void onPaySuccess() {
+
+    }
+
+    @Override
+    public void onPaying() {
+
+    }
+
+    @Override
+    public void onPayFail() {
+
+    }
+
+    @Override
+    public void onPayCancel() {
+
+    }
+
+    @Override
+    public void onPayConnectError() {
+
     }
 }

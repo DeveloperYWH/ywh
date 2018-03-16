@@ -9,7 +9,6 @@ import android.widget.Toast;
 import com.avos.avoscloud.PushService;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
-import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.sign.ISignListener;
 import com.zuimeng.hughfowl.latee.ec.sign.SignUpDelegate;
 import com.zuimeng.hughfowl.latte.activities.ProxyActivity;

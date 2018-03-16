@@ -14,7 +14,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp"
         android:gravity="center"
-        android:text="{fa-check-circle}"
+        android:text="{icon-pitch-on}"
         android:textSize="30sp"
         android:textColor="@android:color/darker_gray"
         tools:ignore="HardcodedText,RtlHardcoded" />
@@ -77,7 +77,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="{fa-minus-square-o}"
+            android:text="{icon-minus}"
             android:textSize="35sp"
             tools:ignore="HardcodedText" />
 
@@ -95,7 +95,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:gravity="center"
-            android:text="{fa-plus-square-o}"
+            android:text="{icon-plus}"
             android:textSize="35sp"
             tools:ignore="HardcodedText" />
 

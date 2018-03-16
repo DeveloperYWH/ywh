@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.joanzapata.iconify.widget.IconButton;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
@@ -22,6 +23,7 @@ import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by hughfowl on 2018/1/23.
@@ -35,6 +37,11 @@ public class AddressDelegate extends LatteDelegate{
     @Override
     public Object setLayout() {
         return R.layout.delegate_address;
+    }
+
+    @OnClick(R2.id.icon_address_add)
+    void onClickAddIcon() {
+        getSupportDelegate().start(new AddressAddDelegate());
     }
 
     @Override

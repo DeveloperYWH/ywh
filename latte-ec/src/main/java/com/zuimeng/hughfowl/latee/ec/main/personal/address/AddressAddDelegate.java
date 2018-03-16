@@ -1,9 +1,10 @@
-package com.zuimeng.hughfowl.latee.ec.main.personal.settings;
+package com.zuimeng.hughfowl.latee.ec.main.personal.address;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +19,6 @@ import com.avos.avoscloud.FindCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
-import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -32,21 +31,20 @@ import butterknife.OnClick;
  * Created by Rhapsody
  */
 
-public class NameDelegate extends LatteDelegate {
+public class AddressAddDelegate extends LatteDelegate {
 
-    @BindView(R2.id.text_name_submit)
-    TextView mNameText = null;
-    @BindView(R2.id.btn_name_submit)
+    @BindView(R2.id.info1)
+    TextView mNameText1 = null;
+    @BindView(R2.id.info2)
+    TextView mNameText2 = null;
+    @BindView(R2.id.info3)
+    TextView mNameText3 = null;
+    @BindView(R2.id.btn_info_submit)
     AppCompatButton mNameBtn = null;
 
-    @Override
-    public Object setLayout() {
-        return R.layout.delegate_name;
-    }
-
-    @OnClick(R2.id.btn_name_submit)
+    @OnClick(R2.id.btn_info_submit)
     void onClickSubmit() {
-        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
+        final AVQuery<AVObject> query_name = new AVQuery<>("User_address");
         LatteLoader.showLoading(getContext());
         query_name.whereEqualTo("user_id",
                 String.valueOf(DatabaseManager
@@ -60,36 +58,33 @@ public class NameDelegate extends LatteDelegate {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 final AVObject avObject = list.get(0);
-                avObject.put("user_name",mNameText.getText());
+                final String Jdata = avObject.toJSONObject().toString();
+                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("user_address");
+                final int id=marray.size()+1;
+                final JSONObject sizeData=new JSONObject();
+                JSONObject item = new JSONObject();
+                item.put("name:" ,mNameText1.getText());
+                item.put("phone", mNameText2.getText());
+                item.put("address", mNameText3.getText());
+                item.put("id", id);
+                item.put("default", "false");
+                sizeData.putAll(item);
+                marray.add(sizeData);
+                avObject.put("user_address", marray);
                 avObject.saveInBackground();
-                getSupportDelegate().start(new UserProfileDelegate());
+                getSupportDelegate().start(new AddressDelegate());
                 LatteLoader.stopLoading();
             }
         });
-        Toast.makeText(this.getContext(),"修改成功！",Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), "添加成功！", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public Object setLayout() {
+        return R.layout.delegate_addressadd;
     }
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-        LatteLoader.showLoading(getContext());
-        query_name.whereEqualTo("user_id",
-                String.valueOf(DatabaseManager
-                        .getInstance()
-                        .getDao()
-                        .queryBuilder()
-                        .listLazy()
-                        .get(0)
-                        .getUserId()));
-        query_name.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                final AVObject avObject = list.get(0);
-                String Jdata=avObject.toJSONObject().toString();
-                final String marray = JSON.parseObject(Jdata).getString("user_name");
-                mNameText.setText(marray);
-                LatteLoader.stopLoading();
-            }
-        });
     }
 }

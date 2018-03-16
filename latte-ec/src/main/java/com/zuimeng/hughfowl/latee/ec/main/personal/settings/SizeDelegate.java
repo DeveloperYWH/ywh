@@ -73,7 +73,7 @@ public class SizeDelegate extends LatteDelegate {
                 marray.set(0,sizeData);
                 avObject.put("user_size",marray);
                 avObject.saveInBackground();
-                getSupportDelegate().replaceFragment(new EcBottomDelegate(),false);
+                getSupportDelegate().start(new UserProfileDelegate());
                 LatteLoader.stopLoading();
             }
         });

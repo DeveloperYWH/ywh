@@ -19,7 +19,9 @@ public class OrderListClickListener extends SimpleClickListener {
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        DELEGATE.getSupportDelegate().start(new OrderCommentDelegate());
+        OrderCommentDelegate delegate = new OrderCommentDelegate();
+        delegate.getPosition(position);
+        DELEGATE.getSupportDelegate().start(delegate);
     }
 
     @Override

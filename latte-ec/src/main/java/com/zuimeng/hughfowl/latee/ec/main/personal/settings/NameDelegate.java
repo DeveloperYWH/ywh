@@ -19,6 +19,7 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -61,7 +62,7 @@ public class NameDelegate extends LatteDelegate {
                 final AVObject avObject = list.get(0);
                 avObject.put("user_name",mNameText.getText());
                 avObject.saveInBackground();
-                getSupportDelegate().replaceFragment(new EcBottomDelegate(),false);
+                getSupportDelegate().start(new UserProfileDelegate());
                 LatteLoader.stopLoading();
             }
         });

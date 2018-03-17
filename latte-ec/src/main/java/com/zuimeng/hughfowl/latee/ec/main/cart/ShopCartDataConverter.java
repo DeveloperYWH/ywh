@@ -1,7 +1,5 @@
 package com.zuimeng.hughfowl.latee.ec.main.cart;
 
-import android.util.Log;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -66,7 +64,6 @@ public class ShopCartDataConverter extends DataConverter {
                     .build();
 
             dataList.add(entiity);
-            Log.d("www", String.valueOf(i));
         }
         return dataList;
     }

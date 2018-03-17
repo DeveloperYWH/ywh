@@ -8,12 +8,13 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:background="@color/orange_dark"
+        android:background="@drawable/cart_top_color"
         android:gravity="center">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/cart_top_color">
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_top_shop_cart_clear"
@@ -54,7 +55,8 @@
         android:id="@+id/rv_shop_cart"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="8" />
+        android:layout_weight="8"
+        android:background="@mipmap/cart_back"/>
 
     <android.support.v7.widget.ViewStubCompat
         android:id="@+id/stub_no_item"
@@ -99,7 +101,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/select_all"
-                android:textColor="@color/orange_dark" />
+                android:textColor="#dd8c8b" />
         </android.support.v7.widget.LinearLayoutCompat>
         <!--全选部分结束-->
 
@@ -118,7 +120,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/add_all"
-                android:textColor="@android:color/darker_gray" />
+                android:textColor="#000000" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_shop_cart_total_price"
@@ -137,7 +139,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/orange_dark"
+            android:background="@drawable/cart_button"
             android:gravity="center"
             android:text="@string/add_up"
             android:textColor="@android:color/white"

@@ -12,7 +12,7 @@
         android:layout_height="match_parent" />
 
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu_green"
+        android:id="@+id/menu_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -27,25 +27,31 @@
         fab:menu_labels_maxLines="2"
         fab:menu_labels_ellipsize="end">
 
+
+
+
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/create_ask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
-            fab:fab_label="Menu item 1"
+            fab:fab_label="不懂就问"
             style="@style/MenuButtonsSmall.Green" />
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/create_dress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
-            fab:fab_label="Menu item 2"
+            fab:fab_label="发布装扮"
             style="@style/MenuButtonsSmall.Green" />
 
         <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/create_moments"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
-            fab:fab_label=""
+            fab:fab_label="碎碎念"
             style="@style/MenuButtonsSmall.Green" />
 
     </com.github.clans.fab.FloatingActionMenu>

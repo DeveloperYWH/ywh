@@ -77,7 +77,7 @@ public class ContentDelegate extends LatteDelegate {
 
                     final SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_section_content,
                             R.layout.item_section_header, mData);
-
+                    if(mRecyclerView!=null)
                     mRecyclerView.setAdapter(sectionAdapter);
                     LatteLoader.stopLoading();
                 }

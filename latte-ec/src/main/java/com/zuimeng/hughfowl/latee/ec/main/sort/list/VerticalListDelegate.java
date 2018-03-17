@@ -70,7 +70,6 @@ public class VerticalListDelegate extends LatteDelegate {
 
                     final List<MultipleItemEntity> data =
                             new VerticalListDataConverter().setList(AVList).convert();
-
                     final SortDelegate delegate = getParentDelegate();
                     final SortRecyclerAdapter adapter = new SortRecyclerAdapter(data, delegate);
                     mRecyclerView.setAdapter(adapter);

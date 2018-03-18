@@ -159,6 +159,6 @@ dependencies {
     compile 'com.borjabravo:focusresize:1.0.0'
     //漂浮按钮
     compile 'com.github.clans:fab:1.6.4'
-
-
+    //shineButton
+    compile 'com.sackcentury:shinebutton:0.2.0'
 }

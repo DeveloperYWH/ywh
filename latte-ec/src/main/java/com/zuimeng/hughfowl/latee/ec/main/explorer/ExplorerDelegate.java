@@ -18,6 +18,7 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.CreateMomentsDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.MomentsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
@@ -55,6 +56,10 @@ public class ExplorerDelegate extends BottomItemDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         initRecyclerView();
+    }
+    @OnClick(R2.id.exp_mom_switch)
+    void OnClickSwitchMoments(){
+        getSupportDelegate().replaceFragment(new MomentsDelegate(),true);
     }
 
     @OnClick(R2.id.create_moments)

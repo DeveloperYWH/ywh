@@ -23,4 +23,6 @@
     <string name="select_all">全选</string>
     <string name="add_all">合计</string>
     <string name="add_up">结算</string>
+
+    <string name="calendar_item_new_count">%d条</string>
 </resources>

@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVObject;
-import com.zuimeng.hughfowl.latte.ui.recycler.DataConverter;
 
 import java.util.ArrayList;
 import java.util.List;

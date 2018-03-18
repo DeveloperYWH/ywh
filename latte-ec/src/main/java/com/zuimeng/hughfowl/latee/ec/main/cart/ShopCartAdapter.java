@@ -155,6 +155,8 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
 
                     @Override
                     public void onClick(View v) {
+                        if(String.valueOf(tvCount.getText()).equals("1"))
+                            iconMinus.setClickable(false);
                         LatteLoader.showLoading(v.getContext());
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
@@ -168,7 +170,6 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                 for (int i = 0; i < cart_list.size(); i++) {
                                     JSONObject goodsInfo = (JSONObject) cart_list.get(i);
                                     if (goodsId == goodsInfo.getInteger("id")) {
-
                                         if (goodsInfo.getInteger("count") > 1) {
                                             int countNum = goodsInfo.getInteger("count");
                                             countNum--;
@@ -208,6 +209,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
 
                                 final int goodsId = entity.getField(MultipleFields.ID);
                                 for (int i = 0; i < cart_list.size(); i++) {
+                                    iconMinus.setClickable(true);
                                     JSONObject goodsInfo = (JSONObject) cart_list.get(i);
                                     if (goodsId == goodsInfo.getInteger("id")) {
                                         int countNum = goodsInfo.getInteger("count");

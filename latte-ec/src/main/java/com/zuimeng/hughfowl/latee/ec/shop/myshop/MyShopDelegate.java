@@ -21,6 +21,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -69,12 +70,13 @@ public class MyShopDelegate extends BottomItemShopDelegate {
 
                     final AVObject avater = AVObject.create("Shop_Logo");
                     avater.put("user_id",userId);
+                    avater.saveInBackground();
 
                     AVQuery<AVObject> query = new AVQuery<>("Image_File");
                     query.findInBackground(new FindCallback<AVObject>() {
                         @Override
                         public void done(List<AVObject> list, AVException e) {
-                            AVFile image = list.get(1).getAVFile("image");
+                            AVFile image = list.get(0).getAVFile("image");
                             avater.put("image", image);
                             avater.saveInBackground();
                         }
@@ -147,6 +149,8 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             public void done(List<AVUser> list, AVException e) {
                 user_right = list.get(0).getNumber("user_type");
                 if ((int)user_right == 1){
+                    final ShopNoDelegate noShop = new ShopNoDelegate();
+                    getSupportDelegate().loadRootFragment(R.id.shop_list_content,noShop);
                     LatteLoader.stopLoading();
                 }
                 else {

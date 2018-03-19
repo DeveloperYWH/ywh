@@ -214,7 +214,7 @@ public class PersonalDelegate extends BottomItemDelegate {
         });
     }
 
-    public void beginCreatDialog() {
+    public void beginCreateDialog() {
         mDialog.show();
         final Window window = mDialog.getWindow();
         if (window != null) {
@@ -231,7 +231,7 @@ public class PersonalDelegate extends BottomItemDelegate {
             window.findViewById(R.id.dialog_creat_shop).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getParentDelegate().getSupportDelegate().start(new CreateShopDelegate());
+                    getParentDelegate().getSupportDelegate().start(new ShopBottomDelegate());
                     mDialog.cancel();
                 }
             });

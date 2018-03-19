@@ -53,7 +53,7 @@ public class PersonalClickListener extends SimpleClickListener {
                         if((int) user_right != 1)
                         DELEGATE.getParentDelegate().getSupportDelegate().start(bean.getDelegate());
                         else
-                        DELEGATE.beginCreatDialog();
+                        DELEGATE.beginCreateDialog();
                     }
                 });
                 break;

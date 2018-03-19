@@ -3,6 +3,8 @@ package com.zuimeng.hughfowl.latee.ec.shop.myshop;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,10 +37,13 @@ public class MyShopDelegate extends BottomItemDelegate {
 
     @BindView(R2.id.img_user_avatar_shop)
     CircleImageView mCircleImageView = null;
-    @BindView(R2.id.text_view)
+    @BindView(R2.id.shop_name_text)
     TextView mTextView = null;
+    @BindView(R2.id.shop_display)
+    RecyclerView mRecyclerView = null;
     private Bundle mArgs = null;
-
+    private List<ShopSectionBean> mData = null;
+    private ShopSectionDataConverter mShopSectionDataConverter = null;
 
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
@@ -65,6 +70,35 @@ public class MyShopDelegate extends BottomItemDelegate {
     @Override
     public Object setLayout() {
         return R.layout.delegate2_my_shop;
+    }
+
+    public void initData() {
+
+        final AVQuery<AVObject> query = new AVQuery<>("shop_display");
+        LatteLoader.showLoading(getContext());
+        query.whereEqualTo("userId",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0).getUserId()));
+
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done( List<AVObject> list, AVException e) {
+                if (e == null) {
+                    mShopSectionDataConverter = new ShopSectionDataConverter().setList(list);
+
+                    mData = mShopSectionDataConverter.convert();
+                    final ShopDisplayAdapter shopDisplayAdapter =
+                            new ShopDisplayAdapter(R.layout.item2_myshop_content,
+                                    R.layout.item2_shop_section_header,mData);
+                    if(mRecyclerView!=null)
+                        mRecyclerView.setAdapter(shopDisplayAdapter);
+                }
+            }
+        });
     }
 
     @Override
@@ -99,9 +133,7 @@ public class MyShopDelegate extends BottomItemDelegate {
 
         //获取用户名
         final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-        LatteLoader.showLoading(
-
-                getContext());
+        LatteLoader.showLoading(getContext());
         query_name.whereEqualTo("user_id",
                 String.valueOf(DatabaseManager
                         .getInstance()
@@ -118,6 +150,11 @@ public class MyShopDelegate extends BottomItemDelegate {
                 LatteLoader.stopLoading();
             }
         });
+        final StaggeredGridLayoutManager manager =
+                new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+
+        initData();
     }
 }
 

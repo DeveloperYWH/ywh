@@ -42,26 +42,28 @@ public class AddressDataConverter extends DataConverter {
             final String Jdata = data.toJSONObject().toString();
             final JSONArray address = JSON.parseObject(Jdata).getJSONArray("user_address");
             //内容循环
-            final int addressSize = address.size();
-            for (int j = 0;  j <  addressSize; j++) {
-                final JSONObject content_data = address.getJSONObject(j);
+            if (address!= null) {
+                final int addressSize = address.size();
+                for (int j = 0; j < addressSize; j++) {
+                    final JSONObject content_data = address.getJSONObject(j);
 
-                final int id = content_data.getInteger("id");
-                final String name = content_data.getString("name");
-                final String phone = content_data.getString("phone");
-                final String maddress = content_data.getString("address");
-                final boolean isDefault = content_data.getBoolean("default");
+                    final int id = content_data.getInteger("id");
+                    final String name = content_data.getString("name");
+                    final String phone = content_data.getString("phone");
+                    final String maddress = content_data.getString("address");
+                    final boolean isDefault = content_data.getBoolean("default");
 
-                final MultipleItemEntity entity = MultipleItemEntity.builder()
-                        .setItemType(AddressItemType.ITEM_ADDRESS)
-                        .setField(MultipleFields.ID, id)
-                        .setField(MultipleFields.NAME, name)
-                        .setField(MultipleFields.TAG, isDefault)
-                        .setField(AddressItemFields.ADDRESS, maddress)
-                        .setField(AddressItemFields.PHONE, phone)
-                        .build();
-                ENTITIES.add(entity);
+                    final MultipleItemEntity entity = MultipleItemEntity.builder()
+                            .setItemType(AddressItemType.ITEM_ADDRESS)
+                            .setField(MultipleFields.ID, id)
+                            .setField(MultipleFields.NAME, name)
+                            .setField(MultipleFields.TAG, isDefault)
+                            .setField(AddressItemFields.ADDRESS, maddress)
+                            .setField(AddressItemFields.PHONE, phone)
+                            .build();
+                    ENTITIES.add(entity);
 
+                }
             }
         }
 

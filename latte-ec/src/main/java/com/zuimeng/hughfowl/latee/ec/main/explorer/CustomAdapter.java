@@ -33,21 +33,21 @@ import java.util.List;
 
 public class CustomAdapter extends FocusResizeAdapter<RecyclerView.ViewHolder> {
 
-    public static final int OFFSET_TEXT_SIZE = 4;
-    public static final float OFFSET_TEXT_ALPHA = 100f;
-    public static final float ALPHA_SUBTITLE = 0.81f;
-    public static final float ALPHA_SUBTITLE_HIDE = 0f;
+    private static final int OFFSET_TEXT_SIZE = 4;
+    private static final float OFFSET_TEXT_ALPHA = 100f;
+    private static final float ALPHA_SUBTITLE = 0.81f;
+    private static final float ALPHA_SUBTITLE_HIDE = 0f;
 
     private List<CustomObject> items;
     private Context context;
 
-    public CustomAdapter(ExplorerDelegate context, int height) {
+    CustomAdapter(ExplorerDelegate context, int height) {
         super(context.getContext(), height);
         this.context = context.getContext();
         items = new ArrayList<>();
     }
 
-    public void addItems(List<CustomObject> items) {
+    void addItems(List<CustomObject> items) {
         this.items.addAll(items);
         notifyDataSetChanged();
     }

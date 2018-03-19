@@ -15,4 +15,6 @@
     <color name="sort_left_back">#fff1f2</color>
     <color name="timer">#e7ecf2</color>
     <color name="timer_text">#a6c6e2</color>
+    <color name="personal_order_icon">#dd8c8b</color>
+    <color name="personal_order_text">#763c3c</color>
 </resources>

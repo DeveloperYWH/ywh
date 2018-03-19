@@ -56,5 +56,10 @@ public class SignHandler {
         signListener.onSignUpSuccess();
     }
 
+    public static void onLogOut(ISignListener signListener){
+        //注销
+        AccountManager.setLogOutState();
+    }
+
 
 }

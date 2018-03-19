@@ -16,6 +16,7 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.address.AddressDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
+import com.zuimeng.hughfowl.latee.ec.sign.LogOutDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
@@ -68,9 +69,17 @@ public class SettingsDelegate extends LatteDelegate {
                 .setText("关于")
                 .build();
 
+        final ListBean logout = new ListBean.Builder()
+                .setItemType(ListItemType.ITEM_NORMAL)
+                .setId(3)
+                .setDelegate(new LogOutDelegate())
+                .setText("注销")
+                .build();
+
         final List<ListBean> data = new ArrayList<>();
         data.add(push);
         data.add(about);
+        data.add(logout);
 
         //设置RecyclerView
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());

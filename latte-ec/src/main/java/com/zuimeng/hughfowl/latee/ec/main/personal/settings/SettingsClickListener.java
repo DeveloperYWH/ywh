@@ -29,6 +29,9 @@ public class SettingsClickListener extends SimpleClickListener{
             case 2:
                 DELEGATE.getSupportDelegate().start(bean.getDelegate());
                 break;
+            case 3:
+                DELEGATE.getSupportDelegate().replaceFragment(bean.getDelegate(),false);
+                break;
             default:
                 break;
         }

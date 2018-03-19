@@ -18,6 +18,7 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.CreateDressUpDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.DressListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.CreateMomentsDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.MomentsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
@@ -37,18 +38,6 @@ import butterknife.OnClick;
 public class ExplorerDelegate extends BottomItemDelegate {
 
 
-
-
-
-//    @BindView(R2.id.recycler_view)
-//    RecyclerView mRecyclerView = null;
-
-
-//    private void initRecyclerView() {
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-//        createCustomAdapter(mRecyclerView, linearLayoutManager);
-//    }
-
     @Override
     public Object setLayout() {
         return R.layout.delegate_explorer;
@@ -56,8 +45,17 @@ public class ExplorerDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-//        initRecyclerView();
+
     }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        final DressListDelegate listDelegate = new DressListDelegate();
+        getSupportDelegate().loadRootFragment(R.id.exp_list_content, listDelegate);
+
+    }
+
     @OnClick(R2.id.exp_mom_switch)
     void OnClickSwitchMoments(){
         getSupportDelegate().replaceFragment(new MomentsDelegate(),true);
@@ -74,32 +72,6 @@ public class ExplorerDelegate extends BottomItemDelegate {
     }
 
 
-//
-//    private void createCustomAdapter(final RecyclerView recyclerView, final LinearLayoutManager linearLayoutManager) {
-//        final CustomAdapter customAdapter = new CustomAdapter(this, (int) getResources().getDimension(R.dimen.custom_item_height));
-//        final List<CustomObject> items = new ArrayList<>();
-//        final AVQuery<AVObject> query = new AVQuery<>("Explorer_Squer");
-//        LatteLoader.showLoading(getContext());
-//        query.findInBackground(new FindCallback<AVObject>() {
-//            @Override
-//            public void done(List<AVObject> list, AVException e) {
-//
-//                if (e  ==null) {
-//                    for (int i = 0;i<list.size();i++) {
-//                        items.add(new CustomObject(list.get(i).getString("title"), list.get(i).getString("user_name"), list.get(i).getString("image")));
-//                    }
-//                    customAdapter.addItems(items);
-//                    if (recyclerView != null) {
-//                        recyclerView.setLayoutManager(linearLayoutManager);
-//                        recyclerView.setHasFixedSize(true);
-//                        recyclerView.setAdapter(customAdapter);
-//                        recyclerView.addOnScrollListener(new FocusResizeScrollListener<>(customAdapter, linearLayoutManager));
-//                    }
-//                    LatteLoader.stopLoading();
-//                }
-//            }
-//
-//        });
-//    }
+
 
 }

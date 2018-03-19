@@ -17,6 +17,7 @@ import com.example.library.FocusResizeScrollListener;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.CreateDressUpDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.CreateMomentsDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.MomentsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
@@ -39,14 +40,14 @@ public class ExplorerDelegate extends BottomItemDelegate {
 
 
 
-    @BindView(R2.id.recycler_view)
-    RecyclerView mRecyclerView = null;
+//    @BindView(R2.id.recycler_view)
+//    RecyclerView mRecyclerView = null;
 
 
-    private void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        createCustomAdapter(mRecyclerView, linearLayoutManager);
-    }
+//    private void initRecyclerView() {
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+//        createCustomAdapter(mRecyclerView, linearLayoutManager);
+//    }
 
     @Override
     public Object setLayout() {
@@ -55,7 +56,7 @@ public class ExplorerDelegate extends BottomItemDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        initRecyclerView();
+//        initRecyclerView();
     }
     @OnClick(R2.id.exp_mom_switch)
     void OnClickSwitchMoments(){
@@ -67,33 +68,38 @@ public class ExplorerDelegate extends BottomItemDelegate {
         getParentDelegate().getSupportDelegate().start(new CreateMomentsDelegate());
     }
 
-
-
-    private void createCustomAdapter(final RecyclerView recyclerView, final LinearLayoutManager linearLayoutManager) {
-        final CustomAdapter customAdapter = new CustomAdapter(this, (int) getResources().getDimension(R.dimen.custom_item_height));
-        final List<CustomObject> items = new ArrayList<>();
-        final AVQuery<AVObject> query = new AVQuery<>("Explorer_Squer");
-        LatteLoader.showLoading(getContext());
-        query.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-
-                if (e  ==null) {
-                    for (int i = 0;i<list.size();i++) {
-                        items.add(new CustomObject(list.get(i).getString("title"), list.get(i).getString("user_name"), list.get(i).getString("image")));
-                    }
-                    customAdapter.addItems(items);
-                    if (recyclerView != null) {
-                        recyclerView.setLayoutManager(linearLayoutManager);
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setAdapter(customAdapter);
-                        recyclerView.addOnScrollListener(new FocusResizeScrollListener<>(customAdapter, linearLayoutManager));
-                    }
-                    LatteLoader.stopLoading();
-                }
-            }
-
-        });
+    @OnClick(R2.id.create_dress)
+    void OnClickCreateDress(){
+        getParentDelegate().getSupportDelegate().start(new CreateDressUpDelegate());
     }
+
+
+//
+//    private void createCustomAdapter(final RecyclerView recyclerView, final LinearLayoutManager linearLayoutManager) {
+//        final CustomAdapter customAdapter = new CustomAdapter(this, (int) getResources().getDimension(R.dimen.custom_item_height));
+//        final List<CustomObject> items = new ArrayList<>();
+//        final AVQuery<AVObject> query = new AVQuery<>("Explorer_Squer");
+//        LatteLoader.showLoading(getContext());
+//        query.findInBackground(new FindCallback<AVObject>() {
+//            @Override
+//            public void done(List<AVObject> list, AVException e) {
+//
+//                if (e  ==null) {
+//                    for (int i = 0;i<list.size();i++) {
+//                        items.add(new CustomObject(list.get(i).getString("title"), list.get(i).getString("user_name"), list.get(i).getString("image")));
+//                    }
+//                    customAdapter.addItems(items);
+//                    if (recyclerView != null) {
+//                        recyclerView.setLayoutManager(linearLayoutManager);
+//                        recyclerView.setHasFixedSize(true);
+//                        recyclerView.setAdapter(customAdapter);
+//                        recyclerView.addOnScrollListener(new FocusResizeScrollListener<>(customAdapter, linearLayoutManager));
+//                    }
+//                    LatteLoader.stopLoading();
+//                }
+//            }
+//
+//        });
+//    }
 
 }

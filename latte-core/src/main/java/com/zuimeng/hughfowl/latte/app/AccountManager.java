@@ -16,6 +16,9 @@ public class AccountManager {
     public static void setSignState() {
         LattePreference.setAppFlag(SignTag.SIGN_TAG.name(), true);
     }
+    public static void setLogOutState(){
+        LattePreference.setAppFlag(SignTag.SIGN_TAG.name(),false);
+    }
 
     private static boolean isSignIn() {
         return LattePreference.getAppFlag(SignTag.SIGN_TAG.name());

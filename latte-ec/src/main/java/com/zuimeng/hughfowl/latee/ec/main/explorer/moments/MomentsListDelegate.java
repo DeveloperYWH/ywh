@@ -11,7 +11,7 @@ import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
  * Created by hughfowl on 2018/3/18.
  */
 
-public class MomentsDelegate extends BottomItemDelegate {
+public class MomentsListDelegate extends BottomItemDelegate {
     @Override
     public Object setLayout() {
         return null;

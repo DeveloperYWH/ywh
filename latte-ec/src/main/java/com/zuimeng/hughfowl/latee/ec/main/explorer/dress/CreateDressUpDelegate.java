@@ -1,14 +1,11 @@
-package com.zuimeng.hughfowl.latee.ec.main.sort;
+package com.zuimeng.hughfowl.latee.ec.main.explorer.dress;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -22,25 +19,18 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.SaveCallback;
-import com.bumptech.glide.Glide;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.personal.PersonalDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
-import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.widget.AutoPhotoLayout;
-import com.zuimeng.hughfowl.latte.ui.widget.StarLayout;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
 import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +41,7 @@ import butterknife.OnClick;
  * Created by hughfowl on 2018/1/22.
  */
 
-public class DressUpDelegate extends LatteDelegate {
+public class CreateDressUpDelegate extends LatteDelegate {
 
     @BindView(R2.id.title)
     AppCompatEditText title=null;
@@ -129,7 +119,7 @@ public class DressUpDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.delegate_dressup;
+        return R.layout.delegate_create_dressup;
     }
 
     @Override

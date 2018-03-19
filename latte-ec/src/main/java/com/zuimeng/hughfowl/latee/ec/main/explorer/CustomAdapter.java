@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.library.FocusResizeAdapter;
 import com.zuimeng.hughfowl.latee.ec.R;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.DressListDelegate;
+import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,13 +43,13 @@ public class CustomAdapter extends FocusResizeAdapter<RecyclerView.ViewHolder> {
     private List<CustomObject> items;
     private Context context;
 
-    CustomAdapter(ExplorerDelegate context, int height) {
+    public CustomAdapter(DressListDelegate context, int height) {
         super(context.getContext(), height);
         this.context = context.getContext();
         items = new ArrayList<>();
     }
 
-    void addItems(List<CustomObject> items) {
+    public void addItems(List<CustomObject> items) {
         this.items.addAll(items);
         notifyDataSetChanged();
     }

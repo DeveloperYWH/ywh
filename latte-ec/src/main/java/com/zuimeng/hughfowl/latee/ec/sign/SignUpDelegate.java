@@ -138,7 +138,7 @@ public class SignUpDelegate extends LatteDelegate {
                 @Override
                 public void done(AVException e) {
                     if (e == null) {
-                        Log.v("Sign up", "OK!");//Dev
+//                        Log.v("Sign up", "OK!");//Dev
                         //注册成功状态回调本地状态
                         SignHandler.onSignUp( user , mISignListener);
                         //启动验证页面
@@ -147,7 +147,7 @@ public class SignUpDelegate extends LatteDelegate {
 
                         getSupportDelegate().start(new PhoneCheck());
                     } else {
-                        Log.v("Sign up", "Fail!");//Dev
+//                        Log.v("Sign up", "Fail!");//Dev
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

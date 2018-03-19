@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.joanzapata.iconify.widget.IconTextView;
-import com.zuimeng.hughfowl.latte.R2;
 import com.zuimeng.hughfowl.latte.R;
+import com.zuimeng.hughfowl.latte.R2;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
 import java.util.ArrayList;
@@ -30,12 +30,12 @@ import me.yokeyword.fragmentation.ISupportFragment;
 
 public abstract class BaseBottomDelegate extends LatteDelegate implements View.OnClickListener {
 
-        private final ArrayList<BottomTabBean> TAB_BEANS = new ArrayList<>();
-        private final ArrayList<BottomItemDelegate> ITEM_DELEGATES = new ArrayList<>();
-        private final LinkedHashMap<BottomTabBean, BottomItemDelegate> ITEMS = new LinkedHashMap<>();
-        private int mCurrentDelegate = 0;
-        private int mIndexDelegate = 0;
-        private int mClickedColor = R.color.bottom_clicked;
+        protected final ArrayList<BottomTabBean> TAB_BEANS = new ArrayList<>();
+        protected final ArrayList<BottomItemDelegate> ITEM_DELEGATES = new ArrayList<>();
+        protected final LinkedHashMap<BottomTabBean, BottomItemDelegate> ITEMS = new LinkedHashMap<>();
+        protected int mCurrentDelegate = 0;
+        protected int mIndexDelegate = 0;
+        protected int mClickedColor = R.color.bottom_clicked;
         public static int flag=0;
 
         @BindView(R2.id.bottom_bar)
@@ -110,7 +110,7 @@ public abstract class BaseBottomDelegate extends LatteDelegate implements View.O
         flag=0;
     }
 
-    private void resetColor() {
+    protected void resetColor() {
         final int count = mBottomBar.getChildCount();
         for (int i = 0; i < count; i++) {
             final RelativeLayout item = (RelativeLayout) mBottomBar.getChildAt(i);

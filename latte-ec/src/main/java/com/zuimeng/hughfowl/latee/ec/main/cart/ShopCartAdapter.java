@@ -19,6 +19,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.detail.GoodsDetailDelegate;
 import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleFields;
@@ -35,6 +36,9 @@ import java.util.List;
 
 public class ShopCartAdapter extends MultipleRecyclerAdapter {
 
+    private ShopCartDelegate DELEGATE = null;
+    private List<AVObject> mAvlist = null;
+
     private boolean mIsSelectedAll = false;
     private ICartItemListener mCartItemListener = null;
     private double mTotalPrice = 0.00;
@@ -44,6 +48,9 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
             .centerCrop()
             .dontAnimate();
 
+    public void SetShopCartDelegate(ShopCartDelegate delegate){
+        DELEGATE = delegate;
+    }
 
     ShopCartAdapter(List<MultipleItemEntity> data) {
         super(data);
@@ -224,6 +231,58 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                 }
                             }
                         });
+                    }
+                });
+
+                imgThumb.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final GoodsDetailDelegate delegate = new GoodsDetailDelegate();
+                        int goodsId = entity.getField(MultipleFields.ID);
+
+                        final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+                        query.whereEqualTo("id",goodsId);
+                        query.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                delegate.setAvList(list);
+                            }
+                        });
+                        DELEGATE.getParentDelegate().getSupportDelegate().start(delegate);
+                    }
+                });
+                tvTitle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final GoodsDetailDelegate delegate = new GoodsDetailDelegate();
+                        int goodsId = entity.getField(MultipleFields.ID);
+
+                        final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+                        query.whereEqualTo("id",goodsId);
+                        query.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                delegate.setAvList(list);
+                            }
+                        });
+                        DELEGATE.getParentDelegate().getSupportDelegate().start(delegate);
+                    }
+                });
+                tvDesc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final GoodsDetailDelegate delegate = new GoodsDetailDelegate();
+                        int goodsId = entity.getField(MultipleFields.ID);
+
+                        final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+                        query.whereEqualTo("id",goodsId);
+                        query.findInBackground(new FindCallback<AVObject>() {
+                            @Override
+                            public void done(List<AVObject> list, AVException e) {
+                                delegate.setAvList(list);
+                            }
+                        });
+                        DELEGATE.getParentDelegate().getSupportDelegate().start(delegate);
                     }
                 });
                 break;

@@ -8,7 +8,7 @@ import java.util.List;
  * Created by hughfowl on 2018/1/19.
  */
 
-public class ListMange {
+public class ListManage {
     private List<AVObject> temp;
     public   void postList(List<AVObject> i){
         temp = i;

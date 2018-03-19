@@ -93,6 +93,10 @@ public class GoodsDetailDelegate extends LatteDelegate implements
             .dontAnimate()
             .override(100, 100);
 
+    public void setAvList(List<AVObject> list){
+        AVList.addAll(list);
+    }
+
     @OnClick(R2.id.rl_add_shop_cart)
     void onClickAddShopCart() {
         LatteLoader.showLoading(getContext());

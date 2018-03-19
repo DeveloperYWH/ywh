@@ -6,7 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.PushService;
+import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.sign.ISignListener;
@@ -16,6 +22,8 @@ import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.launcher.ILauncherListener;
 import com.zuimeng.hughfowl.latte.ui.launcher.OnLauncherFinshTag;
+
+import java.util.List;
 
 import qiu.niorgai.StatusBarCompat;
 
@@ -78,6 +86,54 @@ public class ExampleActivity extends ProxyActivity implements
 
         @Override
         public void onSignUpSuccess() {
+
+            String userId = String.valueOf(DatabaseManager
+                    .getInstance()
+                    .getDao()
+                    .queryBuilder()
+                    .listLazy()
+                    .get(0)
+                    .getUserId());
+            String name = String.valueOf(DatabaseManager
+                    .getInstance()
+                    .getDao()
+                    .queryBuilder()
+                    .listLazy()
+                    .get(0)
+                    .getName());
+
+            AVObject info = AVObject.create("User_info");
+            info.put("user_id",userId);
+            info.put("user_name",name);
+            info.saveInBackground();
+
+            AVObject cart_datas = AVObject.create("Cart_Datas");
+            cart_datas.put("user_id",userId);
+            cart_datas.saveInBackground();
+
+            final AVObject avater = AVObject.create("User_avater");
+            avater.put("user_id",userId);
+
+
+            AVQuery<AVObject> query = new AVQuery<>("Image_File");
+            query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    AVFile image = list.get(0).getAVFile("image");
+                    avater.put("image", image);
+                    avater.saveInBackground();
+                }
+            });
+
+
+            AVObject address = AVObject.create("User_address");
+            address.put("user_id",userId);
+            address.saveInBackground();
+
+            AVObject order_list = AVObject.create("Order_list_test");
+            order_list.put("user_id",userId);
+            order_list.saveInBackground();
+
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
         }
 

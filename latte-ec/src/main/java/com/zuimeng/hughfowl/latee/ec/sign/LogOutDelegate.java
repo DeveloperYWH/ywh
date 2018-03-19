@@ -40,6 +40,7 @@ public class LogOutDelegate extends LatteDelegate {
         super.onCreate(savedInstanceState);
         AVUser.logOut();// 清除缓存用户对象
         AVUser currentUser = AVUser.getCurrentUser();
+        DatabaseManager.getInstance().getDao().deleteAll();
         SignHandler.onLogOut(mISignListener);
         getSupportDelegate().replaceFragment(new SignInDelegate(),false);
     }

@@ -1,34 +1,18 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer;
 
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
-import com.example.library.FocusResizeScrollListener;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.CreateDressUpDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.DressListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.CreateMomentsDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.MomentsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
-import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
-import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
 import butterknife.OnClick;
 
 /**

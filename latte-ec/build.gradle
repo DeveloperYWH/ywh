@@ -31,7 +31,11 @@ repositories {
         dirs 'libs'  //就是你放aar的目录地址
     }
 }
-
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -47,6 +51,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile 'com.sackcentury:shinebutton:0.2.0'
 
     compile project(':latte-core')
     compile project(':latte-ui')

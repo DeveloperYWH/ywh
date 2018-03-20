@@ -10,7 +10,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.CreateDressUpDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.dress.DressListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.CreateMomentsDelegate;
-import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.MomentsDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.MomentsListDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 
 import butterknife.OnClick;
@@ -42,7 +42,7 @@ public class ExplorerDelegate extends BottomItemDelegate {
 
     @OnClick(R2.id.exp_mom_switch)
     void OnClickSwitchMoments(){
-        getSupportDelegate().replaceFragment(new MomentsDelegate(),true);
+        getSupportDelegate().replaceFragment(new MomentsListDelegate(),true);
     }
 
     @OnClick(R2.id.create_moments)

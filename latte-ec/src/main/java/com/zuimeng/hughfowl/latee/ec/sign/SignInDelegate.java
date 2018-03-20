@@ -23,6 +23,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
 import com.zuimeng.hughfowl.latte.datamanage.UserManage;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.wechat.LatteWeChat;
 import com.zuimeng.hughfowl.latte.wechat.callbacks.IWeChatSignInCallback;
 
@@ -85,7 +86,7 @@ public class SignInDelegate extends LatteDelegate {
 
             final String username = mName.getText().toString();
             final String password = mPassword.getText().toString();
-
+            LatteLoader.showLoading(getContext());
             AVUser.logInInBackground(username, password, new LogInCallback<AVUser>() {
                 @Override
                 public void done(AVUser avUser, AVException e) {
@@ -95,6 +96,7 @@ public class SignInDelegate extends LatteDelegate {
 
                     } else {
                         Log.v("Sign in", "Fail!");//Dev
+                        LatteLoader.stopLoading();
                         //Sign in exception handle here.
                         Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                     }

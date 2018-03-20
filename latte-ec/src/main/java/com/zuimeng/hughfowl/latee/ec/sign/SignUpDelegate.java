@@ -17,6 +17,7 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.datamanage.UserManage;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -129,6 +130,7 @@ public class SignUpDelegate extends LatteDelegate {
             final String password = mPassword.getText().toString();
             final String email = mEmail.getText().toString();
             final String phone = mPhone.getText().toString();
+            LatteLoader.showLoading(getContext());
             final AVUser user = new AVUser();
             user.setUsername(username);
             user.setPassword(password);
@@ -148,6 +150,7 @@ public class SignUpDelegate extends LatteDelegate {
                         getSupportDelegate().start(new PhoneCheck());
                     } else {
 //                        Log.v("Sign up", "Fail!");//Dev
+                        LatteLoader.stopLoading();
                         Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
@@ -155,8 +158,6 @@ public class SignUpDelegate extends LatteDelegate {
 
         }
     }
-
-
 
 
     @OnClick(R2.id.tv_link_sign_in)

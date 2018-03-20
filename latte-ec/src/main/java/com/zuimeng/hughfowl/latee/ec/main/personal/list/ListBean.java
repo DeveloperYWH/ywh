@@ -57,6 +57,7 @@ public class ListBean implements MultiItemEntity {
         return mDelegate;
     }
 
+
     public CompoundButton.OnCheckedChangeListener getmOnCheckedChangeListener() {
         return mOnCheckedChangeListener;
     }
@@ -110,6 +111,7 @@ public class ListBean implements MultiItemEntity {
             this.delegate = delegate;
             return this;
         }
+
 
         public ListBean build() {
             return new ListBean(itemType, imageUrl, text, value, id, delegate, onCheckedChangeListener);

@@ -22,6 +22,7 @@ import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.launcher.ILauncherListener;
 import com.zuimeng.hughfowl.latte.ui.launcher.OnLauncherFinshTag;
+import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.util.List;
 
@@ -80,6 +81,7 @@ public class ExampleActivity extends ProxyActivity implements
 
         @Override
         public void onSignInSuccess() {
+            LatteLoader.stopLoading();
             Toast.makeText(this, "登录成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
             getSupportDelegate().start(new EcBottomDelegate());
         }
@@ -133,7 +135,7 @@ public class ExampleActivity extends ProxyActivity implements
             AVObject order_list = AVObject.create("Order_list_test");
             order_list.put("user_id",userId);
             order_list.saveInBackground();
-
+            LatteLoader.stopLoading();
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
         }
 
@@ -143,10 +145,12 @@ public class ExampleActivity extends ProxyActivity implements
             switch (tag) {
                 case SIGNED:
                     // Toast.makeText(this, "启动结束，账户已登录", Toast.LENGTH_LONG).show();
+                    LatteLoader.stopLoading();
                     getSupportDelegate().replaceFragment(new EcBottomDelegate(),false);
                     break;
                 case NOT_SIGNED:
                     // Toast.makeText(this, "启动结束，账户未登录", Toast.LENGTH_LONG).show();
+                    LatteLoader.stopLoading();
                     getSupportDelegate().replaceFragment(new SignUpDelegate(),false);
                     break;
                 default:

@@ -1,5 +1,6 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
 
+import android.graphics.Color;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.Toast;
@@ -49,6 +50,16 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 .into(goodsImageView);
         ShineButton collect=helper.getView(R.id.collect);
         ShineButton like=helper.getView(R.id.like);
+        collect.setShapeResource(R.raw.star);
+        collect.setBtnColor(Color.GRAY);
+        collect.setBtnFillColor(Color.YELLOW);
+        collect.setShineCount(8);
+        collect.setAllowRandomColor(true);
+        like.setShapeResource(R.raw.heart);
+        like.setBtnColor(Color.GRAY);
+        like.setBtnFillColor(Color.RED);
+        like.setShineCount(8);
+        like.setAllowRandomColor(true);
         collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

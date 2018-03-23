@@ -18,6 +18,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.profile.ShopProfileDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import java.net.URL;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -46,6 +48,12 @@ public class MyShopDelegate extends BottomItemShopDelegate {
     public Object setLayout() {
         return R.layout.delegate2_my_shop;
     }
+
+    @OnClick(R2.id.img_user_avatar_shop)
+    void onClickAvatar() {
+        getParentDelegate().getSupportDelegate().start(new ShopProfileDelegate());
+    }
+
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull final View rootView) {
 

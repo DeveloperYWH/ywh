@@ -32,7 +32,6 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SettingsDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
-import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.CreateShopDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -200,7 +199,6 @@ public class PersonalDelegate extends BottomItemDelegate {
                             .setItemType(ListItemType.ITEM_NORMAL)
                             .setId(4)
                             .setText("我的店铺")
-//                            .setCheckDelegate(new CheckDelegate(PersonalDelegate.this))
                             .build();
                     data.add(my_shop);
                 }

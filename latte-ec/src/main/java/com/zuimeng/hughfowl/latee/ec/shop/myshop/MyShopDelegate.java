@@ -17,7 +17,6 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
-import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.CreateShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -26,7 +25,6 @@ import java.net.URL;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -43,17 +41,13 @@ public class MyShopDelegate extends BottomItemShopDelegate {
     @BindView(R2.id.shop_name_text)
     TextView mTextView = null;
 
-    @OnClick(R2.id.img_user_avatar_shop)
-    void OnClickShopAvatar(){
-        getParentDelegate().getSupportDelegate().start(new CreateShopDelegate());
-    }
+
     @Override
     public Object setLayout() {
         return R.layout.delegate2_my_shop;
     }
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull final View rootView) {
-
 
         String userId = String.valueOf(DatabaseManager
                             .getInstance()
@@ -72,7 +66,7 @@ public class MyShopDelegate extends BottomItemShopDelegate {
                     final AVObject avater = AVObject.create("Shop_Logo");
                     avater.put("user_id",userId);
                     avater.saveInBackground();
-                    LatteLoader.showLoading(getContext());
+
                     AVQuery<AVObject> query = new AVQuery<>("Image_File");
                     query.findInBackground(new FindCallback<AVObject>() {
                         @Override
@@ -80,7 +74,6 @@ public class MyShopDelegate extends BottomItemShopDelegate {
                             AVFile image = list.get(0).getAVFile("image");
                             avater.put("image", image);
                             avater.saveInBackground();
-                            LatteLoader.stopLoading();
                         }
                     });
 
@@ -150,7 +143,7 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             @Override
             public void done(List<AVUser> list, AVException e) {
                 user_right = list.get(0).getNumber("user_type");
-                if ((int)user_right == 2){
+                if ((int)user_right == 1){
                     final ShopNoDelegate noShop = new ShopNoDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content,noShop);
                     LatteLoader.stopLoading();

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="exp_titles">
+        <item>提问</item>
+        <item>装扮</item>
+        <item>碎碎念</item>
+    </string-array>
+
+    <string-array name="shop_rels_titles">
+        <item>动态</item>
+        <item>商品</item>
+    </string-array>
+
+</resources>

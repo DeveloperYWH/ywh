@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.MyShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.release.ReleaseDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.shopdata.ShopDataDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BaseBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomTabBean;
@@ -22,7 +23,7 @@ public class ShopBottomDelegate extends BaseBottomDelegate {
 
         items.put(new BottomTabBean("{icon-sort}", "店铺"), new MyShopDelegate());
         items.put(new BottomTabBean("{icon-home-page}", "发布"), new ReleaseDelegate());
-        items.put(new BottomTabBean("{icon-find-1}", "数据"), new MyShopDelegate());
+        items.put(new BottomTabBean("{icon-find-1}", "数据"), new ShopDataDelegate());
         items.put(new BottomTabBean("{icon-shop-cart}", "广告"), new MyShopDelegate());
         return builder.addItems(items).build();
     }

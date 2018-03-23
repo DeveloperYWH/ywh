@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:background="@drawable/creat_shop_dialog"
             android:gravity="center"
-            android:text="现在申请店铺"
+            android:text="申请店铺"
             android:textColor="#323232"
             android:textSize="15sp" />
 
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:background="@drawable/creat_shop_dialog"
             android:gravity="center"
-            android:text="不了再想想"
+            android:text="取消"
             android:textColor="#323232"
             android:textSize="15sp" />
     </android.support.v7.widget.LinearLayoutCompat>

@@ -44,6 +44,12 @@
         <item name="fab_colorPressed">#2E7D32</item>
         <item name="fab_colorRipple">#1B5E20</item>
     </style>
+    <style name="MenuButtonsSmall.Exp">
+    <item name="fab_colorNormal">#fabf85</item>
+    <item name="fab_colorPressed">#fabf50</item>
+    <item name="fab_colorRipple">#fabf85</item>
+</style>
+
 
     <style name="DrawerItemTextAppearance">
         <item name="android:fontFamily" tools:ignore="NewApi">sans-serif-light</item>

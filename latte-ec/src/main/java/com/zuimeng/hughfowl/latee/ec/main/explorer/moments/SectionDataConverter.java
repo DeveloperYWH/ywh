@@ -43,12 +43,19 @@ public class SectionDataConverter {
 
 //                final int goodsId = content_data.getInteger("goods_id");
                 final String goodsName = content_data.getString("content");
-                final String goodsThumb = content_data.getString("thumb"+0);
+                String goodsThumb=null;
+                final ArrayList<String> thumbList=new ArrayList<>();
+                for(int k=0;k<6/*6是上传图片的最大值*/;k++)
+                {
+                    goodsThumb = content_data.getString("thumb"+k);
+                    thumbList.add(goodsThumb);
+
+                }
                 //获取内容
                 final SectionContentItemEntity itemEntity = new SectionContentItemEntity();
 //                itemEntity.setGoodsId(goodsId-1);
                 itemEntity.setmMomentContent(goodsName);
-                itemEntity.setmMomentThumb(goodsThumb);
+                itemEntity.setmMomentThumb(thumbList);
                 //添加内容
                 dataList.add(new SectionBean(itemEntity));
             }

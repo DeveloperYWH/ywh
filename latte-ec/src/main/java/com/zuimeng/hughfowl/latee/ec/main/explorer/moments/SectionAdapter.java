@@ -39,15 +39,41 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
     @Override
     protected void convert(BaseViewHolder helper, SectionBean item) {
         //item.t返回SectionBean类型
-        final String thumb = item.t.getmMomentThumb();
+        final List thumb = item.t.getmMomentThumb();
         final String name = item.t.getmMomentContent();
 //        final int goodsId = item.t.getGoodsId();
         final SectionContentItemEntity entity = item.t;
         helper.setText(R.id.content, name);
-        final AppCompatImageView goodsImageView = helper.getView(R.id.thumb0);
+        final AppCompatImageView goodsImageView0 = helper.getView(R.id.thumb0);
+        if(thumb.size()>=0)
         Glide.with(mContext)
-                .load(thumb)
-                .into(goodsImageView);
+                .load(thumb.get(0))
+                .into(goodsImageView0);
+        final AppCompatImageView goodsImageView1 = helper.getView(R.id.thumb1);
+        if(thumb.size()>=1)
+        Glide.with(mContext)
+                .load(thumb.get(1))
+                .into(goodsImageView1);
+        final AppCompatImageView goodsImageView2 = helper.getView(R.id.thumb2);
+        if(thumb.size()>=2)
+        Glide.with(mContext)
+                .load(thumb.get(2))
+                .into(goodsImageView2);
+        final AppCompatImageView goodsImageView3 = helper.getView(R.id.thumb3);
+        if(thumb.size()>=3)
+        Glide.with(mContext)
+                .load(thumb.get(3))
+                .into(goodsImageView3);
+        final AppCompatImageView goodsImageView4 = helper.getView(R.id.thumb4);
+        if(thumb.size()>=4)
+        Glide.with(mContext)
+                .load(thumb.get(4))
+                .into(goodsImageView4);
+        final AppCompatImageView goodsImageView5 = helper.getView(R.id.thumb5);
+        if(thumb.size()>=5)
+        Glide.with(mContext)
+                .load(thumb.get(5))
+                .into(goodsImageView5);
         ShineButton collect=helper.getView(R.id.collect);
         ShineButton like=helper.getView(R.id.like);
         collect.setShapeResource(R.raw.star);

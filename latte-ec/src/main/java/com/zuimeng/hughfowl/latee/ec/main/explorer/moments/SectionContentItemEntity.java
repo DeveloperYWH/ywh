@@ -1,5 +1,8 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by ywh on 2018/1/6.
  */
@@ -8,7 +11,7 @@ public class SectionContentItemEntity {
 
     private int mMomentId = 0;
     private String mMomentContent = null;
-    private String mMomentThumb = null;
+    private ArrayList<String> mMomentThumb = null;
     private int mCollect = 0;
     private int mLike = 0;
 
@@ -28,11 +31,11 @@ public class SectionContentItemEntity {
         this.mMomentContent = mMomentContent;
     }
 
-    public String getmMomentThumb() {
+    public List<String> getmMomentThumb() {
         return mMomentThumb;
     }
 
-    public void setmMomentThumb(String mMomentThumb) {
+    public void setmMomentThumb(ArrayList<String> mMomentThumb) {
         this.mMomentThumb = mMomentThumb;
     }
     public int getmCollect(){return mCollect;}

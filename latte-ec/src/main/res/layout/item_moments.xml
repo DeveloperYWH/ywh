@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/com.sackcentury.shinebuttonlib.ShineButton">
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,11 +12,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/content"/>
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/thumb0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/thumb0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/thumb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/thumb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/thumb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/thumb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/thumb5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -62,6 +87,6 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-    </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
 
 

@@ -70,38 +70,40 @@ public class CreateMomentsDelegate extends LatteDelegate {
                     public void done(AVException e) {
                         Log.d("whatiget", file.getUrl());//返回一个唯一的 Url 地址
                         newurl.add(file.getUrl());
-                        final AVQuery<AVObject> query_name = new AVQuery<>("User_moments");
-                        LatteLoader.showLoading(getContext());
-                        query_name.whereEqualTo("user_id",
-                                String.valueOf(DatabaseManager
-                                        .getInstance()
-                                        .getDao()
-                                        .queryBuilder()
-                                        .listLazy()
-                                        .get(0)
-                                        .getUserId()));
-                        query_name.findInBackground(new FindCallback<AVObject>() {
-                            @Override
-                            public void done(List<AVObject> list, AVException e) {
-                                final AVObject avObject = list.get(0);
-                                final String Jdata = avObject.toJSONObject().toString();
-                                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("content");
-                                final  JSONObject sizeData=new JSONObject();
-                                JSONObject item = new JSONObject();
-                                item.put("content", content.getText());
-                                for(int i=0;i<newurl.size();i++)
-                                {
-                                    item.put("thumb"+i,newurl.get(i));
+                        if(newurl.size()==uri.size())
+                        {
+                            final AVQuery<AVObject> query_name = new AVQuery<>("User_moments");
+                            query_name.whereEqualTo("user_id",
+                                    String.valueOf(DatabaseManager
+                                            .getInstance()
+                                            .getDao()
+                                            .queryBuilder()
+                                            .listLazy()
+                                            .get(0)
+                                            .getUserId()));
+                            query_name.findInBackground(new FindCallback<AVObject>() {
+                                @Override
+                                public void done(List<AVObject> list, AVException e) {
+                                    final AVObject avObject = list.get(0);
+                                    final String Jdata = avObject.toJSONObject().toString();
+                                    final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("content");
+                                    final  JSONObject sizeData=new JSONObject();
+                                    JSONObject item = new JSONObject();
+                                    item.put("content", content.getText());
+                                    for(int i=0;i<newurl.size();i++)
+                                    {
+                                        item.put("thumb"+i,newurl.get(i));
+                                    }
+                                    sizeData.putAll(item);
+                                    marray.add(sizeData);
+                                    avObject.put("content",marray);
+                                    avObject.saveInBackground();
+                                    getSupportDelegate().start(new EcBottomDelegate());
+                                    LatteLoader.stopLoading();
+                                    Toast.makeText(getContext(),"上传成功！",Toast.LENGTH_LONG).show();
                                 }
-                                sizeData.putAll(item);
-                                marray.add(sizeData);
-                                avObject.put("content",marray);
-                                avObject.saveInBackground();
-                                getSupportDelegate().start(new EcBottomDelegate());
-                                LatteLoader.stopLoading();
-                                Toast.makeText(getContext(),"上传成功！",Toast.LENGTH_LONG).show();
-                            }
-                        });
+                            });
+                        }
                     }
                 });
             }

@@ -31,6 +31,7 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SettingsDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.CheckDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
@@ -230,7 +231,7 @@ public class PersonalDelegate extends BottomItemDelegate {
             window.findViewById(R.id.dialog_creat_shop).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    getParentDelegate().getSupportDelegate().start(new ShopBottomDelegate());
+                    getParentDelegate().getSupportDelegate().start(new CheckDelegate());
                     mDialog.cancel();
                 }
             });

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
@@ -55,34 +56,6 @@ public class MyShopDelegate extends BottomItemShopDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull final View rootView) {
-
-//        String userId = String.valueOf(DatabaseManager
-//                            .getInstance()
-//                            .getDao()
-//                            .queryBuilder()
-//                            .listLazy()
-//                            .get(0)
-//                            .getUserId());
-//                    String ShopName = "我的店铺";
-//
-//                    AVObject info = AVObject.create("Shop_Info");
-//                    info.put("user_id",userId);
-//                    info.put("shop_name",ShopName);
-//                    info.saveInBackground();
-//
-//                    final AVObject avater = AVObject.create("Shop_Logo");
-//                    avater.put("user_id",userId);
-//                    avater.saveInBackground();
-//
-//                    AVQuery<AVObject> query = new AVQuery<>("Image_File");
-//                    query.findInBackground(new FindCallback<AVObject>() {
-//                        @Override
-//                        public void done(List<AVObject> list, AVException e) {
-//                            AVFile image = list.get(0).getAVFile("image");
-//                            avater.put("image", image);
-//                            avater.saveInBackground();
-//                        }
-//                    });
 
         //获取头像
         final AVQuery<AVObject> logo_query = new AVQuery<>("Shop_Logo");

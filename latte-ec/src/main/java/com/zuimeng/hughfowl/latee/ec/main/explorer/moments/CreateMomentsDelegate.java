@@ -87,9 +87,11 @@ public class CreateMomentsDelegate extends LatteDelegate {
                                     final AVObject avObject = list.get(0);
                                     final String Jdata = avObject.toJSONObject().toString();
                                     final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("content");
+                                    final String uid=JSON.parseObject(Jdata).getString("user_id");
                                     final  JSONObject sizeData=new JSONObject();
                                     JSONObject item = new JSONObject();
                                     item.put("content", content.getText());
+                                    item.put("id",uid+marray.size());
                                     for(int i=0;i<newurl.size();i++)
                                     {
                                         item.put("thumb"+i,newurl.get(i));

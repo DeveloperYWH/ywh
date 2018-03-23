@@ -2,7 +2,9 @@ package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
 
 import android.graphics.Color;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -43,34 +45,40 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         final String name = item.t.getmMomentContent();
 //        final int goodsId = item.t.getGoodsId();
         final SectionContentItemEntity entity = item.t;
+        LinearLayout sec=helper.getView(R.id.second_line);
+        Log.d("thumbsize",String.valueOf(thumb.size()));
+        if (thumb.size()<=3)
+            sec.setVisibility(View.GONE);
+        else
+            sec.setVisibility(View.VISIBLE);
         helper.setText(R.id.content, name);
         final AppCompatImageView goodsImageView0 = helper.getView(R.id.thumb0);
-        if(thumb.size()>=0)
+        if(thumb.size()>=1)
         Glide.with(mContext)
                 .load(thumb.get(0))
                 .into(goodsImageView0);
         final AppCompatImageView goodsImageView1 = helper.getView(R.id.thumb1);
-        if(thumb.size()>=1)
+        if(thumb.size()>=2)
         Glide.with(mContext)
                 .load(thumb.get(1))
                 .into(goodsImageView1);
         final AppCompatImageView goodsImageView2 = helper.getView(R.id.thumb2);
-        if(thumb.size()>=2)
+        if(thumb.size()>=3)
         Glide.with(mContext)
                 .load(thumb.get(2))
                 .into(goodsImageView2);
         final AppCompatImageView goodsImageView3 = helper.getView(R.id.thumb3);
-        if(thumb.size()>=3)
+        if(thumb.size()>=4)
         Glide.with(mContext)
                 .load(thumb.get(3))
                 .into(goodsImageView3);
         final AppCompatImageView goodsImageView4 = helper.getView(R.id.thumb4);
-        if(thumb.size()>=4)
+        if(thumb.size()>=5)
         Glide.with(mContext)
                 .load(thumb.get(4))
                 .into(goodsImageView4);
         final AppCompatImageView goodsImageView5 = helper.getView(R.id.thumb5);
-        if(thumb.size()>=5)
+        if(thumb.size()>=6)
         Glide.with(mContext)
                 .load(thumb.get(5))
                 .into(goodsImageView5);

@@ -48,6 +48,7 @@ public class SectionDataConverter {
                 for(int k=0;k<6/*6是上传图片的最大值*/;k++)
                 {
                     goodsThumb = content_data.getString("thumb"+k);
+                    if (goodsThumb!=null)
                     thumbList.add(goodsThumb);
 
                 }

@@ -15,31 +15,75 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumb0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumb1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumb2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/second_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="5dp">
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumb3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumb4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/thumb5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"/>
         </LinearLayout>
 
         <LinearLayout

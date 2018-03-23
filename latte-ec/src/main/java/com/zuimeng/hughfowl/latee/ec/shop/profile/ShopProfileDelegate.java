@@ -156,7 +156,6 @@ public class ShopProfileDelegate extends LatteDelegate {
                         data.add(shortName);
                         data.add(englishName);
                         data.add(openDate);
-                        data.add(ownerConnection);
                         data.add(ShopStyleDelegate);
                         data.add(ShopGoodsCountsDelegate);
                         data.add(summaryDelegate);

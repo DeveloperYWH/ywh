@@ -57,7 +57,7 @@ public class ShopGoodsCountsDelegate extends LatteDelegate {
                 final AVObject data = list.get(0);
                 data.put("shop_goods_item_counts", mItemCount);
                 data.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate());
+                getSupportDelegate().start(new ShopProfileDelegate(),2);
                 LatteLoader.stopLoading();
             }
         });

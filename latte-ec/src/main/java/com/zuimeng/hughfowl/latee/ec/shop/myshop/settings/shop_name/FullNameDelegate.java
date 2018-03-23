@@ -57,7 +57,7 @@ public class FullNameDelegate extends LatteDelegate {
                 final AVObject avObject = list.get(0);
                 avObject.put("shop_name",mNameText.getText());
                 avObject.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate());
+                getSupportDelegate().start(new ShopProfileDelegate(),2);
                 LatteLoader.stopLoading();
             }
         });

@@ -70,7 +70,7 @@ public class OwnerInfoDelegate1 extends LatteDelegate {
                 data.saveInBackground();
                 ownerInfoObj.clear();
                 ownerInfoArr.clear();
-                getSupportDelegate().start(new ShopProfileDelegate());
+                getSupportDelegate().start(new ShopProfileDelegate(),2);
                 LatteLoader.stopLoading();
             }
         });

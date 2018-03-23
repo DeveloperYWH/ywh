@@ -20,17 +20,17 @@ public class OwnerConnectionDelegate extends LatteDelegate {
 
     @OnClick(R2.id.owner1_info)
     void onClick1() {
-        getSupportDelegate().start(new OwnerInfoDelegate1());
+        getSupportDelegate().start(new OwnerInfoDelegate1(),2);
     }
 
     @OnClick(R2.id.owner2_info)
     void onClick2() {
-        getSupportDelegate().start(new OwnerInfoDelegate2());
+        getSupportDelegate().start(new OwnerInfoDelegate2(),2);
     }
 
     @OnClick(R2.id.owner3_info)
     void onClick3() {
-        getSupportDelegate().start(new OwnerInfoDelegate3());
+        getSupportDelegate().start(new OwnerInfoDelegate3(),2);
     }
 
     @Override

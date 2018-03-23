@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVObject;
 
+import org.greenrobot.greendao.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class SectionDataConverter {
             for (int j = 0;  j <  goodSize; j++) {
                 final JSONObject content_data = goods.getJSONObject(j);
 
-//                final int goodsId = content_data.getInteger("goods_id");
+                final String Id = content_data.getString("id");
                 final String goodsName = content_data.getString("content");
                 String goodsThumb=null;
                 final ArrayList<String> thumbList=new ArrayList<>();
@@ -54,7 +56,7 @@ public class SectionDataConverter {
                 }
                 //获取内容
                 final SectionContentItemEntity itemEntity = new SectionContentItemEntity();
-//                itemEntity.setGoodsId(goodsId-1);
+                itemEntity.setmMomentId(Id);
                 itemEntity.setmMomentContent(goodsName);
                 itemEntity.setmMomentThumb(thumbList);
                 //添加内容

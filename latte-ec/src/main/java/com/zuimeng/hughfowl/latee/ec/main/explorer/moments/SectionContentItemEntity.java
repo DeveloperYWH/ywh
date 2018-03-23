@@ -9,17 +9,17 @@ import java.util.List;
 
 public class SectionContentItemEntity {
 
-    private int mMomentId = 0;
+    private String mMomentId = null;
     private String mMomentContent = null;
     private ArrayList<String> mMomentThumb = null;
     private int mCollect = 0;
     private int mLike = 0;
 
-    public int getmMomentId() {
+    public String getmMomentId() {
         return mMomentId;
     }
 
-    public void setmMomentId(int GoodsId) {
+    public void setmMomentId(String GoodsId) {
         this.mMomentId = GoodsId;
     }
 

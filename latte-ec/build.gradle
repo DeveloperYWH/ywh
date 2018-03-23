@@ -52,6 +52,9 @@ dependencies {
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.sackcentury:shinebutton:0.2.0'
+     
+    //渠道分析
+    compile files('libs/OpenInstall_v2.1.1.jar')
 
     compile project(':latte-core')
     compile project(':latte-ui')

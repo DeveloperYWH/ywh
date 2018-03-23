@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bod_pink"
     android:orientation="vertical">
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/exp_vp"
@@ -22,32 +24,32 @@
         android:layout_height="75dp"
         android:background="@drawable/mycolor">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="18dp"
-        android:background="@color/app_main"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="18dp"
+            android:background="@color/app_main"/>
 
-    <com.gigamole.navigationtabstrip.NavigationTabStrip
-        android:id="@+id/exp_nts"
-        android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:layout_gravity="center"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="5dp"
-        app:nts_active_color="#fff"
-        app:nts_color="@color/bod_red_flower"
-        app:nts_corners_radius="3.5dp"
-        app:nts_factor="0.8"
-        app:nts_gravity="bottom"
-        app:nts_inactive_color="#81ffffff"
-        app:nts_titles="@array/exp_titles"
-        app:nts_type="point"
-        app:nts_typeface="fonts/moon.otf"
-        app:nts_weight="7dp"/>
+        <com.gigamole.navigationtabstrip.NavigationTabStrip
+            android:id="@+id/exp_nts"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginStart="5dp"
+            app:nts_active_color="#fff"
+            app:nts_color="@color/bod_red_flower"
+            app:nts_corners_radius="3.5dp"
+            app:nts_factor="0.8"
+            app:nts_gravity="bottom"
+            app:nts_inactive_color="#81ffffff"
+            app:nts_titles="@array/shop_rels_titles"
+            app:nts_type="point"
+            app:nts_typeface="fonts/moon.otf"
+            app:nts_weight="7dp"/>
 
     </FrameLayout>
 
@@ -71,21 +73,12 @@
 
 
 
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/create_ask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_ask"
-            fab:fab_label="不懂就问"
-            style="@style/MenuButtonsSmall.Exp" />
-
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/create_dress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_dress"
-            fab:fab_label="发布装扮"
+            fab:fab_label="发布动态"
             style="@style/MenuButtonsSmall.Exp" />
 
         <com.github.clans.fab.FloatingActionButton
@@ -93,10 +86,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_moments"
-            fab:fab_label="碎碎念"
+            fab:fab_label="发布商品"
             style="@style/MenuButtonsSmall.Exp" />
 
     </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+
 
 
 </RelativeLayout>

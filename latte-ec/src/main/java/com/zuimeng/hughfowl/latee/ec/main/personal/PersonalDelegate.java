@@ -184,6 +184,7 @@ public class PersonalDelegate extends BottomItemDelegate {
                 data.add(address);
                 data.add(bill_date);
                 data.add(system);
+
                 if ((int) user_right != 1) {
                     final ListBean my_shop = new ListBean.Builder()
                             .setItemType(ListItemType.ITEM_NORMAL)

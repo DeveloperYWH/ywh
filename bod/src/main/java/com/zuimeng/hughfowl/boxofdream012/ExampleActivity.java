@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.PushService;
+import com.fm.openinstall.OpenInstall;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
@@ -58,7 +59,8 @@ public class ExampleActivity extends ProxyActivity implements
 //                }
 //            }
 //        });
-
+        //渠道分析
+        OpenInstall.init(this);
 
     }
         @Override
@@ -103,6 +105,7 @@ public class ExampleActivity extends ProxyActivity implements
                     .listLazy()
                     .get(0)
                     .getName());
+            String ShopName = "我的店铺";
 
             AVObject info = AVObject.create("User_info");
             info.put("user_id",userId);
@@ -135,6 +138,29 @@ public class ExampleActivity extends ProxyActivity implements
             AVObject order_list = AVObject.create("Order_list_test");
             order_list.put("user_id",userId);
             order_list.saveInBackground();
+
+
+
+            AVObject shop_info = AVObject.create("Shop_Info");
+            shop_info.put("user_id",userId);
+            shop_info.put("shop_name",ShopName);
+            shop_info.saveInBackground();
+
+            final AVObject shop_logo = AVObject.create("Shop_Logo");
+            shop_logo.put("user_id",userId);
+            shop_logo.saveInBackground();
+
+            AVQuery<AVObject> shop_query = new AVQuery<>("Image_File");
+            shop_query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    AVFile image = list.get(0).getAVFile("image");
+                    shop_logo.put("image", image);
+                    shop_logo.saveInBackground();
+                }
+            });
+
+
             LatteLoader.stopLoading();
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
         }

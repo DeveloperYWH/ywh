@@ -110,6 +110,10 @@
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
 
+        <meta-data
+            android:name="com.openinstall.APP_KEY"
+            android:value="ctspkl"/>
+
     </application>
 
 </manifest>

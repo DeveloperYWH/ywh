@@ -7,7 +7,11 @@
     <ImageView
         android:id="@+id/shop_no"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="250dp"
         android:src="@mipmap/logo_open_t_piconly"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请填写店铺信息以初始化"/>
 </LinearLayout>

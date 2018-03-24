@@ -10,6 +10,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.ProgressCallback;
 import com.avos.avoscloud.SaveCallback;
@@ -162,7 +163,29 @@ public class ShopProfileClickListener extends SimpleClickListener {
                 final LatteDelegate OwnerDelegate = bean.getDelegate();
                 DELEGATE.getSupportDelegate().start(OwnerDelegate);
                 break;
-
+            case 10:
+                final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
+                avQuery.whereEqualTo("mobilePhoneNumber",
+                        String.valueOf(DatabaseManager
+                                .getInstance()
+                                .getDao()
+                                .queryBuilder()
+                                .listLazy()
+                                .get(0)
+                                .getUserId()));
+                avQuery.findInBackground(new FindCallback<AVUser>() {
+                    @Override
+                    public void done(List<AVUser> list, AVException e) {
+                        Number user_right;
+                        user_right = list.get(0).getNumber("user_type");
+                        if ((int)user_right == 2){
+                            list.get(0).put("user_type",3);
+                            list.get(0).saveInBackground();
+                        }
+                    }
+                });
+                DELEGATE.getSupportDelegate().replaceFragment(bean.getDelegate(),false);
+                break;
             default:
                 break;
         }

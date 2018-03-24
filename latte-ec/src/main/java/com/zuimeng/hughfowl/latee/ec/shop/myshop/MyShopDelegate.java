@@ -123,12 +123,11 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             @Override
             public void done(List<AVUser> list, AVException e) {
                 user_right = list.get(0).getNumber("user_type");
-                if ((int)user_right == 2){
+                if ((int) user_right == 2) {
                     final ShopNoDelegate noShop = new ShopNoDelegate();
-                    getSupportDelegate().loadRootFragment(R.id.shop_list_content,noShop);
+                    getSupportDelegate().loadRootFragment(R.id.shop_list_content, noShop);
                     LatteLoader.stopLoading();
-                }
-                else {
+                } else {
                     final ShopDisplayDelegate listDelegate = new ShopDisplayDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, listDelegate);
                     LatteLoader.stopLoading();

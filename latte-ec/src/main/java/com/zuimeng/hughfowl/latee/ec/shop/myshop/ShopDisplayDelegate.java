@@ -65,6 +65,9 @@ public class ShopDisplayDelegate extends LatteDelegate {
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     LatteLoader.stopLoading();
+                    if(list.get(0) == null ){
+                    getSupportDelegate().loadRootFragment(R.id.shop_list_content,new AddGoodSeriesDelegate());
+                    }
                     mShopSectionDataConverter = new ShopSectionDataConverter().setList(list);
 
                     mData = mShopSectionDataConverter.convert();

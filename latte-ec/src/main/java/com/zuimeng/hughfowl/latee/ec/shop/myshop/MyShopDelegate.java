@@ -135,6 +135,11 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             }
         });
     }
+
+    @OnClick(R2.id.shop_chat)
+    void OnClickChat() {
+
+    }
 }
 
 

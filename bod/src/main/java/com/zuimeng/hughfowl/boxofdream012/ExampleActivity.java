@@ -160,6 +160,9 @@ public class ExampleActivity extends ProxyActivity implements
                 }
             });
 
+            AVObject shop_list = AVObject.create("shop_display");
+            shop_list.put("userId",userId);
+            shop_list.saveInBackground();
 
             LatteLoader.stopLoading();
             Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();

@@ -17,6 +17,8 @@ import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
+import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.MyShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.ShopGoodsCountsDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.ShopStyleDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.ShopSummaryDelegate;
@@ -148,6 +150,13 @@ public class ShopProfileDelegate extends LatteDelegate {
                                 .setValue(list.get(0).getString("shop_owner_connection"))
                                 .build();
 
+                        final ListBean finish = new ListBean.Builder()
+                                .setItemType(ListItemType.ITEM_NORMAL)
+                                .setId(10)
+                                .setText("填写完毕")
+                                .setDelegate(new ShopBottomDelegate())
+                                .build();
+
 
                         final List<ListBean> data = new ArrayList<>();
 
@@ -161,6 +170,7 @@ public class ShopProfileDelegate extends LatteDelegate {
                         data.add(ShopGoodsCountsDelegate);
                         data.add(summaryDelegate);
                         data.add(ownerConnection);
+                        data.add(finish);
 
                         //设置RecyclerView
                         final LinearLayoutManager manager = new LinearLayoutManager(getContext());

@@ -9,7 +9,9 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ViewStubCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -44,8 +46,10 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     private ShopCartAdapter mAdapter = null;
     private double mTotalPrice = 0.00;
 
+    final LinearLayoutManager manager = new LinearLayoutManager(getContext());
+
     @BindView(R2.id.rv_shop_cart)
-    RecyclerView mRecyclerView = null;
+    RecyclerView mRecyclerView  = null;
     @BindView(R2.id.icon_shop_cart_select_all)
     IconTextView mIconSelectAll = null;
     @BindView(R2.id.stub_no_item)
@@ -54,6 +58,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     AppCompatTextView mTvTotalPrice = null;
     @BindView((R2.id.tv_top_shop_cart_clear))
     AppCompatTextView mButton = null;
+
 
     @OnClick(R2.id.icon_shop_cart_select_all)
     void onClickSelectAll() {
@@ -261,6 +266,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
+//        RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_shop_cart);
+
         final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
         LatteLoader.showLoading(getContext());
         query.whereEqualTo("user_id",
@@ -280,15 +287,16 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
                 mAdapter = new ShopCartAdapter(data);
                 mAdapter.setCartItemListener(ShopCartDelegate.this);
-                final LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                mRecyclerView.setLayoutManager(manager);
-                mRecyclerView.setAdapter(mAdapter);
-                mAdapter.SetShopCartDelegate(ShopCartDelegate.this);
-                mTotalPrice = mAdapter.getTotalPrice();
-                mTvTotalPrice.setText(String.valueOf(mTotalPrice));
-                checkItemCount();
-                if (mAdapter.getItemCount() != 0) {
-                    mButton.setClickable(true);
+                if(mRecyclerView != null) {
+                    mRecyclerView.setLayoutManager(manager);
+                    mRecyclerView.setAdapter(mAdapter);
+                    mAdapter.SetShopCartDelegate(ShopCartDelegate.this);
+                    mTotalPrice = mAdapter.getTotalPrice();
+                    mTvTotalPrice.setText(String.valueOf(mTotalPrice));
+                    checkItemCount();
+                    if (mAdapter.getItemCount() != 0) {
+                        mButton.setClickable(true);
+                    }
                 }
                 LatteLoader.stopLoading();
             }

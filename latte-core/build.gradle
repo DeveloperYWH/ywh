@@ -163,5 +163,8 @@ dependencies {
     compile 'com.sackcentury:shinebutton:0.2.0'
     //店铺数据
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    //实时聊天
+    compile ('cn.leancloud.android:chatkit:1.0.6')
+
 
 }

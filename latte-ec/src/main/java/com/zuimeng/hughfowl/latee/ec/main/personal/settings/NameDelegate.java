@@ -62,6 +62,9 @@ public class NameDelegate extends LatteDelegate {
                 final AVObject avObject = list.get(0);
                 avObject.put("user_name",mNameText.getText());
                 avObject.saveInBackground();
+                EcBottomDelegate delegate = new EcBottomDelegate();
+                delegate.setFlag(4);
+                getSupportDelegate().replaceFragment(delegate, false);
                 getSupportDelegate().start(new UserProfileDelegate());
                 LatteLoader.stopLoading();
             }

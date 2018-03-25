@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.avos.avoscloud.AVException;
@@ -20,6 +21,8 @@ import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by hughfowl on 2018/3/19.
@@ -65,9 +68,8 @@ public class ShopDisplayDelegate extends LatteDelegate {
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     LatteLoader.stopLoading();
-                    if(list.get(0) == null ){
-                    getSupportDelegate().loadRootFragment(R.id.shop_list_content,new AddGoodSeriesDelegate());
-                    }
+                    Log.e(TAG, String.valueOf(list.size()) );
+
                     mShopSectionDataConverter = new ShopSectionDataConverter().setList(list);
 
                     mData = mShopSectionDataConverter.convert();

@@ -9,9 +9,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ViewStubCompat;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -20,17 +18,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.pay.FastPay;
+import com.zuimeng.hughfowl.latee.ec.pay.IAliPayResultListener;
+import com.zuimeng.hughfowl.latee.ec.pay.OrderInfoUtil2_0;
 import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.ui.recycler.MultipleItemEntity;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,7 @@ import butterknife.OnClick;
  * Created by Rhapsody on 2018/1/5.
  */
 
-public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener {
+public class ShopCartDelegate extends BottomItemDelegate implements ICartItemListener,IAliPayResultListener{
 
     private ShopCartAdapter mAdapter = null;
     private double mTotalPrice = 0.00;
@@ -58,6 +59,8 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     AppCompatTextView mTvTotalPrice = null;
     @BindView((R2.id.tv_top_shop_cart_clear))
     AppCompatTextView mButton = null;
+    @BindView((R2.id.tv_shop_cart_pay))
+    AppCompatTextView mButtonPay = null;
 
 
     @OnClick(R2.id.icon_shop_cart_select_all)
@@ -121,7 +124,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                             }
                         }
                     }
-                    cartData.saveInBackground();
                     for (int i = 0; i < cartList.size(); i++) {
                         JSONObject goodsInfo = (JSONObject) cartList.get(i);
                         totalPrice = totalPrice + goodsInfo.getInteger("count") *
@@ -129,6 +131,10 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                     }
                     BigDecimal fix = new BigDecimal(totalPrice);
                     double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+                    cartData.put("totalPrice",fix_price);
+                    cartData.saveInBackground();
+
                     mTvTotalPrice.setText(String.valueOf(fix_price));
                     for(int i = 0;i<cartList.size();i++){
                         JSONObject goodsInfo = (JSONObject) cartList.get(i);
@@ -161,13 +167,14 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 JSONArray goodsInfo = JSON.parseObject(cartData).getJSONArray("shop_cart_data");
                 goodsInfo.clear();
                 cartList.put("shop_cart_data", goodsInfo);
-                cartList.saveInBackground();
                 mAdapter.getData().clear();
                 mAdapter.notifyDataSetChanged();
                 for (int i = 0; i < goodsInfo.size(); i++) {
                     mAdapter.remove(i);
                 }
                 mTotalPrice = 0.00;
+                cartList.put("totalPrice",mTotalPrice);
+                cartList.saveInBackground();
                 BigDecimal fix = new BigDecimal(mTotalPrice);
                 double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 mTvTotalPrice.setText(String.valueOf(fix_price));
@@ -178,7 +185,26 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     @OnClick(R2.id.tv_shop_cart_pay)
     void onClickPay() {
-        //createOrder();
+
+        final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
+        query.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0).getUserId()));
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                final AVObject data = list.get(0);
+                double totalPrice = data.getDouble("totalPrice");
+                DecimalFormat df = new DecimalFormat("#0.00");
+                String mPrice = df.format(totalPrice);
+                new OrderInfoUtil2_0().setPrice(mPrice);
+            }
+        });
+        createOrder();
     }
 
 
@@ -186,46 +212,9 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
 
     private void createOrder() {
 
-        final AVObject mOrder = new AVObject("Order_test");
-
-        //添加订单参数
-        AVQuery<AVUser> userQuery = new AVQuery<>("_User");
-        userQuery.findInBackground(new FindCallback<AVUser>() {
-            @Override
-            public void done(List<AVUser> list, AVException e) {
-                mOrder.put("user_id", list.get(0).getMobilePhoneNumber());
-            }
-        });
-        mOrder.put("amount", 0.01);
-        mOrder.put("comment", "测试支付");
-        mOrder.put("type", 1);
-        mOrder.put("order_type", 0);
-        mOrder.put("is_anonymous", true);
-        mOrder.saveInBackground();
-
-
-        /*
-        RestClient.builder()
-                .url(orderUrl)
-                .loader(getContext())
-                .params(orderParams)
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        //进行具体的支付
-                        LatteLogger.d("ORDER", response);
-                        final int orderId = JSON.parseObject(response).getInteger("result");
-                        FastPay.create(ShopCartDelegate.this)
-                                .setPayResultListener(ShopCartDelegate.this)
-                                .setOrderId(orderId)
-                                .beginPayDialog();
-                    }
-                })
-                .build()
-                .post();
-
-               */
-
+        FastPay.creat(ShopCartDelegate.this)
+                .setPayResultListener(ShopCartDelegate.this)
+                .beginDialog();
     }
 
 
@@ -245,6 +234,7 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
                 }
             });
             mRecyclerView.setVisibility(View.GONE);
+            mButtonPay.setClickable(false);
         } else {
             mRecyclerView.setVisibility(View.VISIBLE);
         }
@@ -309,5 +299,30 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
         BigDecimal fix = new BigDecimal(price);
         double fix_price = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         mTvTotalPrice.setText(String.valueOf(fix_price));
+    }
+
+    @Override
+    public void onPaySuccess() {
+
+    }
+
+    @Override
+    public void onPaying() {
+
+    }
+
+    @Override
+    public void onPayFail() {
+
+    }
+
+    @Override
+    public void onPayCancel() {
+
+    }
+
+    @Override
+    public void onPayConnectError() {
+
     }
 }

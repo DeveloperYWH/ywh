@@ -152,6 +152,7 @@ public class CommentsDelegate extends LatteDelegate {
         final LinearLayout comment_list=rootView.findViewById(R.id.comment_list);
         final AppCompatTextView content=rootView.findViewById(R.id.content);
         final LinearLayout comment_layout=rootView.findViewById(R.id.comment_layout);
+        final AppCompatTextView likeamount=rootView.findViewById(R.id.like_amount);
         collect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,6 +189,30 @@ public class CommentsDelegate extends LatteDelegate {
                         like.setChecked(true);
                     }
                 }
+                LatteLoader.stopLoading();
+            }
+        });
+        final AVQuery<AVObject> query_name1 = new AVQuery<>("User_info");
+        LatteLoader.showLoading(getContext());
+        query_name1.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                int amountright=0;
+                for(int j=0;j<list.size();j++)
+                {
+                    final AVObject avObject = list.get(j);
+                    final String Jdata = avObject.toJSONObject().toString();
+                    final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
+                    for(int i=0;i<marray.size();i++)
+                    {
+                        if (Id.equals(marray.getJSONObject(i).getString("id")))
+                        {
+                            amountright++;
+                        }
+                    }
+
+                }
+                likeamount.setText(String.valueOf(amountright));
                 LatteLoader.stopLoading();
             }
         });

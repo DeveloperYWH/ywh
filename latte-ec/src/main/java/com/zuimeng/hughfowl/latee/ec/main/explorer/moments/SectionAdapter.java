@@ -32,6 +32,8 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.sort.content.ContentDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
+import org.greenrobot.greendao.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -162,16 +164,43 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         query_name.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-                final AVObject avObject = list.get(0);
-                final String Jdata = avObject.toJSONObject().toString();
-                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
-                for(int i=0;i<marray.size();i++)
-                {
-                    if (Id.equals(marray.getJSONObject(i).getString("id")))
+                    final AVObject avObject = list.get(0);
+                    final String Jdata = avObject.toJSONObject().toString();
+                    final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
+                    for(int i=0;i<marray.size();i++)
                     {
-                        like.setChecked(true);
+                        if (Id.equals(marray.getJSONObject(i).getString("id")))
+                        {
+                            like.setChecked(true);
+                        }
                     }
+
+                LatteLoader.stopLoading();
+            }
+        });
+
+        int amountleft=0;
+        final AVQuery<AVObject> query_name1 = new AVQuery<>("User_info");
+        LatteLoader.showLoading(mContext);
+        query_name1.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                int amountright=0;
+                for(int j=0;j<list.size();j++)
+                {
+                    final AVObject avObject = list.get(j);
+                    final String Jdata = avObject.toJSONObject().toString();
+                    final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
+                    for(int i=0;i<marray.size();i++)
+                    {
+                        if (Id.equals(marray.getJSONObject(i).getString("id")))
+                        {
+                            amountright++;
+                        }
+                    }
+
                 }
+                likeamount.setText(String.valueOf(amountright));
                 LatteLoader.stopLoading();
             }
         });

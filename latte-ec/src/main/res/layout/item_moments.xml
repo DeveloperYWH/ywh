@@ -107,6 +107,17 @@
                     app:btn_fill_color="@android:color/holo_green_dark"
                     app:allow_random_color="false"
                     app:siShape="@raw/star"/>
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/comment_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/collect"
+                    android:paddingLeft="5dp"
+                    android:textSize="20dp"
+                    android:text="8"
+                    android:textAlignment="center"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="0dp"
@@ -132,6 +143,18 @@
                     app:siShape="@raw/star"
                     app:small_shine_color="#CC9999"
                     app:small_shine_offset_angle="20" />
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/like_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_toRightOf="@+id/like"
+                    android:paddingLeft="5dp"
+                    android:textSize="20dp"
+                    android:text="8"
+                    android:textAlignment="center"/>
+
             </RelativeLayout>
         </LinearLayout>
         <LinearLayout

@@ -147,6 +147,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 }
             }
         });
+        final AppCompatTextView likeamount=helper.getView(R.id.like_amount);
+        AppCompatTextView commentamount=helper.getView(R.id.comment_amount);
         final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
         LatteLoader.showLoading(mContext);
         query_name.whereEqualTo("user_id",

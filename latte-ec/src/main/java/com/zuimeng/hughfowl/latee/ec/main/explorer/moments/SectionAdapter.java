@@ -2,6 +2,8 @@ package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
 
 import android.graphics.Color;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,10 +24,15 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.sort.content.ContentDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import me.yokeyword.fragmentation.SupportHelper;
 
 /**
  * Created by ywh on 2018/1/6.
@@ -33,6 +40,9 @@ import java.util.List;
 
 public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseViewHolder> {
 
+    private List<AVObject> AVList = new ArrayList<>();
+    private List<SectionBean> mData = null;
+    private CommentsDataConverter CommentsDataConverter = null;
     private static final RequestOptions OPTIONS = new RequestOptions()
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .dontAnimate();
@@ -55,6 +65,10 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         final String name = item.t.getmMomentContent();
         final String Id = item.t.getmMomentId();
         final SectionContentItemEntity entity = item.t;
+        final RecyclerView comment=helper.getView(R.id.comments);
+        final StaggeredGridLayoutManager manager =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        comment.setLayoutManager(manager);
         LinearLayout sec=helper.getView(R.id.second_line);
         if (thumb.size()<=3)
             sec.setVisibility(View.GONE);
@@ -103,6 +117,49 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         like.setBtnFillColor(Color.RED);
         like.setShineCount(8);
         like.setAllowRandomColor(true);
+        final LinearLayout comment_list=helper.getView(R.id.comment_list);
+        collect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout comment_layout=helper.getView(R.id.comment_layout);
+                if(comment_layout.getVisibility()==View.GONE)
+                {
+                    comment_layout.setVisibility(View.VISIBLE);
+                    comment_list.setVisibility(View.VISIBLE);
+                    final AVQuery<AVObject> query1 = new AVQuery<>("User_comments");
+                    query1.whereEqualTo("moments_id",Id);
+                    query1.findInBackground(new FindCallback<AVObject>() {
+                        @Override
+                        public void done( List<AVObject> list, AVException e) {
+                            if (e == null) {
+                                if (list.size()==0)
+                                {
+                                    AVObject newMoments=new AVObject("User_comments");
+                                    newMoments.put("moments_id",Id);
+                                    newMoments.saveInBackground();
+                                }
+                                AVList.addAll(list);
+                                CommentsDataConverter = new CommentsDataConverter().setList(list);
+
+                                mData = CommentsDataConverter.convert();
+                                CommentsAdapter sectionAdapter = new CommentsAdapter(R.layout.item_comments,
+                                        R.layout.item_section_header, mData);
+                                if (comment!=null)
+                                    comment.setAdapter(sectionAdapter);
+                            }
+                            else
+                            {
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    comment_layout.setVisibility(View.GONE);
+                    comment_list.setVisibility(View.GONE);
+                }
+            }
+        });
         final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
         LatteLoader.showLoading(mContext);
         query_name.whereEqualTo("user_id",
@@ -121,7 +178,7 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
                 for(int i=0;i<marray.size();i++)
                 {
-                    if (Id.endsWith(marray.getJSONObject(i).getString("id")))
+                    if (Id.equals(marray.getJSONObject(i).getString("id")))
                     {
                         like.setChecked(true);
                     }
@@ -190,7 +247,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                         }
                     });
                 }
-
             }
         });
     }

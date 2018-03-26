@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -16,9 +17,13 @@ import com.bumptech.glide.Glide;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries.CreateGoodsSeriesDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.profile.ShopProfileDelegate;
+import com.zuimeng.hughfowl.latte.app.Latte;
+import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.io.IOException;
@@ -35,6 +40,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MyShopDelegate extends BottomItemShopDelegate {
+
+
 
     Number user_right = 0;
 
@@ -127,13 +134,22 @@ public class MyShopDelegate extends BottomItemShopDelegate {
                     final ShopNoDelegate noShop = new ShopNoDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, noShop);
                     LatteLoader.stopLoading();
-                } else {
+                } else if((int) user_right == 3){
+                    getSupportDelegate().loadRootFragment(R.id.shop_list_content, new AddGoodSeriesDelegate());
+                }
+                else
+                {
                     final ShopDisplayDelegate listDelegate = new ShopDisplayDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, listDelegate);
                     LatteLoader.stopLoading();
                 }
             }
         });
+    }
+
+    @OnClick(R2.id.shop_chat)
+    void OnClickChat() {
+
     }
 }
 

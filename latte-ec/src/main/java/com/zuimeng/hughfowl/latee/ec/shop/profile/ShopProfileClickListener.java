@@ -1,6 +1,7 @@
 package com.zuimeng.hughfowl.latee.ec.shop.profile;
 
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,10 +55,13 @@ public class ShopProfileClickListener extends SimpleClickListener {
                         .addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {
                             @Override
                             public void executeCallback(final Uri args) {
-                                final ImageView avatar = view.findViewById(R.id.shop_img_arrow_avatar);
-                                Glide.with(DELEGATE)
-                                        .load(args)
-                                        .into(avatar);
+                                final ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
+                                Log.e(TAG, String.valueOf(avatar) );
+                                if (avatar != null){
+                                    Glide.with(DELEGATE)
+                                            .load(args)
+                                            .into(avatar);
+                                }
                                 final AVQuery<AVObject> query = new AVQuery<>("Shop_Logo");
                                 query.whereEqualTo("user_id",
                                         String.valueOf(DatabaseManager
@@ -184,7 +188,7 @@ public class ShopProfileClickListener extends SimpleClickListener {
                         }
                     }
                 });
-                DELEGATE.getSupportDelegate().replaceFragment(bean.getDelegate(),false);
+                DELEGATE.getSupportDelegate().start(bean.getDelegate(),2);
                 break;
             default:
                 break;

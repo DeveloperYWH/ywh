@@ -57,9 +57,6 @@ public class ExplorerDelegate extends BottomItemDelegate {
         super.onLazyInitView(savedInstanceState);
         SetUI();
 
-//        final DressListDelegate listDelegate = new DressListDelegate();
-//        getSupportDelegate().loadRootFragment(R.id.exp_list_content, listDelegate);
-
     }
 
 
@@ -74,10 +71,6 @@ public class ExplorerDelegate extends BottomItemDelegate {
         topbar.setTitleSize(50);
 
     }
-//    @OnClick(R2.id.exp_mom_switch)
-//    void OnClickSwitchMoments(){
-//        getSupportDelegate().loadRootFragment(R.id.exp_list_content,new MomentsListDelegate());
-//    }
 
     @OnClick(R2.id.create_moments)
     void OnClickCreateMoments(){

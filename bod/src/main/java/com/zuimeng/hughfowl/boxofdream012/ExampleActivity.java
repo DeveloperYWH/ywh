@@ -31,8 +31,7 @@ import qiu.niorgai.StatusBarCompat;
 
 public class ExampleActivity extends ProxyActivity implements
         ISignListener,
-        ILauncherListener
-    {
+        ILauncherListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class ExampleActivity extends ProxyActivity implements
             actionBar.hide();
         }
         Latte.getConfigurator().withActivity(this);
-        StatusBarCompat.translucentStatusBar(this,true);
+        StatusBarCompat.translucentStatusBar(this, true);
 
         //开启推送
         // 设置默认打开的 Activity
@@ -63,17 +62,18 @@ public class ExampleActivity extends ProxyActivity implements
         OpenInstall.init(this);
 
     }
-        @Override
-        protected void onPause() {
-            super.onPause();
-            //JPushInterface.onPause(this);
-        }
 
-        @Override
-        protected void onResume() {
-            super.onResume();
-            //JPushInterface.onResume(this);
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //JPushInterface.onPause(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //JPushInterface.onResume(this);
+    }
 
 
     @Override
@@ -81,111 +81,114 @@ public class ExampleActivity extends ProxyActivity implements
         return new LauncherDelegate();
     }
 
-        @Override
-        public void onSignInSuccess() {
-            LatteLoader.stopLoading();
-            Toast.makeText(this, "登录成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
-            getSupportDelegate().start(new EcBottomDelegate());
-        }
-
-        @Override
-        public void onSignUpSuccess() {
-
-            String userId = String.valueOf(DatabaseManager
-                    .getInstance()
-                    .getDao()
-                    .queryBuilder()
-                    .listLazy()
-                    .get(0)
-                    .getUserId());
-            String name = String.valueOf(DatabaseManager
-                    .getInstance()
-                    .getDao()
-                    .queryBuilder()
-                    .listLazy()
-                    .get(0)
-                    .getName());
-            String ShopName = "我的店铺";
-
-            AVObject info = AVObject.create("User_info");
-            info.put("user_id",userId);
-            info.put("user_name",name);
-            info.saveInBackground();
-
-            AVObject cart_datas = AVObject.create("Cart_Datas");
-            cart_datas.put("user_id",userId);
-            cart_datas.saveInBackground();
-
-            final AVObject avater = AVObject.create("User_avater");
-            avater.put("user_id",userId);
-
-
-            AVQuery<AVObject> query = new AVQuery<>("Image_File");
-            query.findInBackground(new FindCallback<AVObject>() {
-                @Override
-                public void done(List<AVObject> list, AVException e) {
-                    AVFile image = list.get(0).getAVFile("image");
-                    avater.put("image", image);
-                    avater.saveInBackground();
-                }
-            });
-
-
-            AVObject address = AVObject.create("User_address");
-            address.put("user_id",userId);
-            address.saveInBackground();
-
-            AVObject order_list = AVObject.create("Order_list_test");
-            order_list.put("user_id",userId);
-            order_list.saveInBackground();
-
-
-
-            AVObject shop_info = AVObject.create("Shop_Info");
-            shop_info.put("user_id",userId);
-            shop_info.put("shop_name",ShopName);
-            shop_info.saveInBackground();
-
-            final AVObject shop_logo = AVObject.create("Shop_Logo");
-            shop_logo.put("user_id",userId);
-            shop_logo.saveInBackground();
-
-            AVQuery<AVObject> shop_query = new AVQuery<>("Image_File");
-            shop_query.findInBackground(new FindCallback<AVObject>() {
-                @Override
-                public void done(List<AVObject> list, AVException e) {
-                    AVFile image = list.get(0).getAVFile("image");
-                    shop_logo.put("image", image);
-                    shop_logo.saveInBackground();
-                }
-            });
-
-            AVObject shop_list = AVObject.create("shop_display");
-            shop_list.put("userId",userId);
-            shop_list.saveInBackground();
-
-            LatteLoader.stopLoading();
-            Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
-        }
-
-        @Override
-        public void onLauncherFinsh(OnLauncherFinshTag tag) {
-
-            switch (tag) {
-                case SIGNED:
-                    // Toast.makeText(this, "启动结束，账户已登录", Toast.LENGTH_LONG).show();
-                    LatteLoader.stopLoading();
-                    getSupportDelegate().replaceFragment(new EcBottomDelegate(),false);
-                    break;
-                case NOT_SIGNED:
-                    // Toast.makeText(this, "启动结束，账户未登录", Toast.LENGTH_LONG).show();
-                    LatteLoader.stopLoading();
-                    getSupportDelegate().replaceFragment(new SignUpDelegate(),false);
-                    break;
-                default:
-                    break;
-            }
-
-
-        }
+    @Override
+    public void onSignInSuccess() {
+        LatteLoader.stopLoading();
+        Toast.makeText(this, "登录成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
+        getSupportDelegate().start(new EcBottomDelegate());
     }
+
+    @Override
+    public void onSignUpSuccess() {
+
+        String userId = String.valueOf(DatabaseManager
+                .getInstance()
+                .getDao()
+                .queryBuilder()
+                .listLazy()
+                .get(0)
+                .getUserId());
+        String name = String.valueOf(DatabaseManager
+                .getInstance()
+                .getDao()
+                .queryBuilder()
+                .listLazy()
+                .get(0)
+                .getName());
+        String ShopName = "我的店铺";
+
+        AVObject info = AVObject.create("User_info");
+        info.put("user_id", userId);
+        info.put("user_name", name);
+        info.saveInBackground();
+
+        AVObject cart_datas = AVObject.create("Cart_Datas");
+        cart_datas.put("user_id", userId);
+        cart_datas.saveInBackground();
+
+        final AVObject avater = AVObject.create("User_avater");
+        avater.put("user_id", userId);
+
+
+        AVQuery<AVObject> query = new AVQuery<>("Image_File");
+        query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                AVFile image = list.get(0).getAVFile("image");
+                avater.put("image", image);
+                avater.saveInBackground();
+            }
+        });
+
+
+        AVObject address = AVObject.create("User_address");
+        address.put("user_id", userId);
+        address.saveInBackground();
+
+        AVObject order_list = AVObject.create("Order_list_test");
+        order_list.put("user_id", userId);
+        order_list.saveInBackground();
+
+        AVObject moments = AVObject.create("User_moments");
+        moments.put("user_id", userId);
+        moments.saveInBackground();
+
+
+        AVObject shop_info = AVObject.create("Shop_Info");
+        shop_info.put("user_id", userId);
+        shop_info.put("shop_name", ShopName);
+        shop_info.saveInBackground();
+
+        final AVObject shop_logo = AVObject.create("Shop_Logo");
+        shop_logo.put("user_id", userId);
+        shop_logo.saveInBackground();
+
+        AVQuery<AVObject> shop_query = new AVQuery<>("Image_File");
+        shop_query.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                AVFile image = list.get(0).getAVFile("image");
+                shop_logo.put("image", image);
+                shop_logo.saveInBackground();
+            }
+        });
+
+        AVObject shop_list = AVObject.create("shop_display");
+        shop_list.put("userId", userId);
+        shop_list.saveInBackground();
+
+        LatteLoader.stopLoading();
+        Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onLauncherFinsh(OnLauncherFinshTag tag) {
+
+        switch (tag) {
+            case SIGNED:
+                // Toast.makeText(this, "启动结束，账户已登录", Toast.LENGTH_LONG).show();
+                LatteLoader.stopLoading();
+                getSupportDelegate().replaceFragment(new EcBottomDelegate(), false);
+                break;
+            case NOT_SIGNED:
+                // Toast.makeText(this, "启动结束，账户未登录", Toast.LENGTH_LONG).show();
+                LatteLoader.stopLoading();
+                getSupportDelegate().replaceFragment(new SignUpDelegate(), false);
+                break;
+            default:
+                break;
+        }
+
+
+    }
+}

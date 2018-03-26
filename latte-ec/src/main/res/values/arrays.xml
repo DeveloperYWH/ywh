@@ -12,4 +12,9 @@
         <item>商品</item>
     </string-array>
 
+    <string-array name="shop_data_titles">
+        <item>店铺总览</item>
+        <item>商品系列</item>
+    </string-array>
+
 </resources>

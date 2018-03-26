@@ -1,9 +1,11 @@
-package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
+package com.zuimeng.hughfowl.latee.ec.main.explorer.comments;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVObject;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.SectionBean;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.SectionContentItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;

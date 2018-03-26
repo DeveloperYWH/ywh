@@ -56,6 +56,7 @@ public class MomentsDelegate extends LatteDelegate {
 
                     final SectionAdapter sectionAdapter = new SectionAdapter(R.layout.item_moments,
                             R.layout.item_section_header, mData);
+                    sectionAdapter.SetMomentsDelegate(MomentsDelegate.this);
                     if(mRecyclerView!=null)
                     mRecyclerView.setAdapter(sectionAdapter);
                     LatteLoader.stopLoading();

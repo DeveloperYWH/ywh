@@ -15,7 +15,6 @@ import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 
 public class BottomItemShopDelegate extends BottomItemDelegate {
 
-    private Bundle mArgs = null;
 
 
     // 再点一次退出程序时间设置
@@ -36,7 +35,6 @@ public class BottomItemShopDelegate extends BottomItemDelegate {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mArgs = new Bundle();
     }
 
     @Override

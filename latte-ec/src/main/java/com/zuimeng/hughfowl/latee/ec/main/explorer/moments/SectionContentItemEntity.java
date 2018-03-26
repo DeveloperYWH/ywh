@@ -12,6 +12,7 @@ public class SectionContentItemEntity {
     private String mMomentId = null;
     private String mMomentContent = null;
     private ArrayList<String> mMomentThumb = null;
+    private ArrayList<String> mComments = null;
     private int mCollect = 0;
     private int mLike = 0;
 
@@ -33,6 +34,13 @@ public class SectionContentItemEntity {
 
     public List<String> getmMomentThumb() {
         return mMomentThumb;
+    }
+
+    public void setmComments(ArrayList<String> mComments) {
+        this.mMomentThumb = mComments;
+    }
+    public List<String> getmComments() {
+        return mComments;
     }
 
     public void setmMomentThumb(ArrayList<String> mMomentThumb) {

@@ -66,7 +66,6 @@ public class ShopProfileDelegate extends LatteDelegate {
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
-
                 avatar_imageUrl = list.get(0).getAVFile("image").getUrl();
 
                 final ListBean image = new ListBean.Builder()

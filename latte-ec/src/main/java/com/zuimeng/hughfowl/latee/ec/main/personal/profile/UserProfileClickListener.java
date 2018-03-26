@@ -3,6 +3,7 @@ package com.zuimeng.hughfowl.latee.ec.main.personal.profile;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,6 +84,7 @@ public class UserProfileClickListener extends SimpleClickListener {
                             @Override
                             public void executeCallback(final Uri args) {
                                 final ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
+                                Log.e(TAG, String.valueOf(avatar) );
                                 Glide.with(DELEGATE)
                                         .load(args)
                                         .into(avatar);

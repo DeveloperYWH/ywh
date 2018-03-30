@@ -59,7 +59,7 @@ public class ShortNameDelegate extends LatteDelegate {
                 final AVObject avObject = list.get(0);
                 avObject.put("shop_name_short", mNameText.getText());
                 avObject.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate());
+                getSupportDelegate().start(new ShopProfileDelegate(),2);
                 LatteLoader.stopLoading();
             }
         });

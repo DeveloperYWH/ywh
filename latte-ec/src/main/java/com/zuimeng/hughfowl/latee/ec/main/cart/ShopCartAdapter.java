@@ -35,10 +35,7 @@ import java.util.List;
  */
 
 public class ShopCartAdapter extends MultipleRecyclerAdapter {
-
     private ShopCartDelegate DELEGATE = null;
-    private List<AVObject> mAvlist = null;
-
     private boolean mIsSelectedAll = false;
     private ICartItemListener mCartItemListener = null;
     private double mTotalPrice = 0.00;
@@ -48,24 +45,41 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
             .centerCrop()
             .dontAnimate();
 
-    public void SetShopCartDelegate(ShopCartDelegate delegate){
+    public void SetShopCartDelegate(ShopCartDelegate delegate) {
         DELEGATE = delegate;
     }
 
     ShopCartAdapter(List<MultipleItemEntity> data) {
         super(data);
         for (MultipleItemEntity entity : data) {
-            //final int id = entity.getField(MultipleFields.ID);
             final double price = entity.getField(ShopCartItemFields.PRICE);
             final int count = entity.getField(ShopCartItemFields.COUNT);
             final double total = price * count;
             mTotalPrice = mTotalPrice + total;
             BigDecimal fix = new BigDecimal(mTotalPrice);
             mTotalPrice = fix.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+            final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
+            query.whereEqualTo("user_id",
+                    String.valueOf(DatabaseManager
+                            .getInstance()
+                            .getDao()
+                            .queryBuilder()
+                            .listLazy()
+                            .get(0).getUserId()));
+            query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+                    AVObject data = list.get(0);
+                    data.put("totalPrice",mTotalPrice);
+                    data.saveInBackground();
+                }
+            });
         }
         //添加购物测item布局
         addItemType(ShopCartItemType.SHOP_CART_ITEM, R.layout.item_shop_cart);
     }
+
 
     public void setIsSelectedAll(boolean isSelectedAll) {
         this.mIsSelectedAll = isSelectedAll;
@@ -76,7 +90,6 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
     }
 
     public double getTotalPrice() {
-
         return mTotalPrice;
     }
 
@@ -155,7 +168,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
 
                     @Override
                     public void onClick(View v) {
-                        if(String.valueOf(tvCount.getText()).equals("1"))
+                        if (String.valueOf(tvCount.getText()).equals("1"))
                             iconMinus.setClickable(false);
                         LatteLoader.showLoading(v.getContext());
                         query.findInBackground(new FindCallback<AVObject>() {
@@ -176,7 +189,6 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                             tvCount.setText(String.valueOf(countNum));
                                             goodsInfo.put("count", countNum);
                                             data.put("shop_cart_data", cart_list);
-                                            data.saveInBackground();
                                         }
                                     }
                                 }
@@ -188,6 +200,8 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                                 goodsInfo.getDouble("price");
                                     }
                                     mTotalPrice = totalPrice;
+                                    data.put("totalPrice", mTotalPrice);
+                                    data.saveInBackground();
                                     mCartItemListener.onItemClick();
                                     LatteLoader.stopLoading();
                                 }
@@ -217,7 +231,6 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                         tvCount.setText(String.valueOf(countNum));
                                         goodsInfo.put("count", countNum);
                                         data.put("shop_cart_data", cart_list);
-                                        data.saveInBackground();
                                     }
                                 }
                                 if (mCartItemListener != null) {
@@ -228,6 +241,8 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                                                 goodsInfo.getDouble("price");
                                     }
                                     mTotalPrice = totalPrice;
+                                    data.put("totalPrice", mTotalPrice);
+                                    data.saveInBackground();
                                     mCartItemListener.onItemClick();
                                     LatteLoader.stopLoading();
                                 }
@@ -243,7 +258,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                         int goodsId = entity.getField(MultipleFields.ID);
 
                         final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
-                        query.whereEqualTo("id",goodsId);
+                        query.whereEqualTo("id", goodsId);
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
@@ -260,7 +275,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                         int goodsId = entity.getField(MultipleFields.ID);
 
                         final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
-                        query.whereEqualTo("id",goodsId);
+                        query.whereEqualTo("id", goodsId);
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {
@@ -277,7 +292,7 @@ public class ShopCartAdapter extends MultipleRecyclerAdapter {
                         int goodsId = entity.getField(MultipleFields.ID);
 
                         final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
-                        query.whereEqualTo("id",goodsId);
+                        query.whereEqualTo("id", goodsId);
                         query.findInBackground(new FindCallback<AVObject>() {
                             @Override
                             public void done(List<AVObject> list, AVException e) {

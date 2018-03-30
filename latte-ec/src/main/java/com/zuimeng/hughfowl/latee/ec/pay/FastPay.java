@@ -5,17 +5,20 @@ import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.alibaba.fastjson.JSON;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.GetCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
-import com.zuimeng.hughfowl.latte.net.RestClient;
-import com.zuimeng.hughfowl.latte.net.callback.ISuccess;
-import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
+
+import java.util.Map;
 
 /**
  * Created by Rhapsody on 2018/3/16.
@@ -26,7 +29,6 @@ public class FastPay implements View.OnClickListener {
     private IAliPayResultListener mIAliPayResultListener = null;
     private Activity mActivity = null;
     private AlertDialog mDialog = null;
-    private int mOrderID = -1;
 
 
     private FastPay(LatteDelegate delegate) {
@@ -63,35 +65,38 @@ public class FastPay implements View.OnClickListener {
         return this;
     }
 
-    public FastPay setOrderId(int orderId) {
-        this.mOrderID = orderId;
-        return this;
+    private void aLiPay() {
+        //获取签名字符串
+
+        AVQuery<AVObject> query = new AVQuery<>("Private_Info");
+        query.getInBackground("5ab896279f54541cd8474ffb", new GetCallback<AVObject>() {
+            @Override
+            public void done(AVObject avObject, AVException e) {
+                String appId = avObject.getString("appId");
+                String key = avObject.getString("privateKey");
+                boolean rsa2 = (key.length() > 0);
+                Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(appId, rsa2);
+                Log.e("aaa",String.valueOf(params));
+
+                String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
+
+                String sign = OrderInfoUtil2_0.getSign(params, key, rsa2);
+                final String orderInfo = orderParam + "&" + sign;
+
+                //必须是异步的调用客户端支付接口
+                final PayAsyncTask payAsyncTask = new PayAsyncTask(mActivity, mIAliPayResultListener);
+                payAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, orderInfo);
+
+            }
+        });
     }
 
-    public final void alipay(int orderId){
-        final String signUrl = "你的服务端支付地址" + orderId;
-        //获取签名字符串
-        RestClient.builder()
-                .url(signUrl)
-                .success(new ISuccess() {
-                    @Override
-                    public void onSuccess(String response) {
-                        final String paySign = JSON.parseObject(response).getString("result");
-                        LatteLogger.d("PAY_SIGN", paySign);
-                        //必须是异步的调用客户端支付接口
-                        final PayAsyncTask payAsyncTask = new PayAsyncTask(mActivity, mIAliPayResultListener);
-                        payAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, paySign);
-                    }
-                })
-                .build()
-                .post();
-    }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_dialog_pay_alipay) {
-            alipay(mOrderID);
+            aLiPay();
             mDialog.cancel();
         } else if (id == R.id.btn_dialog_pay_wechat) {
             //weChatPay(mOrderID);

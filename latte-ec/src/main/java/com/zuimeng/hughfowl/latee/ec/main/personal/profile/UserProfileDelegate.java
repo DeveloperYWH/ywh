@@ -14,13 +14,11 @@ import com.avos.avoscloud.FindCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
-import com.zuimeng.hughfowl.latee.ec.database.UserProfile;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.NameDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SizeDelegate;
-import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -45,9 +43,9 @@ public class UserProfileDelegate extends LatteDelegate {
         return R.layout.delegate_user_profile;
     }
 
+
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-
 
         final AVQuery<AVObject> query = new AVQuery<>("User_avater");
         LatteLoader.showLoading(getContext());
@@ -131,12 +129,7 @@ public class UserProfileDelegate extends LatteDelegate {
                         LatteLoader.stopLoading();
                     }
                 });
-
-
-
             }
         });
-
-
     }
 }

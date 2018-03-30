@@ -37,5 +37,6 @@ public class CommentsAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVi
         final String name = item.t.getmMomentContent();
         final String Id = item.t.getmMomentId();
         helper.setText(R.id.single_comment,name);
+
     }
 }

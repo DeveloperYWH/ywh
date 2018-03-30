@@ -116,7 +116,7 @@
                     android:layout_toRightOf="@+id/collect"
                     android:paddingLeft="5dp"
                     android:textSize="20dp"
-                    android:text="8"
+                    android:text="0"
                     android:textAlignment="center"/>
             </RelativeLayout>
             <RelativeLayout
@@ -152,7 +152,7 @@
                     android:layout_toRightOf="@+id/like"
                     android:paddingLeft="5dp"
                     android:textSize="20dp"
-                    android:text="8"
+                    android:text="0"
                     android:textAlignment="center"/>
 
             </RelativeLayout>

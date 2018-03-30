@@ -146,6 +146,14 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                         JSONObject item = new JSONObject();
                         item.put("content", write.getText());
                         item.put("id",marray.size()+1);
+                        item.put("uid",
+                                String.valueOf(DatabaseManager
+                                        .getInstance()
+                                        .getDao()
+                                        .queryBuilder()
+                                        .listLazy()
+                                        .get(0)
+                                        .getUserId()));
                         sizeData.putAll(item);
                         marray.add(sizeData);
                         avObject.put("comments",marray);
@@ -157,8 +165,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 });
             }
         });
-        final LinearLayout comment_list=helper.getView(R.id.comment_list);
-        final AppCompatTextView content=helper.getView(R.id.content);
+        final LinearLayout content=helper.getView(R.id.content_layout);
+        final AppCompatEditText write_edit=helper.getView(R.id.comment_write);
         content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

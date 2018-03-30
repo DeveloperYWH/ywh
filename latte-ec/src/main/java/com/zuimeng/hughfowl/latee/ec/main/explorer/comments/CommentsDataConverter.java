@@ -45,10 +45,12 @@ public class CommentsDataConverter {
 
                 final String Id = content_data.getString("id");
                 final String goodsName = content_data.getString("content");
+                final String uid = content_data.getString("uid");
                 //获取内容
                 final SectionContentItemEntity itemEntity = new SectionContentItemEntity();
                 itemEntity.setmMomentId(Id);
                 itemEntity.setmMomentContent(goodsName);
+                itemEntity.setUid(uid);
                 //添加内容
                 dataList.add(new SectionBean(itemEntity));
             }

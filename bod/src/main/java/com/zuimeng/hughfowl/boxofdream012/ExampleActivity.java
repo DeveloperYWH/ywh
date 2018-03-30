@@ -105,7 +105,7 @@ public class ExampleActivity extends ProxyActivity implements
                 .listLazy()
                 .get(0)
                 .getName());
-        String ShopName = "我的店铺";
+        String ShopName = "我的店铺(编辑更改)";
 
         AVObject info = AVObject.create("User_info");
         info.put("user_id", userId);
@@ -166,6 +166,10 @@ public class ExampleActivity extends ProxyActivity implements
         AVObject shop_list = AVObject.create("shop_display");
         shop_list.put("userId", userId);
         shop_list.saveInBackground();
+
+        AVObject shop_series = AVObject.create("Shop_series");
+        shop_series.put("userId", userId);
+        shop_series.saveInBackground();
 
         LatteLoader.stopLoading();
         Toast.makeText(this, "注册成功ヾ(=･ω･=)o", Toast.LENGTH_LONG).show();

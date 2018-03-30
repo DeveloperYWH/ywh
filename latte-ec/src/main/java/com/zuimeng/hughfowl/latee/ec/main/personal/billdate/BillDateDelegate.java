@@ -24,10 +24,6 @@ import java.util.Random;
 import java.util.TreeMap;
 
 import butterknife.BindView;
-import rx.Notification;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by hughfowl on 2018/3/9.
@@ -115,62 +111,10 @@ public class BillDateDelegate extends LatteDelegate {
     }
 
 
-    //this code is just for generate test date for ListView!
     private void loadNewsList(String date) {
         Calendar calendar = getCalendarByYearMonthDay(date);
         String key = CalendarHelper.YEAR_MONTH_FORMAT.format(calendar.getTime());
-
-        // just not care about how data to create.
-        Random random = new Random();
-        final List<String> set = new ArrayList<>();
-        while (set.size() < 5) {
-            int i = random.nextInt(29);
-            if (i > 0) {
-                if (!set.contains(key + "-" + i)) {
-                    if (i < 10) {
-                        set.add(key + "-0" + i);
-                    } else {
-                        set.add(key + "-" + i);
-                    }
-                }
-            }
-        }
-//        Observable<Notification<NewsService.News>> newsListOb =
-//                RetrofitProvider.getInstance().create(NewsService.class)
-//                        .getNewsList(date)
-//                        .subscribeOn(Schedulers.io())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .compose(bindToLifecycle())
-//                        .materialize().share();
-//
-//        newsListOb.filter(Notification::isOnNext)
-//                .map(n -> n.getValue())
-//                .filter(m -> !m.getStories().isEmpty())
-//                .flatMap(m -> Observable.from(m.getStories()))
-//                .doOnNext(i -> {
-//                    int index = random.nextInt(5);
-//                    String day = set.get(index);
-//                    if (listTreeMap.get(day) != null) {
-//                        List<NewsService.News.StoriesBean> list = listTreeMap.get(day);
-//                        list.add(i);
-//                    } else {
-//                        List<NewsService.News.StoriesBean> list = new ArrayList<NewsService.News.StoriesBean>();
-//                        list.add(i);
-//                        listTreeMap.put(day, list);
-//                    }
-//
-//                })
-//                .toList()
-//                .subscribe((l) -> {
-//                    mdayNewsListAdapter.setDateDataMap(listTreeMap);
-//                    mdayNewsListAdapter.notifyDataSetChanged();
-//                    mcalendarItemAdapter.notifyDataSetChanged();
-//                });
     }
-
-    // date (yyyy-MM),load data for Calendar View by date,load one month data one times.
-    // generate test data for CalendarView,imitate to be a Network Requests. update "calendarItemAdapter.getDayModelList()"
-    //and notifyDataSetChanged will update CalendarView.
     private void loadCalendarData(final String date) {
         new Thread() {
             @Override

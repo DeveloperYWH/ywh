@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
 import butterknife.OnClick;
@@ -28,6 +27,6 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
     }
     @OnClick(R2.id.create_series_btn)
     void OnClickCreateSeries(){
-
+        getSupportDelegate().start(new AddGoodDelegate());
     }
 }

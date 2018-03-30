@@ -56,9 +56,9 @@ public class DayNewsListAdapter extends BaseCalendarListAdapter<NewsService.News
         } else {
             convertView = inflater.inflate(R.layout.listitem_calendar_content, null);
             contentViewHolder = new ContentViewHolder();
-            contentViewHolder.titleTextView = (TextView) convertView.findViewById(R.id.title);
-            contentViewHolder.timeTextView = (TextView) convertView.findViewById(R.id.time);
-            contentViewHolder.newsImageView = (ImageView) convertView.findViewById(R.id.image);
+            contentViewHolder.titleTextView = (TextView) convertView.findViewById(R.id.calendar_list_item_title);
+            contentViewHolder.timeTextView = (TextView) convertView.findViewById(R.id.calendar_list_item_time);
+            contentViewHolder.newsImageView = (ImageView) convertView.findViewById(R.id.calendar_list_item_image);
             convertView.setTag(contentViewHolder);
         }
 

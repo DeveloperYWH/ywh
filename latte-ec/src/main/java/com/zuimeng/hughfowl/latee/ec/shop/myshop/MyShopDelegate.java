@@ -13,6 +13,9 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.bumptech.glide.Glide;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
@@ -20,6 +23,7 @@ import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.customer_service.CustomerServiceDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries.CreateGoodsSeriesDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.profile.ShopProfileDelegate;
 import com.zuimeng.hughfowl.latte.app.Latte;
@@ -32,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.leancloud.chatkit.LCChatKit;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -149,7 +154,19 @@ public class MyShopDelegate extends BottomItemShopDelegate {
 
     @OnClick(R2.id.shop_chat)
     void OnClickChat() {
-
+        String clientId = String.valueOf(DatabaseManager
+                .getInstance()
+                .getDao()
+                .queryBuilder()
+                .listLazy()
+                .get(0)
+                .getUserId());
+        LCChatKit.getInstance().open(clientId, new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+                getParentDelegate().getSupportDelegate().start(new CustomerServiceDelegate());
+            }
+        });
     }
 }
 

@@ -33,6 +33,7 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.CreateMomentsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierAnimation;
 import com.zuimeng.hughfowl.latte.ui.animation.BezierUtil;
@@ -95,6 +96,14 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     public void setAvList(List<AVObject> list){
         AVList.addAll(list);
+    }
+
+    @OnClick(R2.id.rl_favor)
+    void onClickFavor(){
+        CreateMomentsDelegate createMomentsDelegate=new CreateMomentsDelegate();
+        createMomentsDelegate.setGoodsId(mGoodsId);
+        getSupportDelegate().start(createMomentsDelegate);
+
     }
 
     @OnClick(R2.id.rl_add_shop_cart)

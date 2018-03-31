@@ -31,6 +31,81 @@
 
 
     </android.support.v7.widget.LinearLayoutCompat>
+    <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/white"
+        android:id="@+id/goods"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/image_item_shop_cart"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <!--商品信息-->
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_item_shop_cart_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="商品标题"
+                tools:ignore="HardcodedText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_item_shop_cart_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="商品描述"
+                tools:ignore="HardcodedText" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_item_shop_cart_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2.00"
+                android:textColor="@color/orange_dark"
+                android:typeface="monospace"
+                tools:ignore="HardcodedText" />
+        </android.support.v7.widget.LinearLayoutCompat>
+        <!--商品信息结束-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/delete"
+                android:src="@drawable/ic_close"
+                android:background="@color/red_ff725f"
+                />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
     <com.zuimeng.hughfowl.latte.ui.widget.AutoPhotoLayout
         android:id="@+id/dress_auto_photo_layout"
         android:paddingTop="10dp"

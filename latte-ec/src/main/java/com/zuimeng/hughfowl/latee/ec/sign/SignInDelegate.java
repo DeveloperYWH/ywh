@@ -20,14 +20,10 @@ import com.avos.sns.SNSException;
 import com.avos.sns.SNSType;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
-import com.zuimeng.hughfowl.latte.datamanage.UserManage;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 import com.zuimeng.hughfowl.latte.wechat.LatteWeChat;
 import com.zuimeng.hughfowl.latte.wechat.callbacks.IWeChatSignInCallback;
-
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.OnClick;

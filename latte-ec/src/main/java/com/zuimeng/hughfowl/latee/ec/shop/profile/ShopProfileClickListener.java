@@ -11,7 +11,6 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.ProgressCallback;
 import com.avos.avoscloud.SaveCallback;
@@ -21,6 +20,7 @@ import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.CheckShopInfo;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.date.DateDialogUtil;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
@@ -30,6 +30,8 @@ import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+
+import me.yokeyword.fragmentation.SupportFragmentDelegate;
 
 /**
  * Created by Rhapsody on 2018/3/20.
@@ -56,8 +58,8 @@ public class ShopProfileClickListener extends SimpleClickListener {
                             @Override
                             public void executeCallback(final Uri args) {
                                 final ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
-                                Log.e(TAG, String.valueOf(avatar) );
-                                if (avatar != null){
+                                Log.e(TAG, String.valueOf(avatar));
+                                if (avatar != null) {
                                     Glide.with(DELEGATE)
                                             .load(args)
                                             .into(avatar);
@@ -143,6 +145,7 @@ public class ShopProfileClickListener extends SimpleClickListener {
                             public void done(List<AVObject> list, AVException e) {
                                 final AVObject avObject = list.get(0);
                                 avObject.put("shop_open_date", date);
+                                avObject.put("mustEditDate", true);
                                 avObject.saveInBackground();
                             }
                         });
@@ -168,27 +171,10 @@ public class ShopProfileClickListener extends SimpleClickListener {
                 DELEGATE.getSupportDelegate().start(OwnerDelegate);
                 break;
             case 10:
-                final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
-                avQuery.whereEqualTo("mobilePhoneNumber",
-                        String.valueOf(DatabaseManager
-                                .getInstance()
-                                .getDao()
-                                .queryBuilder()
-                                .listLazy()
-                                .get(0)
-                                .getUserId()));
-                avQuery.findInBackground(new FindCallback<AVUser>() {
-                    @Override
-                    public void done(List<AVUser> list, AVException e) {
-                        Number user_right;
-                        user_right = list.get(0).getNumber("user_type");
-                        if ((int)user_right == 2){
-                            list.get(0).put("user_type",3);
-                            list.get(0).saveInBackground();
-                        }
-                    }
-                });
-                DELEGATE.getSupportDelegate().start(bean.getDelegate(),2);
+                CheckShopInfo checkShopInfo = new CheckShopInfo();
+                checkShopInfo.checkShopInfoEdit();
+                SupportFragmentDelegate delegate = DELEGATE.getSupportDelegate();
+                checkShopInfo.setDELEGATE(delegate,DELEGATE);
                 break;
             default:
                 break;

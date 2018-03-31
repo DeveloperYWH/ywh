@@ -18,7 +18,6 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
 import com.zuimeng.hughfowl.latee.ec.shop.ShopBottomDelegate;
-import com.zuimeng.hughfowl.latee.ec.shop.myshop.MyShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.ShopGoodsCountsDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.ShopStyleDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.settings.ShopSummaryDelegate;
@@ -90,14 +89,14 @@ public class ShopProfileDelegate extends LatteDelegate {
                         final ListBean fullName = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(2)
-                                .setText("店铺全称")
+                                .setText("店铺全称（必填）")
                                 .setDelegate(new FullNameDelegate())
                                 .setValue(list.get(0).getString("shop_name"))
                                 .build();
                         final ListBean shortName = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(3)
-                                .setText("店铺简称")
+                                .setText("店铺简称（必填）")
                                 .setDelegate(new ShortNameDelegate())
                                 .setValue(list.get(0).getString("shop_name_short"))
                                 .build();
@@ -113,14 +112,14 @@ public class ShopProfileDelegate extends LatteDelegate {
                         final ListBean openDate = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(5)
-                                .setText("开店日期")
+                                .setText("开店日期（必填）")
                                 .setValue(list.get(0).getString("shop_open_date"))
                                 .build();
 
                         final ListBean ShopStyleDelegate = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(6)
-                                .setText("店铺风格")
+                                .setText("店铺风格（必填）")
                                 .setDelegate(new ShopStyleDelegate())
                                 .setValue(list.get(0).getString("shop_style"))
                                 .build();
@@ -128,7 +127,7 @@ public class ShopProfileDelegate extends LatteDelegate {
                         final ListBean ShopGoodsCountsDelegate = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(7)
-                                .setText("入驻前已出品的商品款式数量")
+                                .setText("入驻前已出品的商品款式数量（必填）")
                                 .setDelegate(new ShopGoodsCountsDelegate())
                                 .setValue(list.get(0).getString("shop_goods_item_counts"))
                                 .build();
@@ -144,7 +143,7 @@ public class ShopProfileDelegate extends LatteDelegate {
                         final ListBean ownerConnection = new ListBean.Builder()
                                 .setItemType(ListItemType.ITEM_NORMAL)
                                 .setId(9)
-                                .setText("店铺负责人联系方式")
+                                .setText("店铺负责人联系方式（第一项必填）")
                                 .setDelegate(new OwnerConnectionDelegate())
                                 .setValue(list.get(0).getString("shop_owner_connection"))
                                 .build();

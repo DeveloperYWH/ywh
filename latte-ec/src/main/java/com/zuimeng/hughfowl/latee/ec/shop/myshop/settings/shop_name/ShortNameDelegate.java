@@ -57,13 +57,19 @@ public class ShortNameDelegate extends LatteDelegate {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 final AVObject avObject = list.get(0);
-                avObject.put("shop_name_short", mNameText.getText());
-                avObject.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate(),2);
+                if (mNameText.getText().length() > 0) {
+
+                    avObject.put("shop_name_short", mNameText.getText());
+                    avObject.put("mustEditShortName", true);
+                    avObject.saveInBackground();
+                    Toast.makeText(getContext(), "修改成功！", Toast.LENGTH_LONG).show();
+                    getSupportDelegate().start(new ShopProfileDelegate(),2);
+                } else {
+                    mNameText.setError("简称不能为空");
+                }
                 LatteLoader.stopLoading();
             }
         });
-        Toast.makeText(this.getContext(), "修改成功！", Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -65,16 +65,22 @@ public class OwnerInfoDelegate3 extends LatteDelegate {
                 ownerInfoObj.put("QQ", mQqText.getText());
                 ownerInfoObj.put("WeChat", mWxText.getText());
                 ownerInfoObj.put("PhoneNum", mPhoneText.getText());
-                ownerInfoArr.add(ownerInfoObj);
-                data.put("owner_phone3", ownerInfoArr);
-                data.saveInBackground();
+                CheckOwnerInfoFormat checkOwnerInfoFormat = new CheckOwnerInfoFormat();
+                if(checkOwnerInfoFormat.checkForm(mQqText,mWxText,mPhoneText)) {
+                    ownerInfoArr.add(ownerInfoObj);
+                    data.put("owner_phone3", ownerInfoArr);
+                    data.saveInBackground();
+                    Toast.makeText(getContext(), "修改成功！", Toast.LENGTH_LONG).show();
+                    getSupportDelegate().start(new ShopProfileDelegate(), 2);
+                }
+                else {
+                    Toast.makeText(getContext(),"信息输入有误",Toast.LENGTH_SHORT).show();
+                }
                 ownerInfoObj.clear();
                 ownerInfoArr.clear();
-                getSupportDelegate().start(new ShopProfileDelegate(),2);
                 LatteLoader.stopLoading();
             }
         });
-        Toast.makeText(this.getContext(), "修改成功！", Toast.LENGTH_LONG).show();
     }
 
     @Override

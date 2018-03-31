@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
@@ -32,6 +33,8 @@ public class ShopGoodsCountsDelegate extends LatteDelegate {
 
     @BindView(R2.id.text_shop_item_count_menu)
     Spinner mSpinner = null;
+    @BindView(R2.id.style_count)
+    TextView mTextView = null;
     private String mItemCount;
 
     @Override
@@ -56,8 +59,9 @@ public class ShopGoodsCountsDelegate extends LatteDelegate {
             public void done(List<AVObject> list, AVException e) {
                 final AVObject data = list.get(0);
                 data.put("shop_goods_item_counts", mItemCount);
+                data.put("mustEditItemCount",true);
                 data.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate(),2);
+                getSupportDelegate().start(new ShopProfileDelegate(), 2);
                 LatteLoader.stopLoading();
             }
         });
@@ -69,6 +73,7 @@ public class ShopGoodsCountsDelegate extends LatteDelegate {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mItemCount = mSpinner.getSelectedItem().toString();
+                mTextView.setText(mItemCount);
             }
 
             @Override
@@ -80,5 +85,23 @@ public class ShopGoodsCountsDelegate extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         init();
+        final AVQuery<AVObject> query_name = new AVQuery<>("Shop_Info");
+        LatteLoader.showLoading(getContext());
+        query_name.whereEqualTo("user_id",
+                String.valueOf(DatabaseManager
+                        .getInstance()
+                        .getDao()
+                        .queryBuilder()
+                        .listLazy()
+                        .get(0)
+                        .getUserId()));
+        query_name.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                final AVObject data = list.get(0);
+                mTextView.setText(data.getString("shop_goods_item_counts"));
+                LatteLoader.stopLoading();
+            }
+        });
     }
 }

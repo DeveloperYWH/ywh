@@ -55,13 +55,20 @@ public class FullNameDelegate extends LatteDelegate {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 final AVObject avObject = list.get(0);
-                avObject.put("shop_name",mNameText.getText());
-                avObject.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate(),2);
+                if(mNameText.getText().length()>=2){
+
+                    avObject.put("shop_name",mNameText.getText());
+                    avObject.put("mustEditName", true);
+                    avObject.saveInBackground();
+                    Toast.makeText(getContext(),"修改成功！",Toast.LENGTH_LONG).show();
+                    getSupportDelegate().start(new ShopProfileDelegate());
+                }
+                else {
+                    mNameText.setError("最少输入两个字符");
+                }
                 LatteLoader.stopLoading();
             }
         });
-        Toast.makeText(this.getContext(),"修改成功！",Toast.LENGTH_LONG).show();
     }
 
     @Override

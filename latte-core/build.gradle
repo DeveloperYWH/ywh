@@ -152,6 +152,15 @@ dependencies {
     compile 'com.sina.weibo.sdk:core:4.1.4:openDefaultRelease@aar'
     //日历控件
     compile 'com.kelin.mvvmlight:library:1.0.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.trello:rxlifecycle:0.5.0'
+    // If you want pre-written Activities and Fragments you can subclass as providers
+    compile 'com.trello:rxlifecycle-components:0.5.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.1'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
     //timeline
     //compile 'com.github.vipulasri:timelineview:1.0.6'
 
@@ -165,6 +174,8 @@ dependencies {
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
     //实时聊天
     compile ('cn.leancloud.android:chatkit:1.0.6')
+    //富文本
+    compile 'com.zzhoujay.richtext:richtext:3.0.5'
 
 
 }

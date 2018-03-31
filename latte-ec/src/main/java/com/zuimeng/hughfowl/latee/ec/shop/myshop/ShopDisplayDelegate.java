@@ -1,28 +1,25 @@
 package com.zuimeng.hughfowl.latee.ec.shop.myshop;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.view.View;
+        import android.os.Bundle;
+        import android.support.annotation.NonNull;
+        import android.support.annotation.Nullable;
+        import android.support.v7.widget.RecyclerView;
+        import android.support.v7.widget.StaggeredGridLayoutManager;
+        import android.view.View;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
-import com.zuimeng.hughfowl.latee.ec.R;
-import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
-import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
-import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
+        import com.avos.avoscloud.AVException;
+        import com.avos.avoscloud.AVObject;
+        import com.avos.avoscloud.AVQuery;
+        import com.avos.avoscloud.FindCallback;
+        import com.zuimeng.hughfowl.latee.ec.R;
+        import com.zuimeng.hughfowl.latee.ec.R2;
+        import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+        import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
+        import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
-import java.util.List;
+        import java.util.List;
 
-import butterknife.BindView;
-
-import static android.content.ContentValues.TAG;
+        import butterknife.BindView;
 
 /**
  * Created by hughfowl on 2018/3/19.
@@ -68,8 +65,9 @@ public class ShopDisplayDelegate extends LatteDelegate {
             public void done(List<AVObject> list, AVException e) {
                 if (e == null) {
                     LatteLoader.stopLoading();
-                    Log.e(TAG, String.valueOf(list.size()) );
-
+                    if(list.get(0) == null ){
+                    getSupportDelegate().loadRootFragment(R.id.shop_list_content,new AddGoodSeriesDelegate());
+                    }
                     mShopSectionDataConverter = new ShopSectionDataConverter().setList(list);
 
                     mData = mShopSectionDataConverter.convert();

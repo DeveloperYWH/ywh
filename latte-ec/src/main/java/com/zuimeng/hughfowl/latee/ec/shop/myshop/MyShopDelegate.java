@@ -3,12 +3,11 @@ package com.zuimeng.hughfowl.latee.ec.shop.myshop;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
@@ -17,13 +16,9 @@ import com.bumptech.glide.Glide;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
-import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
-import com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries.CreateGoodsSeriesDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.profile.ShopProfileDelegate;
-import com.zuimeng.hughfowl.latte.app.Latte;
-import com.zuimeng.hughfowl.latte.delegates.bottom.BottomItemDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
 import java.io.IOException;
@@ -40,7 +35,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MyShopDelegate extends BottomItemShopDelegate {
-
 
 
     Number user_right = 0;
@@ -130,21 +124,19 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             @Override
             public void done(List<AVUser> list, AVException e) {
                 user_right = list.get(0).getNumber("user_type");
-                if ((int) user_right == 2) {
+                Log.d("aaa", String.valueOf(user_right));
+                if ((int) user_right == 2 || (int) user_right == 1) {
                     final ShopNoDelegate noShop = new ShopNoDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, noShop);
-                    LatteLoader.stopLoading();
-                } else if((int) user_right == 3){
+                } else if ((int) user_right == 3) {
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, new AddGoodSeriesDelegate());
-                }
-                else
-                {
+                } else {
                     final ShopDisplayDelegate listDelegate = new ShopDisplayDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, listDelegate);
-                    LatteLoader.stopLoading();
                 }
             }
         });
+        LatteLoader.stopLoading();
     }
 
     @OnClick(R2.id.shop_chat)

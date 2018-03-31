@@ -53,9 +53,15 @@ public class ShopStyleDelegate extends LatteDelegate {
             @Override
             public void done(List<AVObject> list, AVException e) {
                 final AVObject avObject = list.get(0);
-                avObject.put("shop_style", mTextView.getText());
-                avObject.saveInBackground();
-                getSupportDelegate().start(new ShopProfileDelegate(),2);
+                if (mTextView.getText().length() > 0) {
+                    avObject.put("shop_style", mTextView.getText());
+                    avObject.put("mustEditStyle",true);
+                    avObject.saveInBackground();
+                    getSupportDelegate().start(new ShopProfileDelegate(), 2);
+                }
+                else {
+                    mTextView.setError("请填写店铺风格");
+                }
                 LatteLoader.stopLoading();
             }
         });

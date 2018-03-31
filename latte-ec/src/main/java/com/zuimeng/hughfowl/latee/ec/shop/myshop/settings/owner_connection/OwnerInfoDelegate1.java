@@ -44,6 +44,8 @@ public class OwnerInfoDelegate1 extends LatteDelegate {
         return R.layout.delegate2_owner1_info;
     }
 
+
+
     @OnClick(R2.id.btn_shop_owner1_submit)
     void onClickSubmit() {
         final AVQuery<AVObject> query_name = new AVQuery<>("Shop_Info");
@@ -65,16 +67,23 @@ public class OwnerInfoDelegate1 extends LatteDelegate {
                 ownerInfoObj.put("QQ", mQqText.getText());
                 ownerInfoObj.put("WeChat", mWxText.getText());
                 ownerInfoObj.put("PhoneNum", mPhoneText.getText());
-                ownerInfoArr.add(ownerInfoObj);
-                data.put("owner_phone1",ownerInfoArr);
-                data.saveInBackground();
+                CheckOwnerInfoFormat checkOwnerInfoFormat = new CheckOwnerInfoFormat();
+                if(checkOwnerInfoFormat.checkForm(mQqText,mWxText,mPhoneText)) {
+                    ownerInfoArr.add(ownerInfoObj);
+                    data.put("owner_phone1", ownerInfoArr);
+                    data.put("mustEditOwnerInfo",true);
+                    data.saveInBackground();
+                    Toast.makeText(getContext(), "修改成功！", Toast.LENGTH_LONG).show();
+                    getSupportDelegate().start(new ShopProfileDelegate(), 2);
+                }
+                else {
+                    Toast.makeText(getContext(),"信息输入有误",Toast.LENGTH_SHORT).show();
+                }
                 ownerInfoObj.clear();
                 ownerInfoArr.clear();
-                getSupportDelegate().start(new ShopProfileDelegate(),2);
                 LatteLoader.stopLoading();
             }
         });
-        Toast.makeText(this.getContext(), "修改成功！", Toast.LENGTH_LONG).show();
     }
 
     @Override

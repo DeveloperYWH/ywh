@@ -3,7 +3,6 @@ package com.zuimeng.hughfowl.latee.ec.shop.myshop;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -35,6 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class MyShopDelegate extends BottomItemShopDelegate {
+
 
 
     Number user_right = 0;
@@ -124,19 +124,21 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             @Override
             public void done(List<AVUser> list, AVException e) {
                 user_right = list.get(0).getNumber("user_type");
-                Log.d("aaa", String.valueOf(user_right));
-                if ((int) user_right == 2 || (int) user_right == 1) {
+                if ((int) user_right == 2) {
                     final ShopNoDelegate noShop = new ShopNoDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, noShop);
-                } else if ((int) user_right == 3) {
+                    LatteLoader.stopLoading();
+                } else if((int) user_right == 3){
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, new AddGoodSeriesDelegate());
-                } else {
+                }
+                else
+                {
                     final ShopDisplayDelegate listDelegate = new ShopDisplayDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, listDelegate);
+                    LatteLoader.stopLoading();
                 }
             }
         });
-        LatteLoader.stopLoading();
     }
 
     @OnClick(R2.id.shop_chat)

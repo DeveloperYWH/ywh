@@ -1,6 +1,8 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
 
 import android.graphics.Color;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +27,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.cart.ShopCartDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.comments.CommentsDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
@@ -76,6 +79,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         final RecyclerView comment=helper.getView(R.id.comments);
         final StaggeredGridLayoutManager manager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        final AppCompatTextView likeamount=helper.getView(R.id.like_amount);
+        final AppCompatTextView commentamount=helper.getView(R.id.comment_amount);
         comment.setLayoutManager(manager);
         LinearLayout sec=helper.getView(R.id.second_line);
         if (thumb.size()<=3)
@@ -125,8 +130,47 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         like.setBtnFillColor(Color.RED);
         like.setShineCount(8);
         like.setAllowRandomColor(true);
-        final LinearLayout comment_list=helper.getView(R.id.comment_list);
-        final AppCompatTextView content=helper.getView(R.id.content);
+        final AppCompatButton submit=helper.getView(R.id.submit);
+        final AppCompatEditText write=helper.getView(R.id.comment_write);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final AVQuery<AVObject> query_name = new AVQuery<>("User_comments");
+                LatteLoader.showLoading(mContext);
+                query_name.whereEqualTo("moments_id", Id);
+                query_name.findInBackground(new FindCallback<AVObject>() {
+                    @Override
+                    public void done(List<AVObject> list, AVException e) {
+                        final AVObject avObject = list.get(0);
+                        final String Jdata = avObject.toJSONObject().toString();
+                        final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("comments");
+                        final  JSONObject sizeData=new JSONObject();
+                        JSONObject item = new JSONObject();
+                        item.put("content", write.getText());
+                        item.put("id",marray.size()+1);
+                        item.put("uid",
+                                String.valueOf(DatabaseManager
+                                        .getInstance()
+                                        .getDao()
+                                        .queryBuilder()
+                                        .listLazy()
+                                        .get(0)
+                                        .getUserId()));
+                        sizeData.putAll(item);
+                        marray.add(sizeData);
+                        avObject.put("comments",marray);
+                        avObject.saveInBackground();
+                        LatteLoader.stopLoading();
+                        Toast.makeText(mContext,"发表成功！",Toast.LENGTH_LONG).show();
+                        write.setText("");
+                        int amountleft=Integer.valueOf(commentamount.getText().toString());
+                        commentamount.setText(String.valueOf(amountleft+1));
+                    }
+                });
+            }
+        });
+        final LinearLayout content=helper.getView(R.id.content_layout);
+        final AppCompatEditText write_edit=helper.getView(R.id.comment_write);
         content.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,8 +193,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 }
             }
         });
-        final AppCompatTextView likeamount=helper.getView(R.id.like_amount);
-        AppCompatTextView commentamount=helper.getView(R.id.comment_amount);
         final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
         LatteLoader.showLoading(mContext);
         query_name.whereEqualTo("user_id",
@@ -179,7 +221,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
             }
         });
 
-        int amountleft=0;
         final AVQuery<AVObject> query_name1 = new AVQuery<>("User_info");
         LatteLoader.showLoading(mContext);
         query_name1.findInBackground(new FindCallback<AVObject>() {
@@ -204,11 +245,28 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 LatteLoader.stopLoading();
             }
         });
+        final AVQuery<AVObject> query_name2 = new AVQuery<>("User_comments");
+        LatteLoader.showLoading(mContext);
+        query_name2.whereEqualTo("moments_id", Id);
+        query_name2.findInBackground(new FindCallback<AVObject>() {
+            @Override
+            public void done(List<AVObject> list, AVException e) {
+                int amountleft=0;
+                final AVObject avObject = list.get(0);
+                final String Jdata = avObject.toJSONObject().toString();
+                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("comments");
+                amountleft=marray.size();
+                commentamount.setText(String.valueOf(amountleft));
+                LatteLoader.stopLoading();
+            }
+        });
         like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (like.isChecked())
                 {
+                    int amountright=Integer.valueOf(likeamount.getText().toString());
+                    likeamount.setText(String.valueOf(amountright+1));
                     final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
                     LatteLoader.showLoading(mContext);
                     query_name.whereEqualTo("user_id",
@@ -236,6 +294,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 }
                 else
                 {
+                    int amountright=Integer.valueOf(likeamount.getText().toString());
+                    likeamount.setText(String.valueOf(amountright-1));
                     final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
                     LatteLoader.showLoading(mContext);
                     query_name.whereEqualTo("user_id",

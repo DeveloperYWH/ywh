@@ -11,18 +11,19 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:paddingRight="5dp"
-        android:paddingLeft="5dp">
+        android:paddingLeft="5dp"
+        android:id="@+id/content_layout">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="17dp"
             android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingBottom="10dp"
             android:paddingRight="5dp"
             android:paddingLeft="5dp"
             android:id="@+id/content"
-            android:background="@color/bod_weibo"
-            android:textColor="@color/black_80000000"/>
+            android:textColor="@color/we_chat_black"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,15 +92,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cart_top_color">
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
                 <com.sackcentury.shinebuttonlib.ShineButton
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:src="@android:color/darker_gray"
                     android:id="@+id/collect"
@@ -116,7 +116,7 @@
                     android:layout_toRightOf="@+id/collect"
                     android:paddingLeft="5dp"
                     android:textSize="20dp"
-                    android:text="8"
+                    android:text="0"
                     android:textAlignment="center"/>
             </RelativeLayout>
             <RelativeLayout
@@ -125,8 +125,8 @@
                 android:layout_weight="1">
                 <com.sackcentury.shinebuttonlib.ShineButton
                     android:id="@+id/like"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
                     android:src="@android:color/darker_gray"
@@ -152,7 +152,7 @@
                     android:layout_toRightOf="@+id/like"
                     android:paddingLeft="5dp"
                     android:textSize="20dp"
-                    android:text="8"
+                    android:text="0"
                     android:textAlignment="center"/>
 
             </RelativeLayout>
@@ -168,6 +168,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
                 android:id="@+id/comment_write"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingRight="5dp"
@@ -197,6 +199,13 @@
             android:layout_width="match_parent"
             android:layout_height="150dp">
         </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_bbbbbb"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
     </LinearLayout>
     </LinearLayout>
 

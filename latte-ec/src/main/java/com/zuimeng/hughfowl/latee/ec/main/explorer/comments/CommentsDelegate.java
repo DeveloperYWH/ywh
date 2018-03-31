@@ -26,6 +26,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.SectionBean;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.SectionContentItemEntity;
+import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -66,17 +67,9 @@ public class CommentsDelegate extends LatteDelegate {
             @Override
             public void done( List<AVObject> list, AVException e) {
                 if (e == null) {
-                    if (list.size()==0)
-                    {
-                        AVObject newMoments=new AVObject("User_comments");
-                        newMoments.put("moments_id",Id);
-                        newMoments.saveInBackground();
-                    }
                     AVList.addAll(list);
                     CommentsDataConverter = new CommentsDataConverter().setList(list);
-
                     mData = CommentsDataConverter.convert();
-                    Log.d("ywhywh",String.valueOf(mData.size()));
                     CommentsAdapter sectionAdapter = new CommentsAdapter(R.layout.item_comments,
                             R.layout.item_section_header, mData);
                     if (mRecyclerView!=null)
@@ -137,148 +130,6 @@ public class CommentsDelegate extends LatteDelegate {
             Glide.with(this)
                     .load(thumb.get(5))
                     .into(goodsImageView5);
-        ShineButton collect=rootView.findViewById(R.id.collect);
-        final ShineButton like=rootView.findViewById(R.id.like);
-        collect.setShapeResource(R.raw.star);
-        collect.setBtnColor(Color.GRAY);
-        collect.setBtnFillColor(Color.YELLOW);
-        collect.setShineCount(8);
-        collect.setAllowRandomColor(true);
-        like.setShapeResource(R.raw.heart);
-        like.setBtnColor(Color.GRAY);
-        like.setBtnFillColor(Color.RED);
-        like.setShineCount(8);
-        like.setAllowRandomColor(true);
-        final LinearLayout comment_list=rootView.findViewById(R.id.comment_list);
-        final AppCompatTextView content=rootView.findViewById(R.id.content);
-        final LinearLayout comment_layout=rootView.findViewById(R.id.comment_layout);
-        final AppCompatTextView likeamount=rootView.findViewById(R.id.like_amount);
-        collect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(comment_layout.getVisibility()==View.GONE)
-                {
-                    comment_layout.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    comment_layout.setVisibility(View.GONE);
-                }
-            }
-        });
-        final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-        LatteLoader.showLoading(getContext());
-        query_name.whereEqualTo("user_id",
-                String.valueOf(DatabaseManager
-                        .getInstance()
-                        .getDao()
-                        .queryBuilder()
-                        .listLazy()
-                        .get(0)
-                        .getUserId()));
-        query_name.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                final AVObject avObject = list.get(0);
-                final String Jdata = avObject.toJSONObject().toString();
-                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
-                for(int i=0;i<marray.size();i++)
-                {
-                    if (Id.equals(marray.getJSONObject(i).getString("id")))
-                    {
-                        like.setChecked(true);
-                    }
-                }
-                LatteLoader.stopLoading();
-            }
-        });
-        final AVQuery<AVObject> query_name1 = new AVQuery<>("User_info");
-        LatteLoader.showLoading(getContext());
-        query_name1.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
-                int amountright=0;
-                for(int j=0;j<list.size();j++)
-                {
-                    final AVObject avObject = list.get(j);
-                    final String Jdata = avObject.toJSONObject().toString();
-                    final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
-                    for(int i=0;i<marray.size();i++)
-                    {
-                        if (Id.equals(marray.getJSONObject(i).getString("id")))
-                        {
-                            amountright++;
-                        }
-                    }
-
-                }
-                likeamount.setText(String.valueOf(amountright));
-                LatteLoader.stopLoading();
-            }
-        });
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (like.isChecked())
-                {
-                    final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-                    LatteLoader.showLoading(getContext());
-                    query_name.whereEqualTo("user_id",
-                            String.valueOf(DatabaseManager
-                                    .getInstance()
-                                    .getDao()
-                                    .queryBuilder()
-                                    .listLazy()
-                                    .get(0)
-                                    .getUserId()));
-                    query_name.findInBackground(new FindCallback<AVObject>() {
-                        @Override
-                        public void done(List<AVObject> list, AVException e) {
-                            final AVObject avObject = list.get(0);
-                            final String Jdata = avObject.toJSONObject().toString();
-                            final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
-                            JSONObject moment=new JSONObject();
-                            moment.put("id",Id);
-                            marray.add(moment);
-                            avObject.put("like",marray);
-                            avObject.saveInBackground();
-                            LatteLoader.stopLoading();
-                        }
-                    });
-                }
-                else
-                {
-                    final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-                    LatteLoader.showLoading(getContext());
-                    query_name.whereEqualTo("user_id",
-                            String.valueOf(DatabaseManager
-                                    .getInstance()
-                                    .getDao()
-                                    .queryBuilder()
-                                    .listLazy()
-                                    .get(0)
-                                    .getUserId()));
-                    query_name.findInBackground(new FindCallback<AVObject>() {
-                        @Override
-                        public void done(List<AVObject> list, AVException e) {
-                            final AVObject avObject = list.get(0);
-                            final String Jdata = avObject.toJSONObject().toString();
-                            final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("like");
-                            for(int i=0;i<marray.size();i++)
-                            {
-                                if (Id.endsWith(marray.getJSONObject(i).getString("id")))
-                                {
-                                    marray.remove(i);
-                                }
-                            }
-                            avObject.put("like",marray);
-                            avObject.saveInBackground();
-                            LatteLoader.stopLoading();
-                        }
-                    });
-                }
-            }
-        });
             initData(item);
 
 

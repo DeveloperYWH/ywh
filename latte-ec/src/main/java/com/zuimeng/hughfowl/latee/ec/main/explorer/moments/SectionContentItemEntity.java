@@ -15,7 +15,15 @@ public class SectionContentItemEntity {
     private ArrayList<String> mComments = null;
     private int mCollect = 0;
     private int mLike = 0;
+    private String Uid=null;
 
+    public String getUid() {
+        return Uid;
+    }
+
+    public void setUid(String GoodsId) {
+        this.Uid = GoodsId;
+    }
     public String getmMomentId() {
         return mMomentId;
     }

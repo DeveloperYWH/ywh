@@ -61,9 +61,9 @@ public class CreateDressUpDelegate extends LatteDelegate {
 
 
     @OnClick(R2.id.btn_info_submit)
-    void onClickSubmit()  {
+    void onClickSubmit() {
         LatteLoader.showLoading(getContext());
-        final List<String> newurl=new ArrayList();
+        final List<String> newurl = new ArrayList();
         try {
             for (int i=0;i<uri.size();i++) {
                 final AVFile file = AVFile.withAbsoluteLocalPath("dressup.jpg", uri.get(i).getPath());

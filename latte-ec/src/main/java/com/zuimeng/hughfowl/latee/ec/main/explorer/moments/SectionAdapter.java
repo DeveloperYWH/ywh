@@ -1,6 +1,7 @@
 package com.zuimeng.hughfowl.latee.ec.main.explorer.moments;
 
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatImageView;
@@ -121,13 +122,13 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         ShineButton collect=helper.getView(R.id.collect);
         final ShineButton like=helper.getView(R.id.like);
         collect.setShapeResource(R.raw.star);
-        collect.setBtnColor(Color.GRAY);
-        collect.setBtnFillColor(Color.YELLOW);
+        collect.setBtnColor(Color.rgb(87,87,86));
+        collect.setBtnFillColor(Color.rgb(255,128,0));
         collect.setShineCount(8);
         collect.setAllowRandomColor(true);
         like.setShapeResource(R.raw.heart);
-        like.setBtnColor(Color.GRAY);
-        like.setBtnFillColor(Color.RED);
+        like.setBtnColor(Color.rgb(87,87,86));
+        like.setBtnFillColor(Color.rgb(227,23,13));
         like.setShineCount(8);
         like.setAllowRandomColor(true);
         final AppCompatButton submit=helper.getView(R.id.submit);

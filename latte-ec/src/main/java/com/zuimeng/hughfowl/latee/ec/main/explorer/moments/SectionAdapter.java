@@ -79,6 +79,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         final RecyclerView comment=helper.getView(R.id.comments);
         final StaggeredGridLayoutManager manager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        final AppCompatTextView likeamount=helper.getView(R.id.like_amount);
+        final AppCompatTextView commentamount=helper.getView(R.id.comment_amount);
         comment.setLayoutManager(manager);
         LinearLayout sec=helper.getView(R.id.second_line);
         if (thumb.size()<=3)
@@ -161,6 +163,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                         LatteLoader.stopLoading();
                         Toast.makeText(mContext,"发表成功！",Toast.LENGTH_LONG).show();
                         write.setText("");
+                        int amountleft=Integer.valueOf(commentamount.getText().toString());
+                        commentamount.setText(String.valueOf(amountleft+1));
                     }
                 });
             }
@@ -189,8 +193,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 }
             }
         });
-        final AppCompatTextView likeamount=helper.getView(R.id.like_amount);
-        final AppCompatTextView commentamount=helper.getView(R.id.comment_amount);
         final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
         LatteLoader.showLoading(mContext);
         query_name.whereEqualTo("user_id",
@@ -263,6 +265,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
             public void onClick(View view) {
                 if (like.isChecked())
                 {
+                    int amountright=Integer.valueOf(likeamount.getText().toString());
+                    likeamount.setText(String.valueOf(amountright+1));
                     final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
                     LatteLoader.showLoading(mContext);
                     query_name.whereEqualTo("user_id",
@@ -290,6 +294,8 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 }
                 else
                 {
+                    int amountright=Integer.valueOf(likeamount.getText().toString());
+                    likeamount.setText(String.valueOf(amountright-1));
                     final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
                     LatteLoader.showLoading(mContext);
                     query_name.whereEqualTo("user_id",

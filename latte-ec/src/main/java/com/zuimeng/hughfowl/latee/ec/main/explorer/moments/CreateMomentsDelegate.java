@@ -100,6 +100,14 @@ public class CreateMomentsDelegate extends LatteDelegate {
                                     marray.add(sizeData);
                                     avObject.put("content",marray);
                                     avObject.saveInBackground();
+                                    final AVQuery<AVObject> query_name1 = new AVQuery<>("User_comments");
+                                    query_name1.whereEqualTo("moments_id",uid+marray.size());
+                                    if (list.size()==0)
+                                    {
+                                        AVObject newMoments=new AVObject("User_comments");
+                                        newMoments.put("moments_id",uid+marray.size());
+                                        newMoments.saveInBackground();
+                                    }
                                     getSupportDelegate().start(new EcBottomDelegate());
                                     LatteLoader.stopLoading();
                                     Toast.makeText(getContext(),"上传成功！",Toast.LENGTH_LONG).show();

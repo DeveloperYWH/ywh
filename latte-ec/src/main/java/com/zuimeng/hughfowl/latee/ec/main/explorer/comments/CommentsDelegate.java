@@ -67,12 +67,6 @@ public class CommentsDelegate extends LatteDelegate {
             @Override
             public void done( List<AVObject> list, AVException e) {
                 if (e == null) {
-                    if (list.size()==0)
-                    {
-                        AVObject newMoments=new AVObject("User_comments");
-                        newMoments.put("moments_id",Id);
-                        newMoments.saveInBackground();
-                    }
                     AVList.addAll(list);
                     CommentsDataConverter = new CommentsDataConverter().setList(list);
                     mData = CommentsDataConverter.convert();

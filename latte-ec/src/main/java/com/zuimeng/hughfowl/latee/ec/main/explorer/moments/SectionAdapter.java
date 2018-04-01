@@ -41,6 +41,7 @@ import org.greenrobot.greendao.annotation.Id;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportHelper;
 
 /**
@@ -73,6 +74,12 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
     @Override
     protected void convert(final BaseViewHolder helper, final SectionBean item) {
         //item.t返回SectionBean类型
+        android.support.v7.widget.LinearLayoutCompat goods=helper.getView(R.id.goods);
+        AppCompatTextView goodsname=helper.getView(R.id.tv_item_shop_cart_title);
+        AppCompatTextView des=helper.getView(R.id.tv_item_shop_cart_desc);
+        AppCompatTextView price=helper.getView(R.id.tv_item_shop_cart_price);
+        AppCompatImageView thumbpic=helper.getView(R.id.image_item_shop_cart);
+        final int GoodsId=item.t.getGoodsId();
         final List thumb = item.t.getmMomentThumb();
         final String name = item.t.getmMomentContent();
         final String Id = item.t.getmMomentId();
@@ -82,6 +89,36 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         final AppCompatTextView likeamount=helper.getView(R.id.like_amount);
         final AppCompatTextView commentamount=helper.getView(R.id.comment_amount);
+        if (GoodsId!=0)
+        {
+            goods.setVisibility(View.VISIBLE);
+            final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+            query.whereEqualTo("id", GoodsId);
+            query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+
+                    AVList.addAll(list);
+                    final AVObject object = AVList.get(0);
+                    final String Jdata = object.toJSONObject().toString();
+                    final JSONArray array = JSON.parseObject(Jdata).getJSONArray("data");
+                    final JSONObject goodData = array.getJSONObject(0);
+                    final String title=goodData.getString("name");
+                    final String desc=goodData.getString("des");
+                    final String money=goodData.getString("price");
+                    final JSONArray thumb = JSON.parseObject(Jdata).getJSONArray("thumb");
+                    final JSONObject goodthumb = thumb.getJSONObject(0);
+                    final String pic=goodthumb.getString("goods_thumb");
+                    goodsname.setText(title);
+                    des.setText(desc);
+                    price.setText(money);
+                    Glide.with(mContext)
+                            .load(pic)
+                            .into(thumbpic);
+                }
+
+            });
+        }
         comment.setLayoutManager(manager);
         LinearLayout sec=helper.getView(R.id.second_line);
         if (thumb.size()<=3)

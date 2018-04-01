@@ -12,7 +12,7 @@ public class SectionContentItemEntity {
     private String mMomentId = null;
     private String mMomentContent = null;
     private ArrayList<String> mMomentThumb = null;
-    private ArrayList<String> mComments = null;
+    private int mGoodsId=0;
     private int mCollect = 0;
     private int mLike = 0;
     private String Uid=null;
@@ -44,11 +44,11 @@ public class SectionContentItemEntity {
         return mMomentThumb;
     }
 
-    public void setmComments(ArrayList<String> mComments) {
-        this.mMomentThumb = mComments;
+    public void setGoodsId(int mComments) {
+        this.mGoodsId= mComments;
     }
-    public List<String> getmComments() {
-        return mComments;
+    public int getGoodsId() {
+        return mGoodsId;
     }
 
     public void setmMomentThumb(ArrayList<String> mMomentThumb) {

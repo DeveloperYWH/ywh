@@ -111,6 +111,7 @@ public class CreateMomentsDelegate extends LatteDelegate {
                                     JSONObject item = new JSONObject();
                                     item.put("content", content.getText());
                                     item.put("id",uid+marray.size());
+                                    item.put("goods_id",GoodsId);
                                     for(int i=0;i<newurl.size();i++)
                                     {
                                         item.put("thumb"+i,newurl.get(i));
@@ -119,15 +120,20 @@ public class CreateMomentsDelegate extends LatteDelegate {
                                     marray.add(sizeData);
                                     avObject.put("content",marray);
                                     avObject.saveInBackground();
-                                    final AVQuery<AVObject> query_name1 = new AVQuery<>("User_comments");
-                                    query_name1.whereEqualTo("moments_id",uid+marray.size());
-                                    if (list.size()==0)
-                                    {
-                                        AVObject newMoments=new AVObject("User_comments");
-                                        newMoments.put("moments_id",uid+marray.size());
-                                        newMoments.saveInBackground();
-                                    }
                                     getSupportDelegate().start(new EcBottomDelegate());
+                                    final AVQuery<AVObject> query_name1 = new AVQuery<>("User_comments");
+                                    query_name1.whereEqualTo("moments_id",uid+(marray.size()-1));
+                                    query_name1.findInBackground(new FindCallback<AVObject>() {
+                                        @Override
+                                        public void done(List<AVObject> list, AVException e) {
+                                            if (list.size()==0)
+                                            {
+                                                AVObject newMoments=new AVObject("User_comments");
+                                                newMoments.put("moments_id",uid+(marray.size()-1));
+                                                newMoments.saveInBackground();
+                                            }
+                                        }
+                                    });
                                     LatteLoader.stopLoading();
                                     Toast.makeText(getContext(),"上传成功！",Toast.LENGTH_LONG).show();
                                 }

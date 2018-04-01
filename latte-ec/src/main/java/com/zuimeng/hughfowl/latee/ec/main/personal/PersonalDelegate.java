@@ -25,6 +25,7 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.main.personal.address.AddressDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.billdate.BillDateDelegate;
+import com.zuimeng.hughfowl.latee.ec.main.personal.collection.CollectionDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
@@ -181,9 +182,18 @@ public class PersonalDelegate extends BottomItemDelegate {
                         .setText("系统设置")
                         .build();
 
+                final ListBean collection = new ListBean.Builder()
+                        .setItemType(ListItemType.ITEM_NORMAL)
+                        .setId(5)
+                        .setDelegate(new CollectionDelegate())
+                        .setText("收藏夹")
+                        .build();
+
+
                 data.add(address);
                 data.add(bill_date);
                 data.add(system);
+                data.add(collection);
 
                 if ((int) user_right != 1) {
                     final ListBean my_shop = new ListBean.Builder()

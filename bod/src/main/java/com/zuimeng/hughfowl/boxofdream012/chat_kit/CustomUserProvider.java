@@ -61,6 +61,7 @@ public class CustomUserProvider implements LCChatProfileProvider {
     }
     @Override
     public void fetchProfiles(List<String> list, LCChatProfilesCallBack lcChatProfilesCallBack) {
+        queryUser();
         List<LCChatKitUser> userList = new ArrayList<LCChatKitUser>();
         for (String userId : list) {
             for (LCChatKitUser user : partUsers) {

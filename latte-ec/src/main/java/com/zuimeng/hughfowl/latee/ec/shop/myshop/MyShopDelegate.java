@@ -17,6 +17,8 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.create_shop.ShopNoDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.customer_service.CustomerServiceDelegate;
+import com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries.SeriesListDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.profile.ShopProfileDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
 
@@ -143,7 +145,11 @@ public class MyShopDelegate extends BottomItemShopDelegate {
 
     @OnClick(R2.id.shop_chat)
     void OnClickChat() {
-
+        getParentDelegate().getSupportDelegate().start(new CustomerServiceDelegate());
+    }
+    @OnClick(R2.id.shop_series)
+    void OnClickSeries(){
+        getParentDelegate().getSupportDelegate().start(new SeriesListDelegate());
     }
 }
 

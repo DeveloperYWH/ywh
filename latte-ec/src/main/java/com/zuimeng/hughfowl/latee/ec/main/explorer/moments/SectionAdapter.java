@@ -182,7 +182,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
             @Override
             public void onClick(View view) {
                 final AVQuery<AVObject> query_name = new AVQuery<>("User_comments");
-                LatteLoader.showLoading(mContext);
                 query_name.whereEqualTo("moments_id", Id);
                 query_name.findInBackground(new FindCallback<AVObject>() {
                     @Override
@@ -206,7 +205,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                         marray.add(sizeData);
                         avObject.put("comments",marray);
                         avObject.saveInBackground();
-                        LatteLoader.stopLoading();
                         Toast.makeText(mContext,"发表成功！",Toast.LENGTH_LONG).show();
                         write.setText("");
                         int amountleft=Integer.valueOf(commentamount.getText().toString());
@@ -240,7 +238,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
             }
         });
         final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-        LatteLoader.showLoading(mContext);
         query_name.whereEqualTo("user_id",
                 String.valueOf(DatabaseManager
                         .getInstance()
@@ -263,7 +260,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                         }
                     }
 
-                LatteLoader.stopLoading();
             }
         });
 
@@ -292,7 +288,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
             }
         });
         final AVQuery<AVObject> query_name2 = new AVQuery<>("User_comments");
-        LatteLoader.showLoading(mContext);
         query_name2.whereEqualTo("moments_id", Id);
         query_name2.findInBackground(new FindCallback<AVObject>() {
             @Override
@@ -303,7 +298,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                 final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("comments");
                 amountleft=marray.size();
                 commentamount.setText(String.valueOf(amountleft));
-                LatteLoader.stopLoading();
             }
         });
         like.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +308,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                     int amountright=Integer.valueOf(likeamount.getText().toString());
                     likeamount.setText(String.valueOf(amountright+1));
                     final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-                    LatteLoader.showLoading(mContext);
                     query_name.whereEqualTo("user_id",
                             String.valueOf(DatabaseManager
                                     .getInstance()
@@ -334,7 +327,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                             marray.add(moment);
                             avObject.put("like",marray);
                             avObject.saveInBackground();
-                            LatteLoader.stopLoading();
                         }
                     });
                 }
@@ -343,7 +335,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                     int amountright=Integer.valueOf(likeamount.getText().toString());
                     likeamount.setText(String.valueOf(amountright-1));
                     final AVQuery<AVObject> query_name = new AVQuery<>("User_info");
-                    LatteLoader.showLoading(mContext);
                     query_name.whereEqualTo("user_id",
                             String.valueOf(DatabaseManager
                                     .getInstance()
@@ -367,7 +358,6 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                             }
                             avObject.put("like",marray);
                             avObject.saveInBackground();
-                            LatteLoader.stopLoading();
                         }
                     });
                 }

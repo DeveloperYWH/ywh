@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public final class AutoPhotoLayout extends LinearLayoutCompat {
 
     private int mCurrentNum = 0;
-    private final int mMaxNum;
+    private int mMaxNum;
     private final int mMaxLineNum;
     private IconTextView mIconAdd = null;
     private LayoutParams mParams = null;
@@ -41,10 +41,10 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
     private final int mImageMargin;
     private LatteDelegate mDelegate = null;
     private ArrayList<View> mLineViews = null;
-    private ArrayList<View> mLine_2 = null;
     private AlertDialog mTargetDialog = null;
     private static final String ICON_TEXT = "{fa-plus}";
     private final float mIconSize;
+    //商品系列名称
 
     private final ArrayList<Integer> LINE_HEIGHTS = new ArrayList<>();
 
@@ -55,6 +55,10 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
     private static final RequestOptions OPTIONS = new RequestOptions()
             .centerCrop()
             .diskCacheStrategy(DiskCacheStrategy.NONE);
+
+    public void setMaxNum(int size) {
+        mMaxNum = size;
+    }
 
     public AutoPhotoLayout(Context context) {
         this(context, null);
@@ -67,7 +71,6 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
     public AutoPhotoLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.camera_flow_layout);
-        mMaxNum = typedArray.getInt(R.styleable.camera_flow_layout_max_count, 6);
         mMaxLineNum = typedArray.getInt(R.styleable.camera_flow_layout_line_count, 3);
         mImageMargin = typedArray.getInt(R.styleable.camera_flow_layout_item_margin, 5);
         mIconSize = typedArray.getDimension(R.styleable.camera_flow_layout_icon_size, 20);
@@ -233,28 +236,27 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
         int left = getPaddingLeft();
         int top = getPaddingTop();
         //行数
-            final int size = mLineViews.size();
-            for (int j = 0; j < size; j++) {
-                final View child = mLineViews.get(j);
-                //判断child的状态
-                if (child.getVisibility() == GONE) {
-                    continue;
-                }
-                if(j>=mMaxLineNum)
-                {
-                    left = child.getMeasuredWidth()*(j-mMaxLineNum);
-                    top = lineHeight*(j/mMaxLineNum);
-                }
-                final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
-                //设置子View的边距
-                final int lc = left + lp.leftMargin;
-                final int tc = top + lp.topMargin;
-                final int rc = lc + child.getMeasuredWidth() - mImageMargin;
-                final int bc = tc + child.getMeasuredHeight();
-                //为子View进行布局
-                child.layout(lc, tc, rc, bc);
-                left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+        final int size = mLineViews.size();
+        for (int j = 0; j < size; j++) {
+            final View child = mLineViews.get(j);
+            //判断child的状态
+            if (child.getVisibility() == GONE) {
+                continue;
             }
+            if (j >= mMaxLineNum) {
+                left = child.getMeasuredWidth() * (j - mMaxLineNum);
+                top = lineHeight * (j / mMaxLineNum);
+            }
+            final MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();
+            //设置子View的边距
+            final int lc = left + lp.leftMargin;
+            final int tc = top + lp.topMargin;
+            final int rc = lc + child.getMeasuredWidth() - mImageMargin;
+            final int bc = tc + child.getMeasuredHeight();
+            //为子View进行布局
+            child.layout(lc, tc, rc, bc);
+            left += child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin;
+        }
         mIconAdd.setLayoutParams(mParams);
         mHasInitOnLayout = false;
     }

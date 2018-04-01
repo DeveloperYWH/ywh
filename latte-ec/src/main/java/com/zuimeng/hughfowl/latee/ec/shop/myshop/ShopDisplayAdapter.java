@@ -1,7 +1,6 @@
 package com.zuimeng.hughfowl.latee.ec.shop.myshop;
 
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.Glide;

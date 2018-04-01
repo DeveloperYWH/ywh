@@ -24,6 +24,7 @@ import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.detail.GoodsDetailDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.SectionBean;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.moments.SectionContentItemEntity;
 import com.zuimeng.hughfowl.latte.app.Latte;
@@ -51,6 +52,16 @@ public class CommentsDelegate extends LatteDelegate {
     AppCompatTextView content=null;
     @BindView(R2.id.comments)
     RecyclerView mRecyclerView = null;
+    @BindView(R2.id.goods)
+    android.support.v7.widget.LinearLayoutCompat goods=null;
+    @BindView(R2.id.tv_item_shop_cart_title)
+    AppCompatTextView goodsname=null;
+    @BindView(R2.id.tv_item_shop_cart_desc)
+    AppCompatTextView des=null;
+    @BindView(R2.id.tv_item_shop_cart_price)
+    AppCompatTextView price=null;
+    @BindView(R2.id.image_item_shop_cart)
+    AppCompatImageView thumbpic=null;
 
     @Override
     public Object setLayout() {
@@ -88,6 +99,7 @@ public class CommentsDelegate extends LatteDelegate {
         final StaggeredGridLayoutManager manager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(manager);
+        final int GoodsId=item.t.getGoodsId();
         final List thumb = item.t.getmMomentThumb();
         final String name = item.t.getmMomentContent();
         final String Id = item.t.getmMomentId();
@@ -95,6 +107,42 @@ public class CommentsDelegate extends LatteDelegate {
         final RecyclerView comment=rootView.findViewById(R.id.comments);
         comment.setLayoutManager(manager);
         LinearLayout sec=rootView.findViewById(R.id.second_line);
+        if (GoodsId!=0) {
+            goods.setVisibility(View.VISIBLE);
+            final AVQuery<AVObject> query = new AVQuery<>("goodss_detail");
+            query.whereEqualTo("id", GoodsId);
+            query.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
+
+                    AVList.addAll(list);
+                    final AVObject object = AVList.get(0);
+                    final String Jdata = object.toJSONObject().toString();
+                    final JSONArray array = JSON.parseObject(Jdata).getJSONArray("data");
+                    final JSONObject goodData = array.getJSONObject(0);
+                    final String title = goodData.getString("name");
+                    final String desc = goodData.getString("des");
+                    final String money = goodData.getString("price");
+                    final JSONArray thumb = JSON.parseObject(Jdata).getJSONArray("thumb");
+                    final JSONObject goodthumb = thumb.getJSONObject(0);
+                    final String pic = goodthumb.getString("goods_thumb");
+                    goodsname.setText(title);
+                    des.setText(desc);
+                    price.setText(money);
+                    Glide.with(getContext())
+                            .load(pic)
+                            .into(thumbpic);
+                }
+
+            });
+            goods.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final GoodsDetailDelegate delegate = GoodsDetailDelegate.create(GoodsId);
+                    getSupportDelegate().start(delegate);
+                }
+            });
+        }
         if (thumb.size()<=3)
             sec.setVisibility(View.GONE);
         else

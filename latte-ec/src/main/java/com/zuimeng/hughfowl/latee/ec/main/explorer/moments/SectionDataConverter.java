@@ -44,6 +44,7 @@ public class SectionDataConverter {
                 final JSONObject content_data = goods.getJSONObject(j);
 
                 final String Id = content_data.getString("id");
+                final int GoodsId = content_data.getInteger("goods_id");
                 final String goodsName = content_data.getString("content");
                 String goodsThumb=null;
                 final ArrayList<String> thumbList=new ArrayList<>();
@@ -57,6 +58,7 @@ public class SectionDataConverter {
                 //获取内容
                 final SectionContentItemEntity itemEntity = new SectionContentItemEntity();
                 itemEntity.setmMomentId(Id);
+                itemEntity.setGoodsId(GoodsId);
                 itemEntity.setmMomentContent(goodsName);
                 itemEntity.setmMomentThumb(thumbList);
                 //添加内容

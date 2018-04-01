@@ -28,6 +28,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.sackcentury.shinebuttonlib.ShineButton;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
+import com.zuimeng.hughfowl.latee.ec.detail.GoodsDetailDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.cart.ShopCartDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.explorer.comments.CommentsDelegate;
@@ -117,6 +118,13 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
                             .into(thumbpic);
                 }
 
+            });
+            goods.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final GoodsDetailDelegate delegate = GoodsDetailDelegate.create(GoodsId);
+                    DELEGATE.getParentDelegate().getSupportDelegate().start(delegate);
+                }
             });
         }
         comment.setLayoutManager(manager);

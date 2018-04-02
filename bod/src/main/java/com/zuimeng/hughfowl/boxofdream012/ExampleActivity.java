@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVInstallation;
+import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
@@ -47,6 +49,11 @@ public class ExampleActivity extends ProxyActivity implements
         // 设置默认打开的 Activity
         PushService.setDefaultPushCallback(this, ExampleActivity.class);
 
+        AVInstallation.getCurrentInstallation().saveInBackground();
+
+
+        // 初始化参数依次为 this, AppId, AppKey
+        AVOSCloud.initialize(this,"WrycWyNhrQIQpAzPkPgxSfLS-gzGzoHsz","yrg5tlPipRT4L7dm9Rkcmpns");
         // 测试 SDK 是否正常工作的代码
 //        AVObject testObject = new AVObject("TestObject");
 //        testObject.put("words","Hello World!");

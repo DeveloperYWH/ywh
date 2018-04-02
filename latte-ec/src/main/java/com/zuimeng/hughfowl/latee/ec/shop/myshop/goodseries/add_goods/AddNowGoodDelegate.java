@@ -9,6 +9,9 @@ import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 
 public class AddNowGoodDelegate extends LatteDelegate{
+
+    private String mseriesId = "";
+
     @Override
     public Object setLayout() {
         return R.layout.delegate2_add_now_good;
@@ -17,5 +20,10 @@ public class AddNowGoodDelegate extends LatteDelegate{
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
+    }
+
+
+    public void setSeriesId(String seriesId){
+        mseriesId = seriesId;
     }
 }

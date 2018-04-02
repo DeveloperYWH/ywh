@@ -54,6 +54,7 @@ public class SettingsDelegate extends LatteDelegate {
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         if (isChecked) {
                             Toast.makeText(getContext(), "打开关注推送", Toast.LENGTH_SHORT).show();
+
                         } else {
                             Toast.makeText(getContext(), "关闭关注推送", Toast.LENGTH_SHORT).show();
                         }

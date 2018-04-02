@@ -14,6 +14,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.PushService;
+import com.avos.avoscloud.PushServiceParcel;
 import com.fm.openinstall.OpenInstall;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latee.ec.launcher.LauncherDelegate;
@@ -48,7 +49,7 @@ public class ExampleActivity extends ProxyActivity implements
         //开启推送
         // 设置默认打开的 Activity
         PushService.setDefaultPushCallback(this, ExampleActivity.class);
-
+        PushService.setDefaultChannelId(this,"");
         AVInstallation.getCurrentInstallation().saveInBackground();
 
 
@@ -175,7 +176,7 @@ public class ExampleActivity extends ProxyActivity implements
         shop_list.saveInBackground();
 
         AVObject shop_series = AVObject.create("Shop_series");
-        shop_series.put("userId", userId);
+        shop_series.put("user_id", userId);
         shop_series.saveInBackground();
 
         LatteLoader.stopLoading();

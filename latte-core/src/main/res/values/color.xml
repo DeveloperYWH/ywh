@@ -16,4 +16,5 @@
     <color name="bottom_clicked">#b82328</color>
     <color name="timer">#e7ecf2</color>
     <color name="timer_text">#a6c6e2</color>
+    <color name="detail_back">#eec7d7</color>
 </resources>

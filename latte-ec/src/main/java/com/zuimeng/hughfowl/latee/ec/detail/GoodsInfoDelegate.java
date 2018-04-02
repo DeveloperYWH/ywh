@@ -8,14 +8,18 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVInstallation;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.PushService;
+import com.avos.avoscloud.SaveCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
@@ -106,6 +110,24 @@ public class GoodsInfoDelegate extends LatteDelegate {
                 LatteLoader.stopLoading();
                 break;
         }
+    }
+
+    @OnClick(R2.id.add_collect)
+    void onClickCollect(){
+        //订阅该商品
+        PushService.subscribe(getContext(), "aaa", getProxyActivity().getClass());
+        AVInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null){
+                    Toast.makeText(getContext(),"收藏成功",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
+    @OnClick(R2.id.add_calendar)
+    void OnClickCalendar(){
+
     }
 
     private static final String ARG_GOODS_DATA = "ARG_GOODS_DATA";

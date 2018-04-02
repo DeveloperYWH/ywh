@@ -35,8 +35,9 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
     private final int mMaxLineNum;
     private IconTextView mIconAdd = null;
     private LayoutParams mParams = null;
+    private boolean mIsDeleted = true;
     //要删除的图片ID
-    private int mDeleteId = 0;
+    private int mDeleteId = -1;
     private AppCompatImageView mTargetImageVew = null;
     private final int mImageMargin;
     private LatteDelegate mDelegate = null;
@@ -82,6 +83,7 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
     }
 
     public final void onCropTarget(Uri uri) {
+        mIsDeleted = false;
         createNewImageView();
         Glide.with(mDelegate)
                 .load(uri)
@@ -114,8 +116,9 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
                             .setOnClickListener(new OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    mIsDeleted = true;
                                     //得到要删除的图片
-                                    final AppCompatImageView deleteImageViwe =
+                                    final AppCompatImageView deleteImageView =
                                             findViewById(mDeleteId);
                                     //设置图片逐渐消失的动画
                                     final AlphaAnimation animation = new AlphaAnimation(1, 0);
@@ -123,9 +126,9 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
                                     animation.setRepeatCount(0);
                                     animation.setFillAfter(true);
                                     animation.setStartOffset(0);
-                                    deleteImageViwe.setAnimation(animation);
+                                    deleteImageView.setAnimation(animation);
                                     animation.start();
-                                    AutoPhotoLayout.this.removeView(deleteImageViwe);
+                                    AutoPhotoLayout.this.removeView(deleteImageView);
                                     mCurrentNum -= 1;
                                     //当数目达到上限时隐藏添加按钮，不足时显示
                                     if (mCurrentNum < mMaxNum) {
@@ -281,5 +284,9 @@ public final class AutoPhotoLayout extends LinearLayoutCompat {
         super.onFinishInflate();
         initAddIcon();
         mTargetDialog = new AlertDialog.Builder(getContext()).create();
+    }
+
+    public boolean getIsDeleted() {
+        return mIsDeleted;
     }
 }

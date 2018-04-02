@@ -3,7 +3,6 @@ package com.zuimeng.hughfowl.latee.ec.main.personal.profile;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,9 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.SimpleClickListener;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
-import com.zuimeng.hughfowl.latee.ec.main.EcBottomDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
-import com.zuimeng.hughfowl.latte.app.Latte;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.date.DateDialogUtil;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
@@ -84,7 +81,6 @@ public class UserProfileClickListener extends SimpleClickListener {
                             @Override
                             public void executeCallback(final Uri args) {
                                 final ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
-                                Log.e(TAG, String.valueOf(avatar) );
                                 Glide.with(DELEGATE)
                                         .load(args)
                                         .into(avatar);
@@ -130,40 +126,8 @@ public class UserProfileClickListener extends SimpleClickListener {
                                         } catch (FileNotFoundException e1) {
                                             e1.printStackTrace();
                                         }
-
-
-
                                     }
                                 });
-                               /*RestClient.builder()
-                                        .url(UploadConfig.UPLOAD_IMG)
-                                        .loader(DELEGATE.getContext())
-                                        .file(args.getPath())
-                                        .success(new ISuccess() {
-                                            @Override
-                                            public void onSuccess(String response) {
-                                                //LatteLogger.d("ON_CROP_UPLOAD", response);
-                                                final String path = JSON.parseObject(response).getJSONObject("result")
-                                                        .getString("path");
-
-                                                //通知服务器更新信息
-                                                RestClient.builder()
-                                                        .url("user_profile.php")
-                                                        .params("avatar", path)
-                                                        .loader(DELEGATE.getContext())
-                                                        .success(new ISuccess() {
-                                                            @Override
-                                                            public void onSuccess(String response) {
-                                                                //获取更新后的用户信息，然后更新本地数据库
-                                                                //没有本地数据的APP，每次打开APP都请求API，获取信息
-                                                            }
-                                                        })
-                                                        .build()
-                                                        .post();
-                                            }
-                                        })
-                                        .build()
-                                        .upload();*/
                             }
                         });
                 DELEGATE.startCameraWithCheck();

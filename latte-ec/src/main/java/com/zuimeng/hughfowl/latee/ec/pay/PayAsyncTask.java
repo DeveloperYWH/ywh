@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 
 import com.alipay.sdk.app.PayTask;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
-import com.zuimeng.hughfowl.latte.util.log.LatteLogger;
 
 /**
  * Created by Rhapsody on 2018/3/16.
@@ -48,8 +47,6 @@ public class PayAsyncTask extends AsyncTask<String, Void, String> {
         // 支付宝返回此次支付结构及加签，建议对支付宝签名信息拿签约是支付宝提供的公钥做验签
         final String resultInfo = payResult.getResult();
         final String resultStatus = payResult.getResultStatus();
-        LatteLogger.d("AL_PAY_RESULT", resultInfo);
-        LatteLogger.d("AL_PAY_RESULT", resultStatus);
 
         switch (resultStatus) {
             case AL_PAY_STATUS_SUCCESS:

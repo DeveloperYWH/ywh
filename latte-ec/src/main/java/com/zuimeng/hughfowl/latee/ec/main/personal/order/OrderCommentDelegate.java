@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -51,7 +50,6 @@ public class OrderCommentDelegate extends LatteDelegate {
 
     public void getPosition(int position) {
         mPosition = position;
-        Log.d("aaa",String.valueOf(mPosition));
     }
 
 
@@ -69,6 +67,8 @@ public class OrderCommentDelegate extends LatteDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull final View rootView) {
+
+        mAutoPhotoLayout.setMaxNum(6);
         mAutoPhotoLayout.setDelegate(this);
         CallbackManager.getInstance()
                 .addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {

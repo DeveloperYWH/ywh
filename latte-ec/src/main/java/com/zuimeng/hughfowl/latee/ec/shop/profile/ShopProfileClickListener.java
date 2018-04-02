@@ -1,7 +1,6 @@
 package com.zuimeng.hughfowl.latee.ec.shop.profile;
 
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,7 +57,6 @@ public class ShopProfileClickListener extends SimpleClickListener {
                             @Override
                             public void executeCallback(final Uri args) {
                                 final ImageView avatar = view.findViewById(R.id.img_arrow_avatar);
-                                Log.e(TAG, String.valueOf(avatar));
                                 if (avatar != null) {
                                     Glide.with(DELEGATE)
                                             .load(args)

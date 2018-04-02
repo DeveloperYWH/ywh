@@ -1,5 +1,6 @@
 package com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,8 +9,8 @@ import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
@@ -19,7 +20,12 @@ import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
 import com.zuimeng.hughfowl.latte.ui.loader.LatteLoader;
+import com.zuimeng.hughfowl.latte.ui.widget.AutoPhotoLayout;
+import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
+import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
+import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,7 +40,11 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
 
     @BindView(R2.id.edit_series_name)
     TextInputEditText mseries_name = null;
+    @BindView(R2.id.create_series_auto_photo_layout)
+    AutoPhotoLayout mAutoPhotoLayout = null;
+    AVFile mAvFile;
 
+    private Uri mImageUrl;
 
     @Override
     public Object setLayout() {
@@ -44,7 +54,21 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
 
+        mAutoPhotoLayout.setMaxNum(1);
+        mAutoPhotoLayout.setDelegate(this);
+        CallbackManager.getInstance()
+                .addCallback(CallbackType.ON_CROP, new IGlobalCallback<Uri>() {
+                    @Override
+                    public void executeCallback(@Nullable Uri args) throws FileNotFoundException {
+                        mAutoPhotoLayout.onCropTarget(args);
+                        mAvFile = AVFile.withAbsoluteLocalPath("seriesImg",args.getPath());
+                    }
+                });
+        LatteLoader.stopLoading();
+
     }
+
+
     @OnClick(R2.id.create_series_btn)
     void OnClickCreateSeries(){
 
@@ -56,8 +80,10 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                 .get(0)
                 .getUserId());
 
+
         AVObject series = AVObject.create("Series");
         series.put("user_id", userId);
+        series.put("image",mAvFile);
         series.put("name",mseries_name.getText());
         series.saveInBackground();
 
@@ -81,7 +107,6 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                 marray.add(series.getObjectId());
                 avObject.put("good_series",marray);
                 avObject.saveInBackground();
-
 
                 final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
                 LatteLoader.showLoading(getContext());

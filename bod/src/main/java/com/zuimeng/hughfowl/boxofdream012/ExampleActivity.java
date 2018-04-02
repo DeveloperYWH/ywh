@@ -175,7 +175,7 @@ public class ExampleActivity extends ProxyActivity implements
         shop_list.saveInBackground();
 
         AVObject shop_series = AVObject.create("Shop_series");
-        shop_series.put("userId", userId);
+        shop_series.put("user_id", userId);
         shop_series.saveInBackground();
 
         LatteLoader.stopLoading();

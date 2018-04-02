@@ -162,7 +162,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        mCollapsingToolbarLayout.setContentScrimColor(Color.WHITE);
+        mCollapsingToolbarLayout.setContentScrimColor(Color.rgb(244,167,185));
         mAppBar.addOnOffsetChangedListener(this);
         mCircleTextView.setCircleBackground(Color.RED);
         initData();
@@ -181,7 +181,7 @@ public class GoodsDetailDelegate extends LatteDelegate implements
         mTabLayout.setSelectedTabIndicatorColor
                 (ContextCompat.getColor(getContext(), R.color.app_main));
         mTabLayout.setTabTextColors(ColorStateList.valueOf(Color.BLACK));
-        mTabLayout.setBackgroundColor(Color.WHITE);
+        mTabLayout.setBackgroundColor(Color.rgb(244,167,185));
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,12 @@ public class GoodsInfoDelegate extends LatteDelegate {
     AppCompatTextView conSize=null;
     @BindView(R2.id.my_size)
     AppCompatTextView userSize=null;
+    @BindView(R2.id.text_rest_price)
+    AppCompatTextView textrest=null;
+    @BindView(R2.id.tv_goods_rest_price)
+    AppCompatTextView restprice=null;
+    @BindView(R2.id.add_calendar)
+    AppCompatImageButton addC=null;
 
     char mSize='M';
     @OnClick(R2.id.plus)
@@ -155,9 +162,17 @@ public class GoodsInfoDelegate extends LatteDelegate {
         });
 
         final String name = mData.getString("name");
+        final double finalprice=mData.getDouble("final_price");
         final String desc = mData.getString("des");
         final double price = mData.getDouble("price");
         final String salesize = mData.getString("size_M");
+        if(finalprice!=0)
+        {
+            restprice.setVisibility(View.VISIBLE);
+            textrest.setVisibility(View.VISIBLE);
+            addC.setVisibility(View.VISIBLE);
+            restprice.setText(String.valueOf(finalprice));
+        }
         mGoodsInfoTitle.setText(name);
         mGoodsInfoDesc.setText(desc);
         mGoodsInfoPrice.setText(String.valueOf(price));

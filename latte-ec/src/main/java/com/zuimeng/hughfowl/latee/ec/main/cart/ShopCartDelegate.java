@@ -256,8 +256,6 @@ public class ShopCartDelegate extends BottomItemDelegate implements ICartItemLis
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-//        RecyclerView mRecyclerView = (RecyclerView) rootView.findViewById(R.id.rv_shop_cart);
-
         final AVQuery<AVObject> query = new AVQuery<>("Cart_Datas");
         LatteLoader.showLoading(getContext());
         query.whereEqualTo("user_id",

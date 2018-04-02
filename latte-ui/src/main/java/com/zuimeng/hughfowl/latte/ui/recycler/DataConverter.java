@@ -1,8 +1,5 @@
 package com.zuimeng.hughfowl.latte.ui.recycler;
 
-import android.util.Log;
-import android.view.animation.AnticipateOvershootInterpolator;
-
 import com.avos.avoscloud.AVObject;
 
 import java.util.ArrayList;
@@ -25,7 +22,6 @@ public abstract class DataConverter {
 
     public DataConverter setList(List<AVObject> object) {
         this.mObjectData.addAll(object);
-        //Log.d("datalist",String.valueOf(mObjectData.size()));
         return this;
     }
 

@@ -39,12 +39,11 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
 
 
     @BindView(R2.id.edit_series_name)
-    TextInputEditText mseries_name = null;
+    TextInputEditText mSeriesName = null;
     @BindView(R2.id.create_series_auto_photo_layout)
     AutoPhotoLayout mAutoPhotoLayout = null;
-    AVFile mAvFile;
+    AVFile mAvFile = null;
 
-    private Uri mImageUrl;
 
     @Override
     public Object setLayout() {
@@ -61,7 +60,7 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                     @Override
                     public void executeCallback(@Nullable Uri args) throws FileNotFoundException {
                         mAutoPhotoLayout.onCropTarget(args);
-                        mAvFile = AVFile.withAbsoluteLocalPath("seriesImg",args.getPath());
+                        mAvFile = AVFile.withAbsoluteLocalPath("seriesImg", args.getPath());
                     }
                 });
         LatteLoader.stopLoading();
@@ -70,7 +69,7 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
 
 
     @OnClick(R2.id.create_series_btn)
-    void OnClickCreateSeries(){
+    void OnClickCreateSeries() {
 
         String userId = String.valueOf(DatabaseManager
                 .getInstance()
@@ -83,52 +82,56 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
 
         AVObject series = AVObject.create("Series");
         series.put("user_id", userId);
-        series.put("image",mAvFile);
-        series.put("name",mseries_name.getText());
-        series.saveInBackground();
 
-        final AVQuery<AVObject> query_name = new AVQuery<>("Shop_series");
-        LatteLoader.showLoading(getContext());
-        query_name.whereEqualTo("user_id",
-                String.valueOf(DatabaseManager
-                        .getInstance()
-                        .getDao()
-                        .queryBuilder()
-                        .listLazy()
-                        .get(0)
-                        .getUserId()));
-        query_name.findInBackground(new FindCallback<AVObject>() {
-            @Override
-            public void done(List<AVObject> list, AVException e) {
+        if (mSeriesName.length() == 0 || mAutoPhotoLayout.getBackground() == null)
+            mSeriesName.setError("请输入系列名称以及添加图片");
+        else  {
+            series.put("image", mAvFile);
+            series.put("name", mSeriesName.getText());
+            series.saveInBackground();
 
-                final AVObject avObject = list.get(0);
-                final String Jdata = avObject.toJSONObject().toString();
-                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("good_series");
-                marray.add(series.getObjectId());
-                avObject.put("good_series",marray);
-                avObject.saveInBackground();
+            final AVQuery<AVObject> query_name = new AVQuery<>("Shop_series");
+            LatteLoader.showLoading(getContext());
+            query_name.whereEqualTo("user_id",
+                    String.valueOf(DatabaseManager
+                            .getInstance()
+                            .getDao()
+                            .queryBuilder()
+                            .listLazy()
+                            .get(0)
+                            .getUserId()));
+            query_name.findInBackground(new FindCallback<AVObject>() {
+                @Override
+                public void done(List<AVObject> list, AVException e) {
 
-                final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
-                LatteLoader.showLoading(getContext());
-                avQuery.whereEqualTo("mobilePhoneNumber",
-                        String.valueOf(DatabaseManager
-                                .getInstance()
-                                .getDao()
-                                .queryBuilder()
-                                .listLazy()
-                                .get(0)
-                                .getUserId()));
-                avQuery.findInBackground(new FindCallback<AVUser>() {
-                    @Override
-                    public void done(List<AVUser> list, AVException e) {
-                        list.get(0).put("user_type",4);
-                        list.get(0).saveInBackground();
-                    }
-                });
-                getSupportDelegate().start(new AddGoodDelegate());
-                LatteLoader.stopLoading();
-            }
-        });
+                    final AVObject avObject = list.get(0);
+                    final String Jdata = avObject.toJSONObject().toString();
+                    final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("good_series");
+                    marray.add(series.getObjectId());
+                    avObject.put("good_series", marray);
+                    avObject.saveInBackground();
 
+                    final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
+                    LatteLoader.showLoading(getContext());
+                    avQuery.whereEqualTo("mobilePhoneNumber",
+                            String.valueOf(DatabaseManager
+                                    .getInstance()
+                                    .getDao()
+                                    .queryBuilder()
+                                    .listLazy()
+                                    .get(0)
+                                    .getUserId()));
+                    avQuery.findInBackground(new FindCallback<AVUser>() {
+                        @Override
+                        public void done(List<AVUser> list, AVException e) {
+                            list.get(0).put("user_type", 4);
+                            list.get(0).saveInBackground();
+                        }
+                    });
+                    getSupportDelegate().start(new AddGoodDelegate());
+                    LatteLoader.stopLoading();
+                }
+            });
+        }
     }
 }

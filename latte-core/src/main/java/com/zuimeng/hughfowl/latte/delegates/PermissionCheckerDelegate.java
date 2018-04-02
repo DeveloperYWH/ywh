@@ -15,6 +15,8 @@ import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
 import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
 
+import java.io.FileNotFoundException;
+
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
 import permissions.dispatcher.OnPermissionDenied;
@@ -116,7 +118,11 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
                             .getInstance()
                             .getCallback(CallbackType.ON_CROP);
                     if (callback != null) {
-                        callback.executeCallback(cropUri);
+                        try {
+                            callback.executeCallback(cropUri);
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case RequestCodes.CROP_ERROR:

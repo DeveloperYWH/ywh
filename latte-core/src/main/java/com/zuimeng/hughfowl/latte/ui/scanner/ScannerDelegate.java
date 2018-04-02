@@ -10,6 +10,8 @@ import com.zuimeng.hughfowl.latte.util.callback.CallbackManager;
 import com.zuimeng.hughfowl.latte.util.callback.CallbackType;
 import com.zuimeng.hughfowl.latte.util.callback.IGlobalCallback;
 
+import java.io.FileNotFoundException;
+
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 
@@ -64,7 +66,11 @@ public class ScannerDelegate extends LatteDelegate implements ZBarScannerView.Re
                 .getInstance()
                 .getCallback(CallbackType.ON_SCAN);
         if (callback != null) {
-            callback.executeCallback(result.getContents());
+            try {
+                callback.executeCallback(result.getContents());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
         getSupportDelegate().pop();
     }

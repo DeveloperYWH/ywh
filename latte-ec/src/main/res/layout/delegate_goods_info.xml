@@ -2,7 +2,7 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/detail_back"
     android:orientation="vertical">
 
     <android.support.v7.widget.AppCompatTextView
@@ -14,6 +14,15 @@
         android:layout_marginTop="20dp"
         android:textColor="@android:color/black"
         android:textSize="18sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/cart_top_color"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="3dp"
+        >
+
+    </LinearLayout>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_goods_info_desc"
@@ -22,7 +31,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:textSize="16sp" />
+        android:textColor="@color/red_ff725f"
+        android:textSize="12sp" />
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -30,29 +40,109 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:text="￥"
+            android:textAlignment="viewStart"
+            android:layout_weight="0.6"
             android:textColor="@color/app_main"
             android:textSize="20sp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_goods_info_price"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="1299"
+            android:layout_weight="6"
             android:textColor="@color/app_main"
             android:textSize="20sp" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_rest_price"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="尾款"
+            android:textAlignment="viewEnd"
+            android:layout_weight="0.5"
+            android:textColor="@color/black_80000000"
+            android:textSize="10sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:visibility="gone"
+            android:id="@+id/tv_goods_rest_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="1299"
+            android:layout_weight="4"
+            android:textColor="@color/red_ff725f"
+            android:textSize="10sp" />
+        <ImageButton
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:id="@+id/add_collect"
+        android:layout_weight="1"
+        android:layout_gravity="bottom"
+        />
+        <ImageButton
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:id="@+id/add_calendar"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            />
+
     </android.support.v7.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_goods_info_transport"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="viewStart"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:text="快递:免运费"
+            android:textColor="@color/black_80000000"
+            android:textSize="8sp" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_goods_info_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAlignment="viewEnd"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:text="上海"
+            android:textColor="@color/black_80000000"
+            android:textSize="8sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/cart_top_color"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="3dp"
+        >
+
+    </LinearLayout>
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_weight="1"
@@ -64,7 +154,7 @@
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bod_red_flower"
+                android:background="@color/bod_pink"
                 android:text="你的尺寸" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/my_size"
@@ -75,7 +165,7 @@
                 android:text="" />
         </android.support.v7.widget.LinearLayoutCompat>
         <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="20dp"
@@ -87,7 +177,7 @@
                 android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/bod_red_flower"
+                android:background="@color/bod_pink"
                 android:text="商品尺寸" />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/sale_size"
@@ -98,34 +188,36 @@
                 android:text="" />
         </android.support.v7.widget.LinearLayoutCompat>
         <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1.75">
+            android:paddingBottom="3dp"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom"
+            android:layout_weight="0.6">
             <Button
                 android:id="@+id/plus"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="0.3"
+
                 android:layout_marginRight="3dp"
                 android:textAlignment="center"
                 android:text="+"
-                android:background="@color/bod_red_flower"/>
+                android:background="@color/bod_pink"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/constant_size"
-                android:paddingLeft="5dp"
                 android:text="M"
                 android:textAlignment="center"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 />
             <Button
                 android:id="@+id/minus"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="3dp"
-                android:background="@color/bod_red_flower"
+                android:background="@color/bod_pink"
                 android:textAlignment="center"
                 android:text="-"
                 android:layout_weight="0.3"/>

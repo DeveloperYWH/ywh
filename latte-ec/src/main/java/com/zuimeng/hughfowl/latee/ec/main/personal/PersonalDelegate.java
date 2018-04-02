@@ -29,6 +29,7 @@ import com.zuimeng.hughfowl.latee.ec.main.personal.collection.CollectionDelegate
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListAdapter;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListBean;
 import com.zuimeng.hughfowl.latee.ec.main.personal.list.ListItemType;
+import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListAllDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.order.OrderListDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.profile.UserProfileDelegate;
 import com.zuimeng.hughfowl.latee.ec.main.personal.settings.SettingsDelegate;
@@ -59,8 +60,7 @@ public class PersonalDelegate extends BottomItemDelegate {
     @BindView(R2.id.user_name)
     TextView mtextView = null;
 
-    public static final String ORDER_TYPE = "ORDER_TYPE";
-    private Bundle mArgs = null;
+
     Number user_right = 0;
     private AlertDialog mDialog = null;
 
@@ -72,7 +72,6 @@ public class PersonalDelegate extends BottomItemDelegate {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mArgs = new Bundle();
     }
 
     @OnClick(R2.id.img_user_avatar)
@@ -82,16 +81,41 @@ public class PersonalDelegate extends BottomItemDelegate {
 
     @OnClick(R2.id.tv_all_order)
     void onClickAllOrder() {
-        mArgs.putString(ORDER_TYPE, "all");
-        startOrderListByType();
+        OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.SetPage(0);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+    @OnClick(R2.id.ll_pay)
+    void onClickPayOrder() {
+        OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.SetPage(1);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+    @OnClick(R2.id.ll_bukuan)
+    void onClickBuOrder() {
+        OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.SetPage(2);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+    @OnClick(R2.id.ll_chuhuo)
+    void onClickChuOrder() {
+        OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.SetPage(3);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+    @OnClick(R2.id.ll_shouhuo)
+    void onClickRecOrder() {
+        OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.SetPage(4);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
+    }
+    @OnClick(R2.id.ll_comments)
+    void onClickCommOrder() {
+        OrderListDelegate orderListDelegate = new OrderListDelegate();
+        orderListDelegate.SetPage(5);
+        getParentDelegate().getSupportDelegate().start(orderListDelegate);
     }
 
-
-    private void startOrderListByType() {
-        final OrderListDelegate delegate = new OrderListDelegate();
-        delegate.setArguments(mArgs);
-        getParentDelegate().getSupportDelegate().start(delegate);
-    }
 
 
     @Override

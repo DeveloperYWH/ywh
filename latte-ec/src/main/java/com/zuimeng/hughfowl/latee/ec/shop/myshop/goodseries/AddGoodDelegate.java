@@ -19,6 +19,9 @@ import butterknife.OnClick;
  */
 
 public class AddGoodDelegate extends LatteDelegate {
+
+    private String mseriesId = "";
+
     @Override
     public Object setLayout() {
         return R.layout.delegate2_add_series_goods;
@@ -31,11 +34,20 @@ public class AddGoodDelegate extends LatteDelegate {
 
     @OnClick(R2.id.add_good_pre)
     void OnClickAddPre(){
-        getSupportDelegate().start(new AddPreGoodDelegate());
+        AddPreGoodDelegate addPreGoodDelegate = new AddPreGoodDelegate();
+        addPreGoodDelegate.setSeriesId(mseriesId);
+        getSupportDelegate().start(addPreGoodDelegate);
     }
 
     @OnClick(R2.id.add_good_now)
     void OnClickAddNow(){
-        getSupportDelegate().start(new AddNowGoodDelegate());
+        AddNowGoodDelegate addNowGoodDelegate = new AddNowGoodDelegate();
+        addNowGoodDelegate.setSeriesId(mseriesId);
+        getSupportDelegate().start(addNowGoodDelegate);
     }
+
+    public void setSeriesId(String seriesId){
+        mseriesId = seriesId;
+    }
+
 }

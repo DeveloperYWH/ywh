@@ -125,7 +125,11 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                         list.get(0).saveInBackground();
                     }
                 });
-                getSupportDelegate().start(new AddGoodDelegate());
+
+                AddGoodDelegate addGoodDelegate =  new AddGoodDelegate();
+                addGoodDelegate.setSeriesId(series.getObjectId());
+                getSupportDelegate().start(addGoodDelegate);
+
                 LatteLoader.stopLoading();
             }
         });

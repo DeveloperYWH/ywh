@@ -126,18 +126,14 @@ public class MyShopDelegate extends BottomItemShopDelegate {
             @Override
             public void done(List<AVUser> list, AVException e) {
                 user_right = list.get(0).getNumber("user_type");
-                if ((int) user_right == 2) {
+                if ((int) user_right == 2 || (int) user_right == 1) {
                     final ShopNoDelegate noShop = new ShopNoDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, noShop);
-                    LatteLoader.stopLoading();
-                } else if((int) user_right == 3){
+                } else if ((int) user_right == 3) {
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, new AddGoodSeriesDelegate());
-                }
-                else
-                {
+                } else {
                     final ShopDisplayDelegate listDelegate = new ShopDisplayDelegate();
                     getSupportDelegate().loadRootFragment(R.id.shop_list_content, listDelegate);
-                    LatteLoader.stopLoading();
                 }
             }
         });

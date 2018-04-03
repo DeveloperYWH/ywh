@@ -14,16 +14,10 @@ import java.util.List;
 
 public class SeriesListAdapter extends MultipleRecyclerAdapter {
 
-    private ISeriesItemListener mSeriesItemListener = null;
-    private SeriesListDelegate DELEGATE =null;
 
     public SeriesListAdapter(List<MultipleItemEntity> data) {
         super(data);
         addItemType(SeriesItemType.SERIES_ITEM_TYPE, R.layout.item2_shop_series);
-    }
-
-    public void SetSeriesListDelegate(SeriesListDelegate delegate) {
-        DELEGATE = delegate;
     }
 
     @Override
@@ -44,9 +38,5 @@ public class SeriesListAdapter extends MultipleRecyclerAdapter {
                 Glide.with(mContext)
                         .load(thumb)
                         .into(imgThumb);
-    }
-
-    public void setSeriesItemListener(ISeriesItemListener listener) {
-        this.mSeriesItemListener = listener;
     }
 }

@@ -21,7 +21,9 @@ public class SeriesListClickListener  extends SimpleClickListener {
 
     @Override
     public void onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-
+        EditSeriesListDelegate delegate = new EditSeriesListDelegate();
+        delegate.getPosition(position);
+        DELEGATE.getSupportDelegate().start(delegate);
     }
 
     @Override

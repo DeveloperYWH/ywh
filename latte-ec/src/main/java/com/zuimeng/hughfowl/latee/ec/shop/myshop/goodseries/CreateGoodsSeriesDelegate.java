@@ -15,6 +15,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.FindCallback;
+import com.avos.avoscloud.SaveCallback;
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
 import com.zuimeng.hughfowl.latee.ec.database.DatabaseManager;
@@ -103,30 +104,12 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                     if (!isRepeat) {
                         series.put("image", mAvFile);
                         series.put("name", mSeriesName.getText());
-                        series.saveInBackground();
-
-                        final AVQuery<AVObject> query_name = new AVQuery<>("Shop_series");
-                        query_name.whereEqualTo("user_id",
-                                String.valueOf(DatabaseManager
-                                        .getInstance()
-                                        .getDao()
-                                        .queryBuilder()
-                                        .listLazy()
-                                        .get(0)
-                                        .getUserId()));
-                        query_name.findInBackground(new FindCallback<AVObject>() {
+                        series.saveInBackground(new SaveCallback() {
                             @Override
-                            public void done(List<AVObject> list, AVException e) {
+                            public void done(AVException e) {
 
-                                final AVObject avObject = list.get(0);
-                                final String Jdata = avObject.toJSONObject().toString();
-                                final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("good_series");
-                                marray.add(series.getObjectId());
-                                avObject.put("good_series", marray);
-                                avObject.saveInBackground();
-
-                                final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
-                                avQuery.whereEqualTo("mobilePhoneNumber",
+                                final AVQuery<AVObject> query_name = new AVQuery<>("Shop_series");
+                                query_name.whereEqualTo("user_id",
                                         String.valueOf(DatabaseManager
                                                 .getInstance()
                                                 .getDao()
@@ -134,17 +117,38 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                                                 .listLazy()
                                                 .get(0)
                                                 .getUserId()));
-                                avQuery.findInBackground(new FindCallback<AVUser>() {
+                                query_name.findInBackground(new FindCallback<AVObject>() {
                                     @Override
-                                    public void done(List<AVUser> list, AVException e) {
-                                        list.get(0).put("user_type", 4);
-                                        list.get(0).saveInBackground();
+                                    public void done(List<AVObject> list, AVException e) {
+
+                                        final AVObject avObject = list.get(0);
+                                        final String Jdata = avObject.toJSONObject().toString();
+                                        final JSONArray marray = JSON.parseObject(Jdata).getJSONArray("good_series");
+                                        marray.add(series.getObjectId());
+                                        avObject.put("good_series", marray);
+                                        avObject.saveInBackground();
+
+                                        final AVQuery<AVUser> avQuery = new AVQuery<>("_User");
+                                        avQuery.whereEqualTo("mobilePhoneNumber",
+                                                String.valueOf(DatabaseManager
+                                                        .getInstance()
+                                                        .getDao()
+                                                        .queryBuilder()
+                                                        .listLazy()
+                                                        .get(0)
+                                                        .getUserId()));
+                                        avQuery.findInBackground(new FindCallback<AVUser>() {
+                                            @Override
+                                            public void done(List<AVUser> list, AVException e) {
+                                                list.get(0).put("user_type", 4);
+                                                list.get(0).saveInBackground();
+                                            }
+                                        });
+                                        getSupportDelegate().start(new SeriesListDelegate());
                                     }
                                 });
-                                getSupportDelegate().start(new SeriesListDelegate());
                             }
                         });
-
                     } else mSeriesName.setError("商品系列名称不能重复");
                     LatteLoader.stopLoading();
 

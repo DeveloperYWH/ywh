@@ -25,13 +25,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class SeriesListDelegate extends LatteDelegate implements ISeriesItemListener{
+public class SeriesListDelegate extends LatteDelegate{
 
     @BindView(R2.id.rv_series_list)
     RecyclerView mRecyclerView = null;
 
     private SeriesListAdapter mAdapter = null;
-    private ISeriesItemListener mSeriesItemListener = null;
     final LinearLayoutManager manager = new LinearLayoutManager(getContext());
 
 
@@ -50,10 +49,6 @@ public class SeriesListDelegate extends LatteDelegate implements ISeriesItemList
 
     }
 
-    public void setCartItemListener(ISeriesItemListener listener) {
-        this.mSeriesItemListener = listener;
-    }
-
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState){
         super.onLazyInitView(savedInstanceState);
@@ -70,26 +65,20 @@ public class SeriesListDelegate extends LatteDelegate implements ISeriesItemList
         query.findInBackground(new FindCallback<AVObject>() {
             @Override
             public void done(List<AVObject> list, AVException e) {
+
                 final ArrayList<MultipleItemEntity> data =
                         new SeriesListConverter()
                                 .setList(list)
                                 .convert();
 
                 mAdapter = new SeriesListAdapter(data);
-                mAdapter.setSeriesItemListener(SeriesListDelegate.this);
                 if(mRecyclerView != null) {
                     mRecyclerView.setLayoutManager(manager);
                     mRecyclerView.setAdapter(mAdapter);
                     mRecyclerView.addOnItemTouchListener(new SeriesListClickListener(SeriesListDelegate.this));
-                    mAdapter.SetSeriesListDelegate(SeriesListDelegate.this);
                 }
                 LatteLoader.stopLoading();
             }
         });
-    }
-
-    @Override
-    public void onItemClick() {
-
     }
 }

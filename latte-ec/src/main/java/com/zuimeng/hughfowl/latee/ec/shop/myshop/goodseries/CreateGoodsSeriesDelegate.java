@@ -141,7 +141,7 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                                         list.get(0).saveInBackground();
                                     }
                                 });
-                                getSupportDelegate().start(new AddGoodDelegate());
+                                getSupportDelegate().start(new SeriesListDelegate());
                             }
                         });
 

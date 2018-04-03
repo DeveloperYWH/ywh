@@ -115,7 +115,7 @@
             </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/ll_receive"
+                android:id="@+id/ll_bukuan"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -145,7 +145,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/ll_evaluate"
+                android:id="@+id/ll_chuhuo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -174,7 +174,7 @@
             </LinearLayout>
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/ll_after_market"
+                android:id="@+id/ll_shouhuo"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

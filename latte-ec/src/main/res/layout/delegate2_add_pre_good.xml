@@ -1,62 +1,479 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb_create_good"
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/holo_orange_dark" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!--商品名-->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb_create_good"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/cart_top_color" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_good_title"
+        <!--商品名-->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="商品标题"
-            android:inputType="textPersonName"
-            tools:ignore="HardcodedText" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
-    <!--频道名-->
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/edit_good_channel"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_good_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="商品标题"
+                android:inputType="textPersonName"
+                tools:ignore="HardcodedText" />
+        </android.support.design.widget.TextInputLayout>
+        <!--定金-->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="商品频道（只能包含 26 个英文字母和数字）"
-            android:inputType="textPersonName"
-            tools:ignore="HardcodedText" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_good_first_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="定金"
+                android:inputType="textPersonName"
+                tools:ignore="HardcodedText" />
+        </android.support.design.widget.TextInputLayout>
+        <!--尾款-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
-    <com.zuimeng.hughfowl.latte.ui.widget.AutoPhotoLayout
-        android:id="@+id/create_good_auto_photo_layout"
-        android:paddingTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_good_final_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="尾款"
+                android:inputType="textPersonName"
+                tools:ignore="HardcodedText" />
+        </android.support.design.widget.TextInputLayout>
+        <!--尾款-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
 
-    <Button
-        android:id="@+id/create_good_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="创建"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="79dp"
-        tools:ignore="MissingConstraints" />
-</LinearLayout>
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_good_final_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="截团日期"
+                android:inputType="textPersonName"
+                tools:ignore="HardcodedText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--频道名-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_good_channel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="商品频道（只能包含 26 个英文字母和数字）"
+                android:inputType="textPersonName"
+                tools:ignore="HardcodedText" />
+        </android.support.design.widget.TextInputLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/red_ff725f"
+            android:text="尺码信息(填写商品所需信息即可)"
+            android:textSize="8dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--商品名-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_s1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="S码胸围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_s2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="S码腰围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_s3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="S码臀围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_s4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="S码身高"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--商品名-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_m1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="M码胸围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_m2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="M码腰围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_m3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="M码臀围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_m4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="M码身高"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--商品名-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_l1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="L码胸围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_l2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="L码腰围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_L3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="L码臀围"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_size_l4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="L码身高"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <!--商品名-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_shoes_size1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="鞋码1"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_shoes_size2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="鞋码2"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_shoes_size3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="鞋码3"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_shoes_size4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="鞋码4"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_shoes_size5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="鞋码5"
+                    android:inputType="textPersonName"
+                    tools:ignore="HardcodedText" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/red_ff725f"
+            android:text="商品信息图片"
+            android:textSize="8dp"/>
+
+        <com.zuimeng.hughfowl.latte.ui.widget.AutoPhotoLayout
+            android:id="@+id/create_good_auto_photo_layout1"
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/red_ff725f"
+            android:text="repo图片"
+            android:textSize="8dp"/>
+
+        <com.zuimeng.hughfowl.latte.ui.widget.AutoPhotoLayout
+            android:id="@+id/create_good_auto_photo_layout2"
+            android:paddingTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/create_good_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textAlignment="center"
+            android:background="#ffc0cb"
+            android:textColor="@color/avoscloud_feedback_white"
+            android:text="创建"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="79dp"
+            tools:ignore="MissingConstraints" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

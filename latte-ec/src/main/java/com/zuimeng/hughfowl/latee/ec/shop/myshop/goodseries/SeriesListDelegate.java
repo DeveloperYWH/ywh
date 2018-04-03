@@ -80,6 +80,7 @@ public class SeriesListDelegate extends LatteDelegate implements ISeriesItemList
                 if(mRecyclerView != null) {
                     mRecyclerView.setLayoutManager(manager);
                     mRecyclerView.setAdapter(mAdapter);
+                    mRecyclerView.addOnItemTouchListener(new SeriesListClickListener(SeriesListDelegate.this));
                     mAdapter.SetSeriesListDelegate(SeriesListDelegate.this);
                 }
                 LatteLoader.stopLoading();

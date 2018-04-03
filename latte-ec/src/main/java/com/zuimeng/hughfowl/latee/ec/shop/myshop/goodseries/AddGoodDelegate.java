@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.zuimeng.hughfowl.latee.ec.R;
 import com.zuimeng.hughfowl.latee.ec.R2;
-import com.zuimeng.hughfowl.latee.ec.shop.BottomItemShopDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries.add_goods.AddNowGoodDelegate;
 import com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries.add_goods.AddPreGoodDelegate;
 import com.zuimeng.hughfowl.latte.delegates.LatteDelegate;
@@ -20,7 +19,7 @@ import butterknife.OnClick;
 
 public class AddGoodDelegate extends LatteDelegate {
 
-    private String mseriesId = "";
+    private String mSeriesId = "";
 
     @Override
     public Object setLayout() {
@@ -35,19 +34,19 @@ public class AddGoodDelegate extends LatteDelegate {
     @OnClick(R2.id.add_good_pre)
     void OnClickAddPre(){
         AddPreGoodDelegate addPreGoodDelegate = new AddPreGoodDelegate();
-        addPreGoodDelegate.setSeriesId(mseriesId);
+        addPreGoodDelegate.setSeriesId(mSeriesId);
         getSupportDelegate().start(addPreGoodDelegate);
     }
 
     @OnClick(R2.id.add_good_now)
     void OnClickAddNow(){
         AddNowGoodDelegate addNowGoodDelegate = new AddNowGoodDelegate();
-        addNowGoodDelegate.setSeriesId(mseriesId);
+        addNowGoodDelegate.setSeriesId(mSeriesId);
         getSupportDelegate().start(addNowGoodDelegate);
     }
 
     public void setSeriesId(String seriesId){
-        mseriesId = seriesId;
+        mSeriesId = seriesId;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.zuimeng.hughfowl.latee.ec.shop.myshop.goodseries;
+package com.zuimeng.hughfowl.latee.ec.shop.myshop.goodsobject;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,28 +31,21 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-/**
- * Created by hughfowl on 2018/3/24.
- */
+public class CreateGoodsObjectDelegate extends LatteDelegate {
 
-public class CreateGoodsSeriesDelegate extends LatteDelegate {
-
-
-    @BindView(R2.id.edit_series_name)
-    TextInputEditText mSeriesName = null;
-    @BindView(R2.id.create_series_auto_photo_layout)
+    @BindView(R2.id.edit_goods_name)
+    TextInputEditText mGoodsName = null;
+    @BindView(R2.id.create_goods_auto_photo_layout)
     AutoPhotoLayout mAutoPhotoLayout = null;
     AVFile mAvFile = null;
 
-
     @Override
     public Object setLayout() {
-        return R.layout.delegate2_create_good_series;
+        return R.layout.delegate2_create_good_object;
     }
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-
         mAutoPhotoLayout.setMaxNum(1);
         mAutoPhotoLayout.setDelegate(this);
         CallbackManager.getInstance()
@@ -65,8 +58,7 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                 });
     }
 
-
-    @OnClick(R2.id.create_series_btn)
+    @OnClick(R2.id.create_goods_btn)
     void OnClickCreateSeries() {
 
         String userId = String.valueOf(DatabaseManager
@@ -81,12 +73,11 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
         AVObject series = AVObject.create("Series");
         series.put("user_id", userId);
 
-        if (mSeriesName.length() == 0 || mAutoPhotoLayout.getIsDeleted())
-            mSeriesName.setError("请输入系列名称以及添加图片");
+        if (mGoodsName.length() == 0 || mAutoPhotoLayout.getIsDeleted())
+            mGoodsName.setError("请输入系列名称以及添加图片");
 
         else {
             LatteLoader.showLoading(getContext());
-
             final AVQuery<AVObject> query = new AVQuery<>("Series");
             query.whereEqualTo("user_id", userId);
             query.findInBackground(new FindCallback<AVObject>() {
@@ -96,13 +87,13 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                     boolean isRepeat = false;
                     for (int i = 0; i < list.size(); i++) {
                         AVObject data = list.get(i);
-                        isRepeat = mSeriesName.getText().toString().equals(data.getString("name"));
+                        isRepeat = mGoodsName.getText().toString().equals(data.getString("name"));
                         if (isRepeat)
                             break;
                     }
                     if (!isRepeat) {
                         series.put("image", mAvFile);
-                        series.put("name", mSeriesName.getText());
+                        series.put("name", mGoodsName.getText());
                         series.saveInBackground();
 
                         final AVQuery<AVObject> query_name = new AVQuery<>("Shop_series");
@@ -141,11 +132,11 @@ public class CreateGoodsSeriesDelegate extends LatteDelegate {
                                         list.get(0).saveInBackground();
                                     }
                                 });
-                                getSupportDelegate().start(new AddGoodDelegate());
+                                getSupportDelegate().start(new GoodsObjectDelegate());
                             }
                         });
 
-                    } else mSeriesName.setError("商品系列名称不能重复");
+                    } else mGoodsName.setError("商品系列名称不能重复");
                     LatteLoader.stopLoading();
 
                 }

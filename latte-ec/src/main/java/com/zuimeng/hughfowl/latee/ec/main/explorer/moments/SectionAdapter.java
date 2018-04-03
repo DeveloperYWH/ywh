@@ -129,6 +129,7 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         }
         comment.setLayoutManager(manager);
         LinearLayout sec=helper.getView(R.id.second_line);
+        Log.d("thumbsize",String.valueOf(thumb.size()));
         if (thumb.size()<=3)
             sec.setVisibility(View.GONE);
         else
@@ -136,34 +137,64 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         helper.setText(R.id.content, name);
         final AppCompatImageView goodsImageView0 = helper.getView(R.id.thumb0);
         if(thumb.size()>=1)
-        Glide.with(mContext)
-                .load(thumb.get(0))
-                .into(goodsImageView0);
+        {
+            goodsImageView0.setVisibility(View.VISIBLE);
+            Glide.with(mContext)
+                    .load(thumb.get(0))
+                    .into(goodsImageView0);
+        }
+        else
+            goodsImageView0.setVisibility(View.GONE);
         final AppCompatImageView goodsImageView1 = helper.getView(R.id.thumb1);
         if(thumb.size()>=2)
-        Glide.with(mContext)
-                .load(thumb.get(1))
-                .into(goodsImageView1);
+        {
+            Glide.with(mContext)
+                    .load(thumb.get(1))
+                    .into(goodsImageView1);
+            goodsImageView1.setVisibility(View.VISIBLE);
+        }
+        else
+            goodsImageView1.setVisibility(View.GONE);
         final AppCompatImageView goodsImageView2 = helper.getView(R.id.thumb2);
         if(thumb.size()>=3)
-        Glide.with(mContext)
-                .load(thumb.get(2))
-                .into(goodsImageView2);
+        {
+            Glide.with(mContext)
+                    .load(thumb.get(2))
+                    .into(goodsImageView2);
+            goodsImageView2.setVisibility(View.VISIBLE);
+        }
+        else
+            goodsImageView2.setVisibility(View.GONE);
         final AppCompatImageView goodsImageView3 = helper.getView(R.id.thumb3);
         if(thumb.size()>=4)
-        Glide.with(mContext)
-                .load(thumb.get(3))
-                .into(goodsImageView3);
+        {
+            Glide.with(mContext)
+                    .load(thumb.get(3))
+                    .into(goodsImageView3);
+            goodsImageView3.setVisibility(View.VISIBLE);
+        }
+        else
+            goodsImageView3.setVisibility(View.GONE);
         final AppCompatImageView goodsImageView4 = helper.getView(R.id.thumb4);
         if(thumb.size()>=5)
-        Glide.with(mContext)
-                .load(thumb.get(4))
-                .into(goodsImageView4);
+        {
+            Glide.with(mContext)
+                    .load(thumb.get(4))
+                    .into(goodsImageView4);
+            goodsImageView4.setVisibility(View.VISIBLE);
+        }
+        else
+            goodsImageView4.setVisibility(View.GONE);
         final AppCompatImageView goodsImageView5 = helper.getView(R.id.thumb5);
         if(thumb.size()>=6)
-        Glide.with(mContext)
-                .load(thumb.get(5))
-                .into(goodsImageView5);
+        {
+            Glide.with(mContext)
+                    .load(thumb.get(5))
+                    .into(goodsImageView5);
+            goodsImageView5.setVisibility(View.VISIBLE);
+        }
+        else
+            goodsImageView5.setVisibility(View.GONE);
         ShineButton collect=helper.getView(R.id.collect);
         final ShineButton like=helper.getView(R.id.like);
         collect.setShapeResource(R.raw.star);
